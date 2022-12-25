@@ -1,0 +1,92 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #E8ECF4;
+}
+
+header {
+    margin: 30px;
+    padding-top: 1px;
+}
+.logo h2{
+    color: #2A4895;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: 700;
+    margin-left: 12px;
+}
+
+.logo h4 {
+    color: black;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.logo {
+    text-align: left;
+    margin : 0;
+    padding: 0;
+    line-height: 0;
+}
+.buttons {
+    text-align: center; 
+    padding-bottom: 20px;
+}
+.button {
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    border-radius: 14px;
+    text-transform: uppercase;
+    margin: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border: none;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+}
+#dark:hover {
+    box-shadow: 0 5px 15px #2A4895;
+}
+#dark {
+    background-color: #2A4895;
+    color: white;
+}
+#light {
+    background-color: #B6C0DB;
+    color: black;
+}
+#light:hover {
+    box-shadow: 0 5px 15px #B6C0DB;
+}
+.tables{
+    position: absolute;  
+    left: 50%; 
+    transform: translateX(-50%);
+    text-transform: uppercase;
+    font-size: 15px;
+}
+#table-container {
+    padding-top: 20px;
+}
+h4 {
+    color: #2A4895;
+    text-transform: uppercase;
+    line-height: 0;
+}
+thead {
+    background: #D9D9D9;
+    font-weight: 500;
+}
+td {
+    /* margin: 15px; */
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-right: 7px;
+    padding-left: 7px;
+}
+table {
+    background: white;
+    border-collapse: collapse;
+}
