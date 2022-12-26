@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+    <head>
+        <meta charset="UTF-8">
+        <meta name = "description" content = "main page">
+        <meta name = "keywords" content = "PHP">
+        <meta name = "author" content = "Camillia Amin">
+        <meta name = "viewport" content= "width = device-width, initial-scale = 1.0">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a id="logo" class="button" href="main.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
+            </div>
+        </header>
+        <main>
+            <h4>Select a profile:</h4><br><br>
+            <a class="button" id="light" href="view_dba.html">HR Coordinator</a><br><br><br>
+            <a class="button" id="light" href="view_hr_coordinator.html">Employee</a><br><br><br>
+            <a class="button" id="light" href="view_manager.html">Payroll Clerk</a><br><br><br>
+            <form action = "https://webdev.scs.ryerson.ca/~chamin/hr_payroll/create.php" method = "post">
+                <input type = "submit" value = "Create Tables" class="button" id="dark">
+            </form>
+            <form action = "https://webdev.scs.ryerson.ca/~chamin/hr_payroll/delete_values.php" method = "post">
+                <input type = "submit" value = "Delete Values" class="button" id="dark">
+            </form>
+            <form action = "https://webdev.scs.ryerson.ca/~chamin/hr_payroll/drop_tables.php" method = "post">
+                <input type = "submit" value = "Drop Tables" class="button" id="dark">
+            </form>
+            <form action = "https://webdev.scs.ryerson.ca/~chamin/hr_payroll/populate.php" method = "post">
+                <input type = "submit" value = "Populate Tables" class="button" id="dark">
+            </form>
+            <style>
+                main {
+                    text-align: center; 
+                    position: absolute; 
+                    top: 50%; 
+                    left: 50%; 
+                    transform: translateX(-50%) translateY(-50%);
+                }
+                input {
+                    cursor: pointer;
+                }
+            </style>
+        </main>
+    </body>
+</html>
+                            

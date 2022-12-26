@@ -1,24 +1,14 @@
 <?php include ('dbconnect.php'); ?>
 
 <?php
-    $sql = "DROP TABLE emp;
-            DROP TABLE emp_dept;
-            DROP TABLE dept;
-            DROP TABLE emp_bank_account;
-            DROP TABLE bank_account;
-            DROP TABLE account_payment;
-            DROP TABLE payment;
-            DROP TABLE emp_position;
-            DROP TABLE position_table;
-            DROP TABLE emp_work_period;
-            DROP TABLE work_period;";
+    $sql = "DROP TABLE work_period, emp_work_period, position_table, emp_position, payment, account_payment, bank_account, emp_bank_account, dept, emp_dept, emp;";
 
     $drop = mysqli_query($connect, $sql);  
 
     if($drop){
         echo "<br>Tables dropped successfully.";
     } else {
-        echo "<br>Tables not dropped due to Error: " . $sql . "<br>" . mysqli_error($connect);
+        echo "<br>Tables not dropped due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
     
     mysqli_close($connect);
