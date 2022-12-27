@@ -20,7 +20,7 @@
             (1011,'Satya','Nadella','snadella@sql.com','456676789',330, 'Flying St. W','Toronto','ON','M5V 8H5',1007);";
 
     if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table employee populated successfully.<br>";
+        echo "<br>Table employee populated successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
     }
@@ -40,7 +40,7 @@
             (1010, 05),
             (1011, 05);";
     if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table emp_dept populated successfully.<br>";
+        echo "<br>Table emp_dept populated successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
     }
@@ -54,7 +54,7 @@
             (05,'Human Resources');";
 
     if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table dept populated successfully.<br>";
+        echo "<br>Table dept populated successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
     }
@@ -75,7 +75,7 @@
             (1011,289);";
 
     if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table emp_bank_account populated successfully.<br>";
+        echo "<br>Table emp_bank_account populated successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
     }
@@ -95,7 +95,7 @@
             (219,23896,003,9938895,2370),
             (289,23896,003,9935555,2305);";
     if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table bank_account populated successfully.<br>";
+        echo "<br>Table bank_account populated successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
     }
@@ -116,7 +116,7 @@
             (289,165);";
 
     if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table account_payment populated successfully.<br>";
+        echo "<br>Table account_payment populated successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
     }
@@ -147,7 +147,7 @@
             (186,3400,'2022-10-13');";
 
     if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table payment populated successfully.<br>";
+        echo "<br>Table payment populated successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
     }
@@ -168,7 +168,7 @@
             (1011,33,'2016-09-20',NULL);";
 
     if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table emp_position populated successfully.<br>";
+        echo "<br>Table emp_position populated successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
     }
@@ -189,7 +189,7 @@
             (33,'HR Coordinator','full-time','permanent');";
     
     if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table position_table populated successfully.<br>";
+        echo "<br>Table position_table populated successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
     }
@@ -297,7 +297,7 @@
             (25, '2022-06-04 09:15:10.30', '2022-06-04 17:20:26.43');";
 
         if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table work_period populated successfully.<br>";
+        echo "<br>Table work_period populated successfully.";
         } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
         }
