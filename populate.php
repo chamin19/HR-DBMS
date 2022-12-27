@@ -243,7 +243,7 @@
             (1010,25);";
 
     if (mysqli_query($connect, $sql)) {
-        echo "<br><br>Table emp_work_period populated successfully.<br>";
+        echo "<br>Table emp_work_period populated successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
     }

@@ -1,7 +1,10 @@
+<html>
 <?php include ('dbconnect.php'); ?>
 
+<body>
+
 <?php
-    $sql = "DELETE from table work_period;";
+    $sql = "DELETE FROM work_period;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
         echo "<br>Values deleted successfully from table work_period.";
@@ -9,15 +12,15 @@
         echo "<br>Values not deleted from table work_period due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
 
-    $sql = "DELETE from table emp_work_period;";
+    $sql = "DELETE FROM emp_work_period;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
         echo "<br>Values deleted successfully from table emp_work_period.";
     } else {
-        echo "<br>Values not deleted from table emp_work_perioddue to error: " . $sql . "<br>" . mysqli_error($connect);
+        echo "<br>Values not deleted from table emp_work_period due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
 
-    $sql = "DELETE from table position_table;";
+    $sql = "DELETE FROM position_table;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
         echo "<br>Values deleted successfully from table position_table.";
@@ -25,7 +28,7 @@
         echo "<br>Values not deleted from table position_table due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
 
-    $sql = "DELETE from table emp_position;";
+    $sql = "DELETE FROM emp_position;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
         echo "<br>Values deleted successfully from table emp_position.";
@@ -33,7 +36,7 @@
         echo "<br>Values not deleted from table emp_position due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
     
-    $sql = "DELETE from table payment;";
+    $sql = "DELETE FROM payment;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
         echo "<br>Values deleted successfully from table payment.";
@@ -41,15 +44,15 @@
         echo "<br>Values not deleted from table payment due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
     
-    $sql = "DELETE from table account_payment;";
+    $sql = "DELETE FROM account_payment;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
-        echo "<br>Values deleted successfully.";
+        echo "<br>Values deleted successfully from table account_payment.";
     } else {
         echo "<br>Values not deleted due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
     
-    $sql = "DELETE from table bank_account;";
+    $sql = "DELETE FROM bank_account;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
         echo "<br>Values deleted successfully from table account_payment.";
@@ -57,7 +60,7 @@
         echo "<br>Values not deleted from table account_payment due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
     
-    $sql = "DELETE from table emp_bank_account;";
+    $sql = "DELETE FROM emp_bank_account;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
         echo "<br>Values deleted successfully from table emp_bank_account.";
@@ -65,7 +68,7 @@
         echo "<br>Values not deleted from table emp_bank_account due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
     
-    $sql = "DELETE from table dept;";
+    $sql = "DELETE FROM dept;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
         echo "<br>Values deleted successfully from table dept.";
@@ -73,7 +76,7 @@
         echo "<br>Values not deleted from table dept due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
     
-    $sql = "DELETE from table emp_dept;";
+    $sql = "DELETE FROM emp_dept;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
         echo "<br>Values deleted successfully from table emp_dept.";
@@ -81,7 +84,7 @@
         echo "<br>Values not deleted from table emp_dept due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
     
-    $sql = "DELETE from table emp;";
+    $sql = "DELETE FROM emp;";
     $drop = mysqli_query($connect, $sql);  
     if($drop){
         echo "<br>Values deleted successfully from table emp.";
@@ -92,3 +95,17 @@
     
     mysqli_close($connect);
 ?>
+</body>
+<style>
+    * {
+        background-color: #EEEEEE;
+    }
+    body {
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        position: absolute;
+        margin: 50px;
+        font-size: 15px;
+    }
+</style>
+
+</html>
