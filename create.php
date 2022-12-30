@@ -78,7 +78,6 @@
         transit_number INTEGER NOT NULL, /*5 digits*/
         institution_number INTEGER NOT NULL, /*3 digits*/
         account_number INTEGER NOT NULL, /*7 digits*/
-        account_balance INTEGER NOT NULL, 
         PRIMARY KEY(account_id)
         );";
 
