@@ -50,6 +50,11 @@
             tr{
                 background: white;
             }
+            h4 {
+                text-transform: uppercase;
+                font-weight: bold;
+                color: #2A4895;
+            }
         </style>
     </head>
 
@@ -59,7 +64,7 @@
                 <a class="button" href="https://www.cs.ryerson.ca/~chamin/hr_payroll/main.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
             </div>
             <div class="profile">
-                <h4>HR Coordinator</h4>
+                <h3>HR Coordinator</h3>
             </div>
         </header>
         <main>
@@ -96,7 +101,7 @@
                     display: inline-block;
                 }
                 </style>
-            
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-2" id="table_info">    
@@ -107,19 +112,19 @@
                             $sql = "SELECT * FROM emp
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            
+                            echo "<h4>emp</h4>";
+                            echo "<table>";
+                            echo "<tr><th>Emp ID</th>";
+                            echo "<th>First Name</th>";
+                            echo "<th>Last Name</th>";
+                            echo "<th>Email</th>";
+                            echo "<th>Phone</th>";
+                            echo "<th>Street No.</th>";
+                            echo "<th>Street Name</th>";
+                            echo "<th>City</th>";
+                            echo "<th>Province</th>";
+                            echo "<th>Postal Code</th></tr>";
                             if (mysqli_num_rows($result) > 0) {
-                                echo "<table>";
-                                echo "<tr><th>Emp ID</th>";
-                                echo "<th>First Name</th>";
-                                echo "<th>Last Name</th>";
-                                echo "<th>Email</th>";
-                                echo "<th>Phone</th>";
-                                echo "<th>Street No.</th>";
-                                echo "<th>Street Name</th>";
-                                echo "<th>City</th>";
-                                echo "<th>Province</th>";
-                                echo "<th>Postal Code</th></tr>";
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr> <td>" . $row["emp_id"] . "</td>";
                                     echo "<td>" . $row["emp_first_name"] . "</td>";
@@ -138,6 +143,7 @@
                             $sql = "SELECT * FROM emp_dept
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
+                            echo "<h4>emp_dept</h4>";
                             echo "<table>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Department ID</th></tr>";
@@ -152,11 +158,11 @@
                             $sql = "SELECT * FROM dept
                             ORDER BY dept_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            
+                            echo "<h4>dept</h4>";
+                            echo "<table>";
+                            echo "<tr><th>Department ID</th>";
+                            echo "<th>Department Name</th></tr>";
                             if ($result) {
-                                echo "<table>";
-                                echo "<tr><th>Department ID</th>";
-                                echo "<th>Department Name</th></tr>";
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr> <td>" . $row["dept_id"] . "</td>";
                                     echo "<td>" . $row["dept_name"] . "</td><tr>";
@@ -167,6 +173,7 @@
                             $sql = "SELECT * FROM emp_bank_account
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
+                            echo "<h4>emp_bank_account</h4>";
                             echo "<table>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Account ID</th></tr>";
@@ -181,6 +188,7 @@
                             $sql = "SELECT * FROM bank_account
                             ORDER BY account_id ASC;";
                             $result = mysqli_query($connect, $sql);
+                            echo "<h4>bank_account</h4>";
                             echo "<table>";
                             echo "<tr><th>Account ID</th>";
                             echo "<th>Transit No.</th>";
@@ -200,6 +208,7 @@
                             $sql = "SELECT * FROM account_payment
                             ORDER BY account_id ASC;";
                             $result = mysqli_query($connect, $sql);
+                            echo "<h4>account_payment</h4>";
                             echo "<table>";
                             echo "<tr><th>Account ID</th>";
                             echo "<th>Payment ID</th></tr>";
@@ -214,6 +223,7 @@
                             $sql = "SELECT * FROM payment
                             ORDER BY payment_id ASC;";
                             $result = mysqli_query($connect, $sql);
+                            echo "<h4>payment</h4>";
                             echo "<table>";
                             echo "<tr><th>Payment ID</th>";
                             echo "<th>Paystub Amount ($CAD)</th>";
@@ -231,6 +241,7 @@
                             $sql = "SELECT * FROM emp_position
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
+                            echo "<h4>emp_position</h4>";
                             echo "<table>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Position ID</th>";
@@ -254,13 +265,13 @@
                             $sql = "SELECT * FROM position_table
                             ORDER BY position_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            
+                            echo "<h4>position_table</h4>";
+                            echo "<table>";
+                            echo "<tr><th>Position ID</th>";
+                            echo "<th>Position Title</th>";
+                            echo "<th>Full/Part Time</th>";
+                            echo "<th>Permanent/Contractor</th></tr>";
                             if ($result) {
-                                echo "<table>";
-                                echo "<tr><th>Position ID</th>";
-                                echo "<th>Position Title</th>";
-                                echo "<th>Full/Part Time</th>";
-                                echo "<th>Permanent/Contractor</th></tr>";
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr> <td>" . $row["position_id"] . "</td>";
                                     echo "<td>" . $row["position_title"] . "</td>";
@@ -273,11 +284,11 @@
                             $sql = "SELECT * FROM emp_work_period
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            
+                            echo "<h4>emp_work_period</h4>";
+                            echo "<table>";
+                            echo "<tr><th>Employee ID</th>";
+                            echo "<th>Work Period Title</th></tr>";
                             if ($result) {
-                                echo "<table>";
-                                echo "<tr><th>Employee ID</th>";
-                                echo "<th>Work Period Title</th></tr>";
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr> <td>" . $row["emp_id"] . "</td>";
                                     echo "<td>" . $row["work_period_id"] . "</td><tr>";
@@ -288,12 +299,12 @@
                             $sql = "SELECT * FROM work_period
                             ORDER BY work_period_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            
+                            echo "<h4>work_period</h4>";
+                            echo "<table>";
+                            echo "<tr><th>Work Period ID</th>";
+                            echo "<th>Start Time</th>";
+                            echo "<th>End Time</th></tr>";
                             if ($result) {
-                                echo "<table>";
-                                echo "<tr><th>Work Period ID</th>";
-                                echo "<th>Start Time</th>";
-                                echo "<th>End Time</th></tr>";
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr> <td>" . $row["work_period_id"] . "</td>";
                                     echo "<td>" . $row["start_time"] . "</td>";

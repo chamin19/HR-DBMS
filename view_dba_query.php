@@ -72,6 +72,11 @@
             </div>
         </header>
         <main>
+            <div class="buttons">
+                <form action = "https://webdev.scs.ryerson.ca/~chamin/hr_payroll/view_dba_data.php" method = "">
+                    <input type = "submit" value = "View tables" class="button" id="light">
+                </form>
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-2" id="table_info">
