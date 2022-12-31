@@ -43,11 +43,13 @@
                         mysqli_query($connect, $sql);
                         if (mysqli_num_rows($result) > 0) { //if tables are populated
                             include ('delete_values.php');
+                            echo "<meta http-equiv='refresh' content='0'>";
                         }
                     }
                     if(isset($_POST['populate'])){
                         if (mysqli_num_rows($result) == 0) { //if tables are empty
                             include ('populate.php');
+                            echo "<meta http-equiv='refresh' content='0'>";
                         }
                     }
                 ?>
