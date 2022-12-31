@@ -18,12 +18,13 @@
             (1009,'Sundar','Pichai','spichai@sql.com','4674786190',450, 'London St. W','Toronto','ON','M5V 567',1002),
             (1010,'Mary','Barra','mbarra@sql.com','456989090',456, 'Flying car St. W','Toronto','ON','FLY 587',1007),
             (1011,'Satya','Nadella','snadella@sql.com','456676789',330, 'Flying St. W','Toronto','ON','M5V 8H5',1007);";
-
-    if (mysqli_query($connect, $sql)) {
-        echo "<br>Table employee populated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    }
+    mysqli_query($connect, $sql); 
+    
+    // if (mysqli_query($connect, $sql)) {
+    //     echo "<br>Table employee populated successfully.";
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
 
     $sql = "INSERT INTO emp_dept VALUES 
             (999, 00),
@@ -39,11 +40,13 @@
             (1009, 03),
             (1010, 05),
             (1011, 05);";
-    if (mysqli_query($connect, $sql)) {
-        echo "<br>Table emp_dept populated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    }
+    mysqli_query($connect, $sql);
+
+    // if (mysqli_query($connect, $sql)) {
+    //     echo "<br>Table emp_dept populated successfully.";
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
 
     $sql = "INSERT INTO dept VALUES 
             (00,'Head'),
@@ -52,12 +55,13 @@
             (03,'Server-Based Computing'),
             (04,'Data and Analytics'),
             (05,'Human Resources');";
+    mysqli_query($connect, $sql);
 
-    if (mysqli_query($connect, $sql)) {
-        echo "<br>Table dept populated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    }
+    // if (mysqli_query($connect, $sql)) {
+    //     echo "<br>Table dept populated successfully.";
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
 
     $sql = "INSERT INTO emp_bank_account VALUES 
             (999,109),
@@ -73,12 +77,13 @@
             (1009,210),
             (1010,219),
             (1011,289);";
+    mysqli_query($connect, $sql);
 
-    if (mysqli_query($connect, $sql)) {
-        echo "<br>Table emp_bank_account populated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    }
+    // if (mysqli_query($connect, $sql)) {
+    //     echo "<br>Table emp_bank_account populated successfully.";
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
 
     $sql = "INSERT INTO bank_account VALUES 
             (109,23456,003,1425347),
@@ -94,11 +99,13 @@
             (210,23789,003,9938478),
             (219,23896,003,9938895),
             (289,23896,003,9935555);";
-    if (mysqli_query($connect, $sql)) {
-        echo "<br>Table bank_account populated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    }
+    mysqli_query($connect, $sql);
+
+    // if (mysqli_query($connect, $sql)) {
+    //     echo "<br>Table bank_account populated successfully.";
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
 
     $sql = "INSERT INTO account_payment VALUES
             (109,120),
@@ -114,12 +121,13 @@
             (210,163),
             (219,164),
             (289,165);";
+    mysqli_query($connect, $sql);
 
-    if (mysqli_query($connect, $sql)) {
-        echo "<br>Table account_payment populated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    }
+    // if (mysqli_query($connect, $sql)) {
+    //     echo "<br>Table account_payment populated successfully.";
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
 
     $sql = "INSERT INTO payment VALUES
             (120,2000,'2022-09-29'),
@@ -145,12 +153,13 @@
             (182,3500,'2022-10-13'),
             (183,3550,'2022-10-13'),
             (186,3400,'2022-10-13');";
+    mysqli_query($connect, $sql);
 
-    if (mysqli_query($connect, $sql)) {
-        echo "<br>Table payment populated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    }
+    // if (mysqli_query($connect, $sql)) {
+    //     echo "<br>Table payment populated successfully.";
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
 
     $sql = "INSERT INTO emp_position VALUES 
             (999,21,'2011-05-09',NULL),
@@ -166,12 +175,13 @@
             (1009,31,'2022-05-30',NULL),
             (1010,32,'2022-06-11',NULL),
             (1011,33,'2016-09-20',NULL);";
+    mysqli_query($connect, $sql);
 
-    if (mysqli_query($connect, $sql)) {
-        echo "<br>Table emp_position populated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    }
+    // if (mysqli_query($connect, $sql)) {
+    //     echo "<br>Table emp_position populated successfully.";
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
 
     $sql = "INSERT INTO position_table VALUES 
             (21,'CEO','full-time','permanent'),
@@ -187,12 +197,13 @@
             (31,'Front-end developer','full-time','contractor'),
             (32,'HR Coordinator','full-time','permanent'),
             (33,'HR Coordinator','full-time','permanent');";
-    
-    if (mysqli_query($connect, $sql)) {
-        echo "<br>Table position_table populated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    }
+    mysqli_query($connect, $sql);
+
+    // if (mysqli_query($connect, $sql)) {
+    //     echo "<br>Table position_table populated successfully.";
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
 
     $sql = "INSERT INTO emp_work_period VALUES
             (999,1), 
@@ -241,12 +252,13 @@
             
             (1010,12),
             (1010,25);";
+    mysqli_query($connect, $sql);
 
-    if (mysqli_query($connect, $sql)) {
-        echo "<br>Table emp_work_period populated successfully.";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    }
+    // if (mysqli_query($connect, $sql)) {
+    //     echo "<br>Table emp_work_period populated successfully.";
+    // } else {
+    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
 
     $sql = "INSERT INTO work_period VALUES
             (1,  '2022-06-03 08:29:55.89', '2022-06-03 16:39:36.16'),
@@ -295,17 +307,19 @@
             
             (12, '2022-06-03 09:02:55.89', '2022-06-03 17:10:03.99'),
             (25, '2022-06-04 09:15:10.30', '2022-06-04 17:20:26.43');";
+        
+    mysqli_query($connect, $sql);
 
-        if (mysqli_query($connect, $sql)) {
-        echo "<br>Table work_period populated successfully.";
-        } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-        }
+        // if (!mysqli_query($connect, $sql)) {
+        // echo "<br>Table work_period populated successfully.";
+        // } else {
+        // echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+        // }
 
         mysqli_close($connect);
 ?>
 </body>
-<style>
+<!-- <style>
     * {
         background-color: #EEEEEE;
     }
@@ -315,6 +329,6 @@
         margin: 50px;
         font-size: 15px;
     }
-</style>
+</style> -->
 
 </html>
