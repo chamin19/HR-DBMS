@@ -263,7 +263,13 @@
                         <div class="row">
                             <div class="col-sm-12" id="editor">
                                 <form method = "post" action="">
-                                    <textarea rows = "7" cols = "60" name = "query" id="query" spellcheck="false" autocorrect="off" autocapitalize="off">SELECT dept_id, COUNT(*) &#10;FROM emp_position, emp_dept, position_table &#10;WHERE emp_position.emp_id = emp_dept.emp_id &#10;AND position_table.position_id = emp_position.position_id &#10;AND position_table.position_title != 'Intern' &#10;GROUP BY dept_id;
+                                    <textarea rows = "7" cols = "60" name = "query" id="query" spellcheck="false" autocorrect="off" autocapitalize="off"><?php 
+                                        if(isset($_POST['query'])) {
+                                            echo htmlentities ($_POST['query']); 
+                                        } else {
+                                            echo "SELECT dept_id, COUNT(*) \r\nFROM emp_position, emp_dept, position_table \r\nWHERE emp_position.emp_id = emp_dept.emp_id \r\nAND position_table.position_id = emp_position.position_id \r\nAND position_table.position_title != 'Intern' \r\nGROUP BY dept_id;";
+                                        }
+                                        ?>
                                     </textarea><br>
                                     <input type="submit" name="submit_query" value="Run query">
                                 </form>
