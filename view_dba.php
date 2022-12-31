@@ -21,15 +21,11 @@
                 <a class="button" href="https://www.cs.ryerson.ca/~chamin/hr_payroll/main.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
             </div>
             <div class="profile">
-                <h4>Database Administrator</h4>
+                <h4>HR Coordinator</h4>
             </div>
         </header>
         <main>
             <br>
-            <button data-toggle="collapse" data-target="#demo">Collapsible</button>
-            <div class="collapse">
-                tables
-            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8" id="tables">
@@ -37,7 +33,7 @@
                             $sql = "SELECT * FROM emp
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if (mysqli_num_rows($result) > 0) {
                                 echo "<table>";
                                 echo "<tr><th>Emp ID</th>";
@@ -70,7 +66,7 @@
                             $sql = "SELECT * FROM emp_dept
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Employee ID</th>";
@@ -87,7 +83,7 @@
                             $sql = "SELECT * FROM dept
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Department ID</th>";
@@ -104,7 +100,7 @@
                             $sql = "SELECT * FROM emp_bank_account
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Employee ID</th>";
@@ -121,7 +117,7 @@
                             $sql = "SELECT * FROM bank_account
                             ORDER BY account_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Account ID</th>";
@@ -143,7 +139,7 @@
                             $sql = "SELECT * FROM account_payment
                             ORDER BY account_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Account ID</th>";
@@ -160,7 +156,7 @@
                             $sql = "SELECT * FROM payment
                             ORDER BY account_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Payment ID</th>";
@@ -179,7 +175,7 @@
                             $sql = "SELECT * FROM emp_position
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Employee ID</th>";
@@ -205,7 +201,7 @@
                             $sql = "SELECT * FROM position_table
                             ORDER BY position_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Position ID</th>";
@@ -226,7 +222,7 @@
                             $sql = "SELECT * FROM emp_work_period
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Employee ID</th>";
@@ -243,7 +239,7 @@
                             $sql = "SELECT * FROM work_period
                             ORDER BY work_period_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            // mysqli_num_rows($result) > 0
+                            
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Work Period ID</th>";
@@ -261,16 +257,65 @@
                         ?>
                     </div>
                     <div class="col-md-4">
-                       <div class="row">
-                        <div class="col-sm-12" id="editor">
-                                    <form>
-                                        <textarea rows = "7" cols = "60" name = "query" id="query" spellcheck="false" autocorrect="off" autocapitalize="off">SELECT department_id, COUNT(*)&#10;FROM employee_position, employee_department, position_table&#10;WHERE employee_position.employee_id = employee_department.employee_id&#10;AND position_table.position_id = employee_position.position_id&#10;AND position_table.position_title != 'Intern'&#10;GROUP BY department_id;
-                                        </textarea><br>
-                                        <input type="submit" value="Run query">
-                                    </form>
-                                </div>     
+                        <div class="row">
+                            <div class="col-sm-12" id="editor">
+                                <form method = "post" action="">
+                                    <textarea rows = "7" cols = "60" name = "query" id="query" spellcheck="false" autocorrect="off" autocapitalize="off">SELECT dept_id, COUNT(*) &#10;FROM emp_position, emp_dept, position_table &#10;WHERE emp_position.emp_id = emp_dept.emp_id &#10;AND position_table.position_id = emp_position.position_id &#10;AND position_table.position_title != 'Intern' &#10;GROUP BY dept_id;
+                                    </textarea><br>
+                                    <input type="submit" name="submit" value="Run query">
+                                </form>
+                            </div>     
                             <div class="col-sm-12" id="output">
-                                output
+                                <div>
+                                <?php
+                                if(isset($_POST['submit'])){
+                                    $query = $_POST['query'];
+                                    $arr = explode(" ", $query);
+                                    $fstword = array_shift($arr);
+                                    if ($fstword == 'SELECT' || $fstword == 'select') {
+                                        $query = preg_replace('/\s+/', ' ', $query);
+                                        $result = mysqli_query($connect, $query);
+                                        
+                                        if ($result) {
+                                            $x = 0; $columns = []; 
+                                            echo "<table>";
+                                            if (strcmp(trim($arr[1]),'*') !== 0) {
+                                                foreach ($arr as $word) {
+                                                    if (strcmp(trim($word),'FROM') == 0 || strcmp(trim($word),'from') == 0){
+                                                        break;
+                                                    } else {
+                                                        echo "<br>word: ". $word . "  " .  strlen($word);
+                                                        preg_replace('/[,|;]?/', '', $word);
+                                                        $columns[] = trim($word);
+                                                    }
+                                                }  
+                                                echo "<tr>";
+                                                foreach ($columns as $col) {
+                                                    echo "<th>" . $col . "</th>";
+                                                }
+                                                echo "</tr>";
+                                            } 
+                                            $count = 0; 
+                                            while($row = mysqli_fetch_array($result)) {
+                                                echo "<tr>";
+                                                foreach ($row as $item) {
+                                                    if ($count % 2 == 0 ) {echo "<td>" . $item . "</td>";}
+                                                    $count++;
+                                                } 
+                                                echo "</tr>";
+                                            }
+                                            echo "</table>";
+                                            mysqli_free_result($result);
+                                        } else {
+                                            echo "Query could not be executed<br>" . mysqli_error($connect);
+                                        }
+                                        
+                                    } else {
+                                        echo "<p>Must be a query</p>";
+                                    }
+                                }
+                                ?>
+                                </div>
                             </div>
                             
                        </div>
@@ -327,6 +372,7 @@
             background: #2A4895;
             color: white;
             font-size: 14px;
+            text-transform: uppercase;
         }
         tr{
             background: white;
