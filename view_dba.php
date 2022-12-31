@@ -154,7 +154,7 @@
                             }
 
                             $sql = "SELECT * FROM payment
-                            ORDER BY account_id ASC;";
+                            ORDER BY payment_id ASC;";
                             $result = mysqli_query($connect, $sql);
                             
                             if ($result) {
