@@ -206,8 +206,8 @@
                                 echo "<table>";
                                 echo "<tr><th>Position ID</th>";
                                 echo "<th>Position Title</th>";
-                                echo "<th>Start Date</th>";
-                                echo "<th>End Date</th></tr>";
+                                echo "<th>Full/Part Time</th>";
+                                echo "<th>Permanent/Contractor</th></tr>";
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr> <td>" . $row["position_id"] . "</td>";
                                     echo "<td>" . $row["position_title"] . "</td>";
