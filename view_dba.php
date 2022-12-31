@@ -81,7 +81,7 @@
                             }
 
                             $sql = "SELECT * FROM dept
-                            ORDER BY emp_id ASC;";
+                            ORDER BY dept_id ASC;";
                             $result = mysqli_query($connect, $sql);
                             
                             if ($result) {
@@ -121,14 +121,14 @@
                             if ($result) {
                                 echo "<table>";
                                 echo "<tr><th>Account ID</th>";
-                                echo "<tr><th>Transit No.</th>";
-                                echo "<tr><th>Institution No.</th>";
+                                echo "<th>Transit No.</th>";
+                                echo "<th>Institution No.</th>";
                                 echo "<th>Account No.</th></tr>";
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr> <td>" . $row["account_id"] . "</td>";
-                                    echo "<tr> <td>" . $row["transit_number"] . "</td>";
-                                    echo "<tr> <td>" . $row["institution_number"] . "</td>";
-                                    echo "<tr> <td>" . $row["account_number"] . "</td>";
+                                    echo "<td>" . $row["transit_number"] . "</td>";
+                                    echo "<td>" . $row["institution_number"] . "</td>";
+                                    echo "<td>" . $row["account_number"] . "</td>";
                                     echo "<td>" . $row["account_balance"] . "</td><tr>";
                                 }
                                 echo "</table><br>";
@@ -284,7 +284,6 @@
                                                     if (strcmp(trim($word),'FROM') == 0 || strcmp(trim($word),'from') == 0){
                                                         break;
                                                     } else {
-                                                        echo "<br>word: ". $word . "  " .  strlen($word);
                                                         preg_replace('/[,|;]?/', '', $word);
                                                         $columns[] = trim($word);
                                                     }
