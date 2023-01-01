@@ -65,7 +65,7 @@
     <body>
         <header>
             <div class="logo">
-                <a class="button" href="https://www.cs.ryerson.ca/~chamin/hr_payroll/main.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
+                <a class="button" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
             </div>
             <div class="profile">
                 <h4>HR Coordinator</h4>
@@ -73,7 +73,7 @@
         </header>
         <main>
             <div class="buttons">
-                <form action = "https://webdev.scs.ryerson.ca/~chamin/hr_payroll/view_dba_data.php" method = "">
+                <form action = "view_dba_data.php" method = "">
                     <input type = "submit" value = "View tables" class="button" id="light">
                 </form>
             </div>

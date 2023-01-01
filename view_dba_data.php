@@ -70,7 +70,7 @@
         <main>
             <br>
             <div class="buttons">
-                <form action = "https://webdev.scs.ryerson.ca/~chamin/hr_payroll/view_dba_query.php" method = "">
+                <form action = "view_dba_query.php" method = "">
                     <input type = "submit" value = "Query tables" class="button" id="light">
                 </form>
                 <form action = "" method = "post">
@@ -112,8 +112,8 @@
                             $sql = "SELECT * FROM emp
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>emp</h4>";
                             echo "<table>";
+                            echo "<h4>emp</h4>";
                             echo "<tr><th>Emp ID</th>";
                             echo "<th>First Name</th>";
                             echo "<th>Last Name</th>";
@@ -124,9 +124,9 @@
                             echo "<th>City</th>";
                             echo "<th>Province</th>";
                             echo "<th>Postal Code</th></tr>";
-                            if (mysqli_num_rows($result) > 0) {
+                            if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["emp_id"] . "</td>";
+                                    echo "<tr><td>" . $row["emp_id"] . "</td>";
                                     echo "<td>" . $row["emp_first_name"] . "</td>";
                                     echo "<td>" . $row["emp_last_name"] . "</td>";
                                     echo "<td>" . $row["emp_email"] . "</td>";
@@ -135,121 +135,120 @@
                                     echo "<td>" . $row["emp_address_street_name"] . "</td>";
                                     echo "<td>" . $row["emp_address_city"] . "</td>";
                                     echo "<td>" . $row["emp_address_province"] . "</td>";
-                                    echo "<td>" . $row["emp_address_postal_code"] ."</td><tr>";
+                                    echo "<td>" . $row["emp_address_postal_code"] ."</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
 
                             $sql = "SELECT * FROM emp_dept
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>emp_dept</h4>";
                             echo "<table>";
+                            echo "<h4>emp_dept</h4>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Department ID</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["emp_id"] . "</td>";
-                                    echo "<td>" . $row["dept_id"] . "</td><tr>";
+                                    echo "<tr><td>" . $row["emp_id"] . "</td>";
+                                    echo "<td>" . $row["dept_id"] . "</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
 
                             $sql = "SELECT * FROM dept
                             ORDER BY dept_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>dept</h4>";
                             echo "<table>";
+                            echo "<h4>dept</h4>";
                             echo "<tr><th>Department ID</th>";
                             echo "<th>Department Name</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["dept_id"] . "</td>";
-                                    echo "<td>" . $row["dept_name"] . "</td><tr>";
+                                    echo "<tr><td>" . $row["dept_id"] . "</td>";
+                                    echo "<td>" . $row["dept_name"] . "</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
 
                             $sql = "SELECT * FROM emp_bank_account
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>emp_bank_account</h4>";
                             echo "<table>";
+                            echo "<h4>emp_bank_account</h4>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Account ID</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["emp_id"] . "</td>";
-                                    echo "<td>" . $row["account_id"] . "</td><tr>";
+                                    echo "<tr><td>" . $row["emp_id"] . "</td>";
+                                    echo "<td>" . $row["account_id"] . "</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
 
                             $sql = "SELECT * FROM bank_account
                             ORDER BY account_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>bank_account</h4>";
                             echo "<table>";
+                            echo "<h4>bank_account</h4>";
                             echo "<tr><th>Account ID</th>";
                             echo "<th>Transit No.</th>";
                             echo "<th>Institution No.</th>";
                             echo "<th>Account No.</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["account_id"] . "</td>";
+                                    echo "<tr><td>" . $row["account_id"] . "</td>";
                                     echo "<td>" . $row["transit_number"] . "</td>";
                                     echo "<td>" . $row["institution_number"] . "</td>";
                                     echo "<td>" . $row["account_number"] . "</td>";
-                                    echo "<td>" . $row["account_balance"] . "</td><tr>";
+                                    echo "<td>" . $row["account_balance"] . "</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
 
                             $sql = "SELECT * FROM account_payment
                             ORDER BY account_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>account_payment</h4>";
                             echo "<table>";
+                            echo "<h4>account_payment</h4>";
                             echo "<tr><th>Account ID</th>";
                             echo "<th>Payment ID</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["account_id"] . "</td>";
-                                    echo "<td>" . $row["payment_id"] . "</td><tr>";
+                                    echo "<tr><td>" . $row["account_id"] . "</td>";
+                                    echo "<td>" . $row["payment_id"] . "</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
 
                             $sql = "SELECT * FROM payment
                             ORDER BY payment_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>payment</h4>";
                             echo "<table>";
+                            echo "<h4>payment</h4>";
                             echo "<tr><th>Payment ID</th>";
-                            echo "<th>Paystub Amount ($CAD)</th>";
+                            echo "<th>Paystub Amount</th>";
                             echo "<th>Payment Date</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["payment_id"] . "</td>";
+                                    echo "<tr><td>" . $row["payment_id"] . "</td>";
                                     echo "<td>" . $row["pay_stub_amount"] . "</td>";
-                                    echo "<td>" . $row["payment_date"] . "</td><tr>";
+                                    echo "<td>" . $row["payment_date"] . "</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
                             
-
                             $sql = "SELECT * FROM emp_position
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>emp_position</h4>";
                             echo "<table>";
+                            echo "<h4>emp_position</h4>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Position ID</th>";
                             echo "<th>Start Date</th>";
                             echo "<th>End Date</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["emp_id"] . "</td>";
+                                    echo "<tr><td>" . $row["emp_id"] . "</td>";
                                     echo "<td>" . $row["position_id"] . "</td>";
                                     echo "<td>" . $row["position_start_date"] . "</td>";
                                     if ($row["position_end_date"] == "NULL") {
@@ -257,60 +256,60 @@
                                     } else {
                                         echo "<td>" . $row["position_end_date"];
                                     }
-                                    echo "</td><tr>";
+                                    echo "</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
 
                             $sql = "SELECT * FROM position_table
                             ORDER BY position_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>position_table</h4>";
                             echo "<table>";
+                            echo "<h4>position_table</h4>";
                             echo "<tr><th>Position ID</th>";
                             echo "<th>Position Title</th>";
                             echo "<th>Full/Part Time</th>";
                             echo "<th>Permanent/Contractor</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["position_id"] . "</td>";
+                                    echo "<tr><td>" . $row["position_id"] . "</td>";
                                     echo "<td>" . $row["position_title"] . "</td>";
                                     echo "<td>" . $row["positiontype_a"] . "</td>";
-                                    echo "<td>" . $row["positiontype_b"] . "</td><tr>";
+                                    echo "<td>" . $row["positiontype_b"] . "</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
 
                             $sql = "SELECT * FROM emp_work_period
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>emp_work_period</h4>";
                             echo "<table>";
+                            echo "<h4>emp_work_period</h4>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Work Period Title</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["emp_id"] . "</td>";
-                                    echo "<td>" . $row["work_period_id"] . "</td><tr>";
+                                    echo "<tr><td>" . $row["emp_id"] . "</td>";
+                                    echo "<td>" . $row["work_period_id"] . "</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
 
                             $sql = "SELECT * FROM work_period
                             ORDER BY work_period_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<h4>work_period</h4>";
                             echo "<table>";
+                            echo "<h4>work_period</h4>";
                             echo "<tr><th>Work Period ID</th>";
                             echo "<th>Start Time</th>";
                             echo "<th>End Time</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr> <td>" . $row["work_period_id"] . "</td>";
+                                    echo "<tr><td>" . $row["work_period_id"] . "</td>";
                                     echo "<td>" . $row["start_time"] . "</td>";
-                                    echo "<td>" . $row["end_time"] . "</td><tr>";
+                                    echo "<td>" . $row["end_time"] . "</td></tr>";
                                 }
-                                echo "</table><br>";
+                                echo "</table>";
                             } 
                         ?>
                     </div>
