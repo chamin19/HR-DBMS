@@ -13,7 +13,7 @@
         echo "<br>Tables not dropped due to error: " . $sql . "<br>" . mysqli_error($connect);
     }
     
-    mysqli_close($connect);
+    // mysqli_close($connect);
 ?>
 </body>
 <style>

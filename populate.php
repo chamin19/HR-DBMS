@@ -20,11 +20,11 @@
             (1011,'Satya','Nadella','snadella@sql.com','456676789',330, 'Flying St. W','Toronto','ON','M5V 8H5',1007);";
     mysqli_query($connect, $sql); 
     
-    // if (mysqli_query($connect, $sql)) {
-    //     echo "<br>Table employee populated successfully.";
-    // } else {
-    //     echo "Error: " . $sql . "<br>" . mysqli_error($connect);
-    // }
+//     if (mysqli_query($connect, $sql)) {
+//         echo "<br>Table employee populated successfully.";
+//     } else {
+//         echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+//     }
 
     $sql = "INSERT INTO emp_dept VALUES 
             (999, 00),
@@ -315,8 +315,6 @@
         // } else {
         // echo "Error: " . $sql . "<br>" . mysqli_error($connect);
         // }
-
-        mysqli_close($connect);
 ?>
 </body>
 <!-- <style>

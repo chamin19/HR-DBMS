@@ -184,7 +184,7 @@
         echo "<br>work_period table not created due to error: " . $sql . "<br>" . mysqli_error($connect);
     } 
 
-    mysqli_close($connect);
+    // mysqli_close($connect);
 ?>
 </body>
 <style>

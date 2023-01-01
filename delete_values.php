@@ -92,7 +92,7 @@
     //     echo "<br>Values not deleted from table emp due to error: " . $sql . "<br>" . mysqli_error($connect);
     // }
 
-    mysqli_close($connect);
+    // mysqli_close($connect);
 ?>
 </body>
 <!-- <style>
