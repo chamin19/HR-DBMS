@@ -1,5 +1,4 @@
 <!DOCTYPE html> 
-    <?php include ('dbconnect.php'); ?>
     <head>
         <meta charset="UTF-8">
         <meta name = "description" content = "main page">
@@ -22,17 +21,16 @@
             }
             #table_info {
                 background-color: #f3f5f6;
-                height: 480px;
+                height: 75vh;
                 padding: 10px;
                 overflow-y: scroll;
             }
             #tables {
-                background-color: #d3eaf2;
-                height: 480px;
+                background-color: #dadfec;
+                height: 75vh;
                 overflow-y: scroll;
                 padding: 10px;
             }
-            
             table {
                 font-family: 'Courier New', Courier, monospace;
                 border: 2px solid black;
@@ -40,6 +38,7 @@
                 border-collapse: separate;
                 border-spacing: 3px;
                 background-color: white;
+                margin-bottom: 20px;
             }
             th {
                 background: #2A4895;
@@ -61,7 +60,7 @@
     <body>
         <header>
             <div class="logo">
-                <a class="button" href="https://www.cs.ryerson.ca/~chamin/hr_payroll/main.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
+                <a class="button" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
             </div>
             <div class="profile">
                 <h3>HR Coordinator</h3>
@@ -70,29 +69,31 @@
         <main>
             <br>
             <div class="buttons">
-                <form action = "view_dba_query.php" method = "">
-                    <input type = "submit" value = "Query tables" class="button" id="light">
+                <form action = "" method = "post">
+                    <input type = "submit" value = "Populate values" name="populate" class="button" id="light">
                 </form>
                 <form action = "" method = "post">
                     <input type = "submit" value = "Delete values" name="delete" class="button" id="light">
                 </form>
-                <form action = "" method = "post">
-                    <input type = "submit" value = "Populate values" name="populate" class="button" id="light">
+                <form action = "view_dba_query.php" method = "">
+                    <input type = "submit" value = "Query tables" class="button" id="dark">
                 </form>
+                
                 <?php
+                    include ('dbconnect.php'); 
                     $sql = "SELECT * FROM emp;";
                     $result = mysqli_query($connect,$sql);
+                    $numrows = mysqli_num_rows($result);
                     if(isset($_POST['delete'])){
-                        mysqli_query($connect, $sql);
-                        if (mysqli_num_rows($result) > 0) { //if tables are populated
+                        if ($numrows > 0) { //if tables are populated
                             include ('delete_values.php');
-                            echo "<meta http-equiv='refresh' content='0'>";
+                            // echo "<meta http-equiv='refresh' content='0'>";
                         }
                     }
                     if(isset($_POST['populate'])){
-                        if (mysqli_num_rows($result) == 0) { //if tables are empty
+                        if ($numrows == 0) { //if tables are empty
                             include ('populate.php');
-                            echo "<meta http-equiv='refresh' content='0'>";
+                            // echo "<meta http-equiv='refresh' content='0'>";
                         }
                     }
                 ?>
@@ -104,10 +105,10 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-2" id="table_info">    
+                    <div class="col-sm-2" id="table_info">    
                         info
                     </div>
-                    <div class="col-md-10" id="tables">
+                    <div class="col-sm-10" id="tables">
                         <?php
                             $sql = "SELECT * FROM emp
                             ORDER BY emp_id ASC;";
@@ -199,8 +200,7 @@
                                     echo "<tr><td>" . $row["account_id"] . "</td>";
                                     echo "<td>" . $row["transit_number"] . "</td>";
                                     echo "<td>" . $row["institution_number"] . "</td>";
-                                    echo "<td>" . $row["account_number"] . "</td>";
-                                    echo "<td>" . $row["account_balance"] . "</td></tr>";
+                                    echo "<td>" . $row["account_number"] . "</td></tr>";
                                 }
                                 echo "</table>";
                             } 
