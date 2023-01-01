@@ -43,13 +43,19 @@
                 height: 200px;
                 width: 100%;
             }
+            #table_info {
+                background-color: #f3f5f6;
+                height: 75vh;
+                padding: 10px;
+                overflow-y: scroll;
+            }
             table {
-            font-family: 'Courier New', Courier, monospace;
-            border: 2px solid black;
-            font-size: 14px;
-            border-collapse: separate;
-            border-spacing: 3px;
-            background-color: white;
+                font-family: 'Courier New', Courier, monospace;
+                border: 2px solid black;
+                font-size: 14px;
+                border-collapse: separate;
+                border-spacing: 3px;
+                background-color: white;
             }
             th {
                 background: #2A4895;
@@ -86,7 +92,7 @@
                         <div class="row">
                             <div class="col-sm-12" id="editor">
                                 <form method = "post" action="">
-                                    <textarea rows = "7" cols = "60" name = "query" id="query" spellcheck="false" autocorrect="off" autocapitalize="off"><?php 
+                                    <textarea rows = "9" cols = "60" name = "query" id="query" spellcheck="false" autocorrect="off" autocapitalize="off"><?php 
                                         if(isset($_POST['query'])) {
                                             echo htmlentities ($_POST['query']); 
                                         } else {
