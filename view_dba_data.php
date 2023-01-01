@@ -87,13 +87,13 @@
                     if(isset($_POST['delete'])){
                         if ($numrows > 0) { //if tables are populated
                             include ('delete_values.php');
-                            // echo "<meta http-equiv='refresh' content='0'>";
+                            echo "<meta http-equiv='refresh' content='0'>";
                         }
                     }
                     if(isset($_POST['populate'])){
                         if ($numrows == 0) { //if tables are empty
                             include ('populate.php');
-                            // echo "<meta http-equiv='refresh' content='0'>";
+                            echo "<meta http-equiv='refresh' content='0'>";
                         }
                     }
                 ?>

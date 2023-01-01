@@ -131,7 +131,7 @@
                                                 foreach ($row as $item) {
                                                     if ($count % 2 == 0 ) {echo "<td>" . $item . "</td>";}
                                                     $count++;
-                                                } 
+                                                }
                                                 echo "</tr>";
                                             }
                                             echo "</table>";
@@ -139,7 +139,6 @@
                                         } else {
                                             echo "Query could not be executed<br>" . mysqli_error($connect);
                                         }
-                                        
                                     } else {
                                         echo "<p>Must be a query</p>";
                                     }

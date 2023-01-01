@@ -84,13 +84,22 @@
     //     echo "<br>Values not deleted from table emp_dept due to error: " . $sql . "<br>" . mysqli_error($connect);
     // }
     
+    $sql = "SET FOREIGN_KEY_CHECKS=0;";
+    $drop = mysqli_query($connect, $sql); 
+    // if($drop){
+    //     echo "<br>foreign key checks successfully removed.";
+    // } else {
+    //     echo "<br>foreign key checks successfully not removed due to error: " . $sql . "<br>" . mysqli_error($connect);
+    // }
+
     $sql = "DELETE FROM emp;";
-    $drop = mysqli_query($connect, $sql);  
+    $drop = mysqli_query($connect, $sql); 
     // if($drop){
     //     echo "<br>Values deleted successfully from table emp.";
     // } else {
     //     echo "<br>Values not deleted from table emp due to error: " . $sql . "<br>" . mysqli_error($connect);
     // }
+
 
     // mysqli_close($connect);
 ?>
