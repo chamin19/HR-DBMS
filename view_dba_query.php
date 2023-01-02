@@ -22,8 +22,6 @@
             }
             #output {
                 background-color: #f3f5f6;
-                height: 300px;
-                overflow-y: scroll;
                 padding: 10px;
             }
             /* form {
@@ -40,12 +38,11 @@
                 font-size: 14px;
             }
             #editor {
-                height: 200px;
+                height: 230px;
                 width: 100%;
             }
             #table_info {
                 background-color: #f3f5f6;
-                height: 75vh;
                 padding: 10px;
                 overflow-y: scroll;
             }
