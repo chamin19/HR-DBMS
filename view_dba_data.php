@@ -188,7 +188,6 @@
                                 $sql_get_edit = "SELECT * from emp WHERE emp_id = $id_chosen";
                                 $result_edit = mysqli_query($connect, $sql_get_edit);
                                 $row = mysqli_fetch_assoc($result_edit);
-                                echo "YOLO";
                             ?>
                                  <script>
                                     $(function() {
@@ -198,56 +197,50 @@
                                 <div class="modal fade" id="emp_modal" tabindex="-1" role="dialog" aria-labelledby="emp_modalTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true" class="ion-ios-close"></span>
-                                                </button>
-                                            </div>
                                             <div class="modal-body p-4 py-5 p-md-5">
-                                                <h3 class="text-center mb-3">Edit Your Personal Information</h3>
+                                                <h3 class="text-center mb-3">Make changes to information ID for employee <?php echo $row["emp_id"]?></h3>
                                                 <form action="" class="signup-form" method="post">
                                                     <div class="form-group mb-2">
-                                                        <label for="id">Employee ID</label>
-                                                        <input type="text" name="id" class="form-control" value="<?php echo $row['emp_id']?>">
+                                                        <input type="hidden" name="emp_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
                                                     </div>
                                                     <div class="form-group mb-2">
                                                         <label for="fn">First Name</label>
-                                                        <input type="text" name="fn" class="form-control" value="<?php echo $row["emp_first_name"]?>">
+                                                        <input type="text" name="fn_edit" class="form-control" value="<?php echo $row["emp_first_name"]?>">
                                                     </div>
                                                     <div class="form-group mb-2">
                                                         <label for="ln">Last Name</label>
-                                                        <input type="text" name="ln" class="form-control" value="<?php echo $row['emp_last_name']?>">
+                                                        <input type="text" name="ln_edit" class="form-control" value="<?php echo $row['emp_last_name']?>">
                                                     </div>
                                                     <div class="form-group mb-2">
                                                         <label for="email">Email</label>
-                                                        <input type="text" name="email" class="form-control" value="<?php echo $row["emp_email"]?>">
+                                                        <input type="text" name="email_edit" class="form-control" value="<?php echo $row["emp_email"]?>">
                                                     </div>
                                                     <div class="form-group mb-2">
                                                         <label for="phone">Phone</label>
-                                                        <input type="text" name="phone" class="form-control" value="<?php echo $row["emp_phone"]?>">
+                                                        <input type="text" name="phone_edit" class="form-control" value="<?php echo $row["emp_phone"]?>">
                                                     </div>
                                                     <div class="form-group mb-2">
                                                         <label for="sno">Street Number</label>
-                                                        <input type="text" name="sno" class="form-control" value="<?php echo $row["emp_address_street_number"]?>">
+                                                        <input type="text" name="sno_edit" class="form-control" value="<?php echo $row["emp_address_street_number"]?>">
                                                     </div>
                                                     <div class="form-group mb-2">
                                                         <label for="sname">Street Name</label>
-                                                        <input type="text" name="sname" class="form-control" value="<?php echo $row["emp_address_street_name"]?>">
+                                                        <input type="text" name="sname_edit" class="form-control" value="<?php echo $row["emp_address_street_name"]?>">
                                                     </div>
                                                     <div class="form-group mb-2">
                                                         <label for="city">City</label>
-                                                        <input type="text" name="city" class="form-control" value="<?php echo $row["emp_address_city"]?>">
+                                                        <input type="text" name="city_edit" class="form-control" value="<?php echo $row["emp_address_city"]?>">
                                                     </div>
                                                     <div class="form-group mb-2">
                                                         <label for="province">Province</label>
-                                                        <input type="text" name="province" class="form-control" value="<?php echo $row["emp_address_province"]?>">
+                                                        <input type="text" name="province_edit" class="form-control" value="<?php echo $row["emp_address_province"]?>">
                                                     </div>
                                                     <div class="form-group mb-2">
                                                         <label for="pc">Postal Code</label>
-                                                        <input type="text" name="pc" class="form-control" value="<?php echo $row["emp_address_postal_code"]?>">
+                                                        <input type="text" name="pc_edit" class="form-control" value="<?php echo $row["emp_address_postal_code"]?>">
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <br><button type="submit" class="form-control btn btn-primary rounded submit px-3">Apply changes</button>
+                                                        <br><input type="submit" name="emp_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
                                                     </div>
                                                 </form>
                                             </div>
@@ -255,11 +248,16 @@
                                     </div>
                                 </div>
                                 <?php
+                                if (isset($_POST['emp_apply'])){
+                                    echo '<script>alert("worked");</script>';
+                                    include ('view_dba_edit.php'); 
+                                }
                             } 
 
                             $sql = "SELECT * FROM emp_dept
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
+                            
                             echo "<table>";
                             echo "<h4>emp_dept</h4>";
                             echo "<tr><th>Employee ID</th>";
@@ -270,16 +268,61 @@
                                     echo "<tr><td>" . $row["emp_id"] . "</td>";
                                     echo "<td>" . $row["dept_id"] . "</td>";
                                     echo '<td><div class="actions"> ';
-                                    echo '<button type="submit" value="' . $row["emp_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg></button>
-                                    <button type="submit" value="' . $row["emp_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg></button></div></td></tr>';
+                                    echo '<td><div class="actions">
+                                        <form method="post">
+                                            <button type="submit" name="emp_dept_edit" data-toggle="modal" data-target="#emp_dept_modal" value="' . $row["emp_id"] . '">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                                            </button>
+
+                                            <button type="submit" name="emp_dept_delete" value="' . $row["emp_id"] . '">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
+                                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+                                            </button>
+                                        <form>
+                                        </div></td></tr>';
                                 }
-                                echo "</table>";
+                                echo '</table>';
                             } 
+                            if (isset($_POST['emp_dept_edit'])) {
+                                $id_chosen = $_POST['emp_dept_edit']; 
+                                $sql_get_edit = "SELECT * from emp_dept WHERE emp_id = $id_chosen";
+                                $result_edit = mysqli_query($connect, $sql_get_edit);
+                                $row = mysqli_fetch_assoc($result_edit);
+                            ?>
+                                 <script>
+                                    $(function() {
+                                        $('#emp_dept_modal').modal('show');
+                                    });
+                                </script>
+                                <div class="modal fade" id="emp_dept_modal" tabindex="-1" role="dialog" aria-labelledby="emp_dept_modalTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body p-4 py-5 p-md-5">
+                                                <h3 class="text-center mb-3">Make changes to Dept ID for employee <?php echo $row["emp_id"]?></h3>
+                                                <form action="" class="signup-form" method="post">
+                                                    <div class="form-group mb-2">
+                                                        <input type="hidden" name="emp_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">Department ID</label>
+                                                        <input type="text" name="dept_id_edit" class="form-control" value="<?php echo $row["dept_id"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <br><input type="submit" name="emp_dept_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                if (isset($_POST['emp_dept_apply'])){
+                                    echo '<script>alert("worked");</script>';
+                                    include ('view_dba_edit.php'); 
+                                }
+                            }
+
 
                             $sql = "SELECT * FROM dept
                             ORDER BY dept_id ASC;";
@@ -293,17 +336,60 @@
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["dept_id"] . "</td>";
                                     echo "<td>" . $row["dept_name"] . "</td>";
-                                    echo '<td><div class="actions"> ';
-                                    echo '<button type="submit" value="' . $row["dept_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg></button>
-                                    <button type="submit" value="' . $row["dept_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg></button></div></td></tr>';
+                                    echo '<td><div class="actions">
+                                        <form method="post">
+                                            <button type="submit" name="dept_edit" data-toggle="modal" data-target="#dept_modal" value="' . $row["dept_id"] . '">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                                            </button>
+
+                                            <button type="submit" name="dept_delete" value="' . $row["dept_id"] . '">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
+                                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+                                            </button>
+                                        <form>
+                                        </div></td></tr>';
                                 }
-                                echo "</table>";
+                                echo '</table>';
                             } 
+                            if (isset($_POST['dept_edit'])) {
+                                $id_chosen = $_POST['dept_edit']; 
+                                $sql_get_edit = "SELECT * from dept WHERE dept_id = $id_chosen";
+                                $result_edit = mysqli_query($connect, $sql_get_edit);
+                                $row = mysqli_fetch_assoc($result_edit);
+                            ?>
+                                 <script>
+                                    $(function() {
+                                        $('#dept_modal').modal('show');
+                                    });
+                                </script>
+                                <div class="modal fade" id="dept_modal" tabindex="-1" role="dialog" aria-labelledby="dept_modalTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body p-4 py-5 p-md-5">
+                                                <h3 class="text-center mb-3">Make changes to department <?php echo $row["dept_id"]?></h3>
+                                                <form action="" class="signup-form" method="post">
+                                                    <div class="form-group mb-2">
+                                                        <input type="hidden" name="dept_id_edit" class="form-control" value="<?php echo $row["dept_id"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">Department Name</label>
+                                                        <input type="text" name="dept_name_edit" class="form-control" value="<?php echo $row["dept_name"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <br><input type="submit" name="dept_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                if (isset($_POST['dept_apply'])){
+                                    echo '<script>alert("worked");</script>';
+                                    include ('view_dba_edit.php'); 
+                                }
+                            }
 
                             $sql = "SELECT * FROM emp_bank_account
                             ORDER BY emp_id ASC;";
