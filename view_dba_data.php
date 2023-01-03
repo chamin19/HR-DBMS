@@ -267,7 +267,6 @@
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["emp_id"] . "</td>";
                                     echo "<td>" . $row["dept_id"] . "</td>";
-                                    echo '<td><div class="actions"> ';
                                     echo '<td><div class="actions">
                                         <form method="post">
                                             <button type="submit" name="emp_dept_edit" data-toggle="modal" data-target="#emp_dept_modal" value="' . $row["emp_id"] . '">
@@ -403,18 +402,18 @@
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["emp_id"] . "</td>";
                                     echo "<td>" . $row["account_id"] . "</td>";
-                                    echo '<td><div class="actions"';
-                                    echo '<button type="submit" value="' . $row["emp_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg></button>
-                                    <button type="submit" value="' . $row["emp_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg></button></div></td></tr>';
+                                    echo '<td><div class="actions">
+                                        <form method="post">
+                                            <button type="submit" name="emp_bank_account_delete" value="' . $row["emp_id"] . '">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
+                                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+                                            </button>
+                                        <form>
+                                        </div></td></tr>';
                                 }
                                 echo "</table>";
                             } 
-
+                            
                             $sql = "SELECT * FROM bank_account
                             ORDER BY account_id ASC;";                           
                             $result = mysqli_query($connect, $sql);
@@ -431,19 +430,68 @@
                                     echo "<td>" . $row["transit_number"] . "</td>";
                                     echo "<td>" . $row["institution_number"] . "</td>";
                                     echo "<td>" . $row["account_number"] . "</td>";
-                                    echo '<td><div class="actions"> ';
-                                    echo '<button type="submit" name="' .  $row["account_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg></button>
-                                    <button type="submit" name="' .  $row["account_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg></button></div></td></tr>';
+                                    echo '<td><div class="actions">
+                                    <form method="post">
+                                        <button type="submit" name="bank_account_edit" data-toggle="modal" data-target="#bank_account_modal" value="' . $row["account_id"] . '">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                                        </button>
+
+                                        <button type="submit" name="bank_account_delete" value="' . $row["account_id"] . '">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+                                        </button>
+                                    <form>
+                                    </div></td></tr>';
                                 }
                                 echo "</table>";
                             } 
-                            $bank_account_id;
-                            $sql_delete = 'DELETE FROM bank_account WHERE $bank_account_id';
+                            if (isset($_POST['bank_account_edit'])) {
+                                $id_chosen = $_POST['bank_account_edit']; 
+                                $sql_get_edit = "SELECT * from bank_account WHERE account_id = $id_chosen";
+                                $result_edit = mysqli_query($connect, $sql_get_edit);
+                                $row = mysqli_fetch_assoc($result_edit);
+                            ?>
+                                 <script>
+                                    $(function() {
+                                        $('#bank_account_modal').modal('show');
+                                    });
+                                </script>
+                                <div class="modal fade" id="bank_account_modal" tabindex="-1" role="dialog" aria-labelledby="bank_account_modalTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body p-4 py-5 p-md-5">
+                                                <h3 class="text-center mb-3">Make changes to account <?php echo $row["account_id"]?></h3>
+                                                <form action="" class="signup-form" method="post">
+                                                    <div class="form-group mb-2">
+                                                        <input type="hidden" name="account_id_edit" class="form-control" value="<?php echo $row["account_id"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">Transit Number</label>
+                                                        <input type="text" name="tran_number_edit" class="form-control" value="<?php echo $row["transit_number"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">Institution Number</label>
+                                                        <input type="text" name="inst_number_edit" class="form-control" value="<?php echo $row["institution_number"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">Account Number</label>
+                                                        <input type="text" name="acc_number_edit" class="form-control" value="<?php echo $row["account_number"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <br><input type="submit" name="bank_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                if (isset($_POST['bank_apply'])){
+                                    echo '<script>alert("worked");</script>';
+                                    include ('view_dba_edit.php'); 
+                                }
+                            }
 
 
 
@@ -459,14 +507,14 @@
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["account_id"] . "</td>";
                                     echo "<td>" . $row["payment_id"] . "</td>";
-                                    echo '<td><div class="actions"> ';
-                                    echo '<button type="submit" value="' . $row["account_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg></button>
-                                    <button type="submit" value="' . $row["account_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg></button></div></td></tr>';
+                                    echo '<td><div class="actions">
+                                    <form method="post">
+                                        <button type="submit" name="account_payment_delete" value="' . $row["account_id"] . '">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+                                        </button>
+                                    <form>
+                                    </div></td></tr>';
                                 }
                                 echo "</table>";
                             } 
@@ -485,14 +533,14 @@
                                     echo "<tr><td>" . $row["payment_id"] . "</td>";
                                     echo "<td>" . $row["pay_stub_amount"] . "</td>";
                                     echo "<td>" . $row["payment_date"] . "</td>";
-                                    echo '<td><div class="actions"> ';
-                                    echo '<button type="submit" value="' . $row["payment_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg></button>
-                                    <button type="submit" value="' . $row["payment_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg></button></div></td></tr>';
+                                    echo '<td><div class="actions">
+                                    <form method="post">
+                                        <button type="submit" name="payment_delete" value="' . $row["payment_id"] . '">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+                                        </button>
+                                    <form>
+                                    </div></td></tr>';
                                 }
                                 echo "</table>";
                             } 
@@ -518,17 +566,68 @@
                                         echo "<td>" . $row["position_end_date"];
                                     }
                                     echo "</td>";
-                                    echo '<td><div class="actions"> ';
-                                    echo '<button type="submit" value="' . $row["emp_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg></button>
-                                    <button type="submit" value="' . $row["emp_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg></button></div></td></tr>';
+                                    echo '<td><div class="actions">
+                                    <form method="post">
+                                        <button type="submit" name="emp_position_edit" data-toggle="modal" data-target="#emp_position_modal" value="' . $row["emp_id"] . '">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                                        </button>
+
+                                        <button type="submit" name="emp_position_delete" value="' . $row["emp_id"] . '">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+                                        </button>
+                                    <form>
+                                    </div></td></tr>';
                                 }
                                 echo "</table>";
                             } 
+                            if (isset($_POST['emp_position_edit'])) {
+                                $id_chosen = $_POST['emp_position_edit']; 
+                                $sql_get_edit = "SELECT * from emp_position WHERE emp_id = $id_chosen";
+                                $result_edit = mysqli_query($connect, $sql_get_edit);
+                                $row = mysqli_fetch_assoc($result_edit);
+                            ?>
+                                 <script>
+                                    $(function() {
+                                        $('#emp_position_modal').modal('show');
+                                    });
+                                </script>
+                                <div class="modal fade" id="emp_position_modal" tabindex="-1" role="dialog" aria-labelledby="emp_position_modalTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body p-4 py-5 p-md-5">
+                                                <h3 class="text-center mb-3">Make changes to position of employee <?php echo $row["emp_id"]?></h3>
+                                                <form action="" class="signup-form" method="post">
+                                                    <div class="form-group mb-2">
+                                                        <input type="hidden" name="emp_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">Position ID</label>
+                                                        <input type="text" name="position_id_edit" class="form-control" value="<?php echo $row["position_id"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">Start Date</label>
+                                                        <input type="text" name="start_date_edit" class="form-control" value="<?php echo $row["position_start_date"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">End Date</label>
+                                                        <input type="text" name="end_date_edit" class="form-control" value="<?php echo $row["position_end_date"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <br><input type="submit" name="emp_position_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                if (isset($_POST['emp_position_apply'])){
+                                    echo '<script>alert("worked");</script>';
+                                    include ('view_dba_edit.php'); 
+                                }
+                            }
 
                             $sql = "SELECT * FROM position_table
                             ORDER BY position_id ASC;";
@@ -546,17 +645,68 @@
                                     echo "<td>" . $row["position_title"] . "</td>";
                                     echo "<td>" . $row["positiontype_a"] . "</td>";
                                     echo "<td>" . $row["positiontype_b"] . "</td>";
-                                    echo '<td><div class="actions"> ';
-                                    echo '<button type="submit" value="' . $row["position_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg></button>
-                                    <button type="submit" value="' . $row["position_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg></button></div></td></tr>';
+                                    echo '<td><div class="actions">
+                                    <form method="post">
+                                        <button type="submit" name="position_table_edit" data-toggle="modal" data-target="#position_table_modal" value="' . $row["position_id"] . '">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                                        </button>
+
+                                        <button type="submit" name="position_table_delete" value="' . $row["position_id"] . '">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+                                        </button>
+                                    <form>
+                                    </div></td></tr>';
                                 }
                                 echo "</table>";
                             } 
+                            if (isset($_POST['position_table_edit'])) {
+                                $id_chosen = $_POST['position_table_edit']; 
+                                $sql_get_edit = "SELECT * from position_table WHERE emp_id = $id_chosen";
+                                $result_edit = mysqli_query($connect, $sql_get_edit);
+                                $row = mysqli_fetch_assoc($result_edit);
+                            ?>
+                                 <script>
+                                    $(function() {
+                                        $('#position_table_modal').modal('show');
+                                    });
+                                </script>
+                                <div class="modal fade" id="position_table_modal" tabindex="-1" role="dialog" aria-labelledby="position_table_modalTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body p-4 py-5 p-md-5">
+                                                <h3 class="text-center mb-3">Make changes to position <?php echo $row["emp_id"]?></h3>
+                                                <form action="" class="signup-form" method="post">
+                                                    <div class="form-group mb-2">
+                                                        <input type="hidden" name="position_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">Position Title</label>
+                                                        <input type="text" name="position_title_edit" class="form-control" value="<?php echo $row["position_id"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">Full/Part Time</label>
+                                                        <input type="text" name="positiontype_a_edit" class="form-control" value="<?php echo $row["position_start_date"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <label for="fn">Permanent/Contractor</label>
+                                                        <input type="text" name="positiontype_b_edit" class="form-control" value="<?php echo $row["position_end_date"]?>">
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <br><input type="submit" name="position_table_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                if (isset($_POST['position_table_apply'])){
+                                    echo '<script>alert("worked");</script>';
+                                    include ('view_dba_edit.php'); 
+                                }
+                            }
 
                             $sql = "SELECT * FROM emp_work_period
                             ORDER BY emp_id ASC;";
@@ -564,20 +714,11 @@
                             echo "<table>";
                             echo "<h4>emp_work_period</h4>";
                             echo "<tr><th>Employee ID</th>";
-                            echo "<th>Work Period Title</th>";
-                            echo "<th>Actions</th></tr>";
+                            echo "<th>Work Period ID</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["emp_id"] . "</td>";
                                     echo "<td>" . $row["work_period_id"] . "</td>";
-                                    echo '<td><div class="actions"> ';
-                                    echo '<button type="submit" value="' . $row["emp_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg></button>
-                                    <button type="submit" value="' . $row["emp_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg></button></div></td></tr>';
                                 }
                                 echo "</table>";
                             } 
@@ -589,21 +730,12 @@
                             echo "<h4>work_period</h4>";
                             echo "<tr><th>Work Period ID</th>";
                             echo "<th>Start Time</th>";
-                            echo "<th>End Time</th>";
-                            echo "<th>Actions</th></tr>";
+                            echo "<th>End Time</th></tr>";
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["work_period_id"] . "</td>";
                                     echo "<td>" . $row["start_time"] . "</td>";
                                     echo "<td>" . $row["end_time"] . "</td>";
-                                    echo '<td><div class="actions"> ';
-                                    echo '<button type="submit" value="' . $row["work_period_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg></button>
-                                    <button type="submit" value="' . $row["work_period_id"] . '"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
-                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg></button></div></td></tr>';
                                 }
                                 echo "</table>";
                             } 

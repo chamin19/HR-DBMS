@@ -96,16 +96,18 @@ include ('dbconnect.php');
         }
     }
 
-    if (isset($_POST['emp_position'])){
-        $emp_position_id = $_POST['payment_id_edit'];
-        $new_tran_number = $_POST['tran_number_edit'];
-        $new_inst_number = $_POST['inst_number_edit'];
-        $new_acc_number = $_POST['acc_number_edit'];
-        $edit_payment = 'UPDATE payment SET 
-            
-            WHERE payment_id = $payment_id';
+    if (isset($_POST['emp_position_apply'])){
+        $emp_id = $_POST['emp_id_edit'];
+        $emp_position_id = $_POST['position_id_edit'];
+        $new_start_date = $_POST['start_date_edit'];
+        $new_end_date = $_POST['end_date_edit'];
+        $edit_emp_position = 'UPDATE emp_position SET 
+            position_id = $emp_position_id, 
+            position_start_date = $new_start_date,
+            position_end_date = $new_end_date
+            WHERE emp_id = $emp_id';
 
-        if (mysqli_query($connect, $edit_account_payment)) { ?>
+        if (mysqli_query($connect, $edit_emp_position)) { ?>
             <script>
                 alert("worked");
             </script>
@@ -117,6 +119,28 @@ include ('dbconnect.php');
         }
     }
 
+    if (isset($_POST['position_table_apply'])){
+        $position_id = $_POST['position_id_edit'];
+        $new_position_title = $_POST['position_title_edit'];
+        $new_positiontype_a = $_POST['positiontype_a_edit'];
+        $new_positiontype_b = $_POST['positiontype_b_edit'];
+        $edit_position_table = 'UPDATE position_table SET 
+            position_title = $new_position_title,
+            positiontype_a = $new_positiontype_a,
+            positiontype_b = $new_positiontype_b
+            WHERE position_id = $position_id';
+
+        if (mysqli_query($connect, $edit_position_table)) { ?>
+            <script>
+                alert("worked");
+            </script>
+        <?php
+            echo "Record updated successfully";
+            // echo "<meta http-equiv='refresh' content='0'>";
+        } else {
+            echo "Error updating record: " . mysqli_error($connect);
+        }
+    }
 ?>
 
 </html>
