@@ -49,9 +49,7 @@
                 $sql1 = "SELECT * FROM emp WHERE emp_id = $id";
                 $result1 = mysqli_query($connect,$sql1);
                 if ($result1) {
-                    $row = mysqli_fetch_assoc($result);
-                    $first = $row["emp_first_name"];
-                    $last = $row["emp_last_name"];
+                    $row = mysqli_fetch_assoc($result1);
                     $email = $row["emp_email"];
                     $phone = $row["emp_phone"];
                     $sno = $row["emp_address_street_number"];
@@ -74,33 +72,90 @@
 
             ?>
             <div class="emp_info">
-                    <br><br>
-                    <?php
-                        echo '<h3>' . $first . ' ' . $last . '</h3>';
-                        echo '<h4>' . $cur_pos . '</h4>';
-                        echo '<h5>Personal information</h5>';
-                        echo '<table>';
-                        echo '<tr>';
-                        echo '<td class="left">Name</td>';
-                        echo '<td class="right">' . $first . '$last</td>';
-                        echo '</tr>';
+                <br><br>
+                <?php
+                    echo '<h3>' . $first . ' ' . $last . '</h3>';
+                    echo '<h4>' . $cur_pos . '</h4>';
+                ?>
+                <div class="pi" >
+                    <h5>Personal information</h5>
+                    <button type="button" class="btn btn-primary py-3 px-4" data-toggle="modal" data-target="#changePI">Edit
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg>
+                    </button>
+                    <div class="modal fade" id="changePI" tabindex="-1" role="dialog" aria-labelledby="changePITitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="ion-ios-close"></span>
+                                    </button>
+                                </div>
+                                <div class="modal-body p-4 py-5 p-md-5">
+                                    <h3 class="text-center mb-3">Edit Your Personal Information</h3>
+                                    <form action="" class="signup-form" method="post">
+                                        <div class="form-group mb-2">
+                                            <label for="phone">Phone</label>
+                                                <input type="text" name="phone" class="form-control" value="<?php echo $phone?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="sno">Street Number</label>
+                                                <input type="text" name="sno" class="form-control" value="<?php echo $sno ?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="sname">Street Name</label>
+                                                <input type="text" name="sname" class="form-control" value="<?php echo $sname ?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="city">City</label>
+                                                <input type="text" name="city" class="form-control" value="<?php echo $city ?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="province">Province</label>
+                                                <input type="text" name="province" class="form-control" value="<?php echo $province ?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="pc">Postal Code</label>
+                                                <input type="text" name="pc" class="form-control" value="<?php echo $pc ?>"">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <br><button type="submit" class="form-control btn btn-primary rounded submit px-3">Submit</button>
+                                        </div>
+                                    </form>
+                                    <?php
+                                        if (isset($_POST['phone']))
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                    echo '<table>';
+                    echo '<tr>';
+                    echo '<td class="left">Name</td>';
+                    echo '<td class="right">' . $first . ' ' . $last . '</td>';
+                    echo '</tr>';
 
-                        echo '<tr>';
-                        echo '<td class="left">Email</td>';
-                        echo '<td class="right">' . $email . '</td>';
-                        echo '</tr>';
+                    echo '<tr>';
+                    echo '<td class="left">Email</td>';
+                    echo '<td class="right">' . $email . '</td>';
+                    echo '</tr>';
 
-                        echo '<tr>';
-                        echo '<td class="left">Phone</td>';
-                        echo '<td class="right">' . $phone . '</td>';
-                        echo '</tr>';
+                    echo '<tr>';
+                    echo '<td class="left">Phone</td>';
+                    echo '<td class="right">' . $phone . '</td>';
+                    echo '</tr>';
 
-                        echo '<tr>';
-                        echo '<td class="left">Work Address</td>';
-                        echo '<td class="right">' . $sno . ' ' . $sname . '<br>' . $city . ', ' . $province . '<br>' . $pc . '</td>';
-                        echo '</tr>';
-                        echo '</table';
-                    ?>
+                    echo '<tr>';
+                    echo '<td class="left">Work Address</td>';
+                    echo '<td class="right">' . $sno . ' ' . $sname . '<br>' . $city . ', ' . $province . '<br>' . $pc . '</td>';
+                    echo '</tr>';
+                    echo '</table';
+                ?>
+                
             </div>
         </main>
     </body>
