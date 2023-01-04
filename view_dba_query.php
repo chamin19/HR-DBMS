@@ -94,7 +94,7 @@
             </div>
                 <div class="row">
                     <div class="col-sm-2" id="table_info">    
-                        <h4>&emsp;Tables</h4>
+                        <h4>&nbsp;&nbsp;&nbsp;Tables</h4>
                         <p>&emsp;emp</p>
                         <p>&emsp;emp_dept</p>
                         <p>&emsp;dept</p>
