@@ -6,13 +6,114 @@
         <meta name = "keywords" content = "PHP">
         <meta name = "author" content = "Camillia Amin">
         <meta name = "viewport" content= "width = device-width, initial-scale = 1.0">
-        <link rel="stylesheet" href="css\index.css">
+        <link rel="stylesheet" href="css\style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style> 
+            .container {
+                width: 100%;
+                margin: 85px 0 0 0;
+            }
+            .left_main h3 {
+                padding: 0px; 
+                margin: 0px;
+                font-weight: bold;
+            }
+
+            .left_main {
+                background-color: #2A4895;
+                color: white;
+                margin-left: 0;
+                padding: 30px;
+                height: 100vh;
+                overflow: hidden;
+            }
+            .right_main {
+                padding: 30px;
+                height: 100vh;
+                overflow-y: auto;
+                overflow-x: hidden;
+                background-color: #dadfec;
+            }
+            .data_table table {
+                font-family: 'Courier New', Courier, monospace;
+                border: 2px solid black;
+                font-size: 14px;
+                border-collapse: separate;
+                border-spacing: 0px;
+                background-color: white;
+                margin-bottom: 20px;
+            }
+            .data_table th {
+                background-color: #2A4895;
+                color: white;
+                padding: 12px;
+                text-align: left;
+                font-size: 14px;
+                padding: 2px;
+                font-weight: bold;
+            }
+            .data_table tr{
+                background: white;
+            }
+            .data_table tr:hover {background-color: #ddd;}
+            .data_table td, th {
+                border: 1px solid #ddd;
+                padding: 5px;
+
+            }
+            .actions button {
+                display: inline;
+                text-align: center;
+                padding: 6;
+                border: none;
+                background: none;
+            }
+            .logo {
+                position: absolute;
+                left: 20px;
+                top: 20px;
+            }
+            .sign_out {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+            }
+            .pi_table, .work_log_table {
+                text-align: left;
+                background-color: white;
+                border-radius: 3px;
+                margin-bottom: 30px;  
+                padding: 15px 20px 20px 20px;
+            }
+            .pi_table td {
+                padding: 7px;
+            }
+            .left {
+                color: black;
+                font-weight: bold;
+            }
+            .right {
+                color: black;
+            } 
+            .pi_title div , .work_log_title div {
+                display: inline-block;
+                margin: 7px;
+            }
+            .work_log_table table {
+                margin-left: 6px;
+            }
+            h2 {
+                color: #2A4895;
+                text-transform: uppercase;
+                font-size: 20px;
+                font-weight: 700;
+            }
+        </style>
     </head>
     <body>
         <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
