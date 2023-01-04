@@ -987,7 +987,29 @@
                             $result = mysqli_query($connect, $sql_delete);
                             echo "<meta http-equiv='refresh' content='0'>";
                         }
-
+                        if (isset($_POST['emp_position_submit'])) {
+                            //get entries from form
+                            $emp_id_new = $_POST['emp_id_new'];
+                            $position_id_new = $_POST['position_id_new'];
+                            $start_date_new = $_POST['start_date_new'];
+                            $end_date_new = $_POST['end_date_new'];
+                            if (empty($end_date_new)){
+                                $end_date_new = 'NULL';
+                            } else {
+                                $end_date_new = "$end_date_new";
+                            }
+                            
+                            $sql_add = 'INSERT INTO emp_position VALUES (' . $emp_id_new .', ' . $position_id_new . ', "' . $start_date_new . '", ' . $end_date_new . ');';
+                            echo $sql_add;
+                            $result_add = mysqli_query($connect, $sql_add);
+                            if ($result_add) {
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            } else {
+                                ?>
+                                    <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
+                                <?php 
+                            }
+                        }
 
                         $sql = "SELECT * FROM position_table
                         ORDER BY position_id ASC;";
@@ -1349,6 +1371,38 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="modal fade" id="emp_position_add" tabindex="-1" role="dialog" aria-labelledby="emp_position_modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4 py-5 p-md-5">
+                                <h3 class="text-center mb-3">Make changes to position of employee <?php echo $row["emp_id"]?></h3>
+                                <form action="" class="signup-form" method="post">
+                                    <div class="form-group mb-2">
+                                        <label for="fn">Employee ID</label>
+                                        <input type="text" name="emp_id_new" class="form-control" >
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="fn">Position ID</label>
+                                        <input type="text" name="position_id_new" class="form-control" >
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="fn">Start Date</label>
+                                        <input type="text" name="start_date_new" class="form-control" value="<?php echo date("Y-m-d")?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="fn">End Date</label>
+                                        <input type="text" name="end_date_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <br><input type="submit" name="emp_position_submit" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>   
         </div> 
     </body>
