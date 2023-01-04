@@ -13,7 +13,7 @@ The database follows the third normal form (3NF) to ensure full functional depen
 
 
 ## Technologies Used
-MySQL, PHP, Bootstrap, HTML, CSS, JavaScript, 000webhost
+MySQL, PHP, Bootstrap, HTML, CSS, 000webhost
 
 
 ## HR Coordinator View
