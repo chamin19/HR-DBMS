@@ -731,7 +731,30 @@
                             $result = mysqli_query($connect, $sql_delete);
                             echo "<meta http-equiv='refresh' content='0'>";
                         }
+                        if (isset($_POST['bank_submit'])) {
+                            //find the next available id
+                            echo $last_id;
+                            $last_id = 'SELECT MAX(account_id) from bank_account ORDER BY account_id DESC;';
+                            $result_last_id = mysqli_query($connect,$last_id);
+                            if (!$result_last_id) {echo 'failed';}
+                            $row = mysqli_fetch_assoc($result_last_id);
+                            $new_id = $row['MAX(account_id)'] + 1; 
 
+                            //get entries from form
+                            $tran_number_edit = $_POST['tran_number_edit'];
+                            $inst_number_edit = $_POST['inst_number_edit'];
+                            $acc_number_edit = $_POST['acc_number_edit'];
+
+                            $sql_add = 'INSERT INTO bank_account VALUES (' . $new_id .', ' . $tran_number_edit . ', ' . $inst_number_edit .  ', ' . $acc_number_edit . ');';
+                            $result_add = mysqli_query($connect, $sql_add);
+                            if ($result_add) {
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            } else {
+                                ?>
+                                    <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
+                                <?php 
+                            }
+                        }
 
                         $sql = "SELECT * FROM account_payment
                         ORDER BY account_id ASC;";
@@ -1209,7 +1232,35 @@
                     </div>
                 </div>
 
-
+                <div class="modal fade" id="bank_account_add" tabindex="-1" role="dialog" aria-labelledby="bank_account_modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4 py-5 p-md-5">
+                                <h3 class="text-center mb-3">Make changes to account <?php echo $row["account_id"]?></h3>
+                                <form action="" class="signup-form" method="post">
+                                    <div class="form-group mb-2">
+                                        <input type="hidden" name="account_id_edit" class="form-control" value="<?php echo $row["account_id"]?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="fn">Transit Number</label>
+                                        <input type="text" name="tran_number_edit" class="form-control" value="<?php echo $row["transit_number"]?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="fn">Institution Number</label>
+                                        <input type="text" name="inst_number_edit" class="form-control" value="<?php echo $row["institution_number"]?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="fn">Account Number</label>
+                                        <input type="text" name="acc_number_edit" class="form-control" value="<?php echo $row["account_number"]?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <br><input type="submit" name="bank_submit" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>   
         </div> 
     </body>
