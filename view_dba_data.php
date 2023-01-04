@@ -200,22 +200,20 @@
                             }
                             echo '</table><br>';
                         } 
-                        if (isset($_POST['emp_edit'])) {
+                        if (isset($_POST['emp_edit'])) { //if edit button is selected
                             $id_chosen = $_POST['emp_edit']; 
                             $sql_get_edit = "SELECT * from emp WHERE emp_id = $id_chosen";
                             $result_edit = mysqli_query($connect, $sql_get_edit);
                             $row = mysqli_fetch_assoc($result_edit);
-                        ?>
+                            ?>
                                 <script>
                                 $(function() {
                                     $('#emp_modal').modal('show');
                                 });
                             </script>
-                            
-                            
                             <?php
                         } 
-                        if (isset($_POST['emp_apply'])){
+                        if (isset($_POST['emp_apply'])){ //if submit button in modal is selected
                             $emp_id = $_POST['emp_id_edit'];
                             $new_fn = $_POST['fn_edit'];
                             $new_ln = $_POST['ln_edit'];
@@ -245,6 +243,12 @@
                                     <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
                                 <?php 
                             }
+                        }
+                        if (isset($_POST['emp_delete'])) { // if delete button is selected
+                            $id_chosen = $_POST['emp_delete']; 
+                            $sql_delete = "DELETE FROM emp where emp_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            echo "<meta http-equiv='refresh' content='0'>";
                         }
 
                         $sql = "SELECT * FROM emp_dept
@@ -946,7 +950,7 @@
 
                     <!-- Add Modals -->
                     <div class="all_add_modals">
-                        
+
                     </div>
                 </div>
             </div>

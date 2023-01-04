@@ -348,7 +348,6 @@
                         $id_chosen = $_POST['work_period_delete']; 
                         $sql_delete = "DELETE FROM work_period where work_period_id = $id_chosen";
                         $result = mysqli_query($connect, $sql_delete);
-                        $row = mysqli_fetch_assoc($result);
                         echo "<meta http-equiv='refresh' content='0'>";
                     } 
                     if (isset($_POST['work_period_add'])) { //if add button is selected
