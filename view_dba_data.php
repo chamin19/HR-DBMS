@@ -142,7 +142,7 @@
                     <a href="#account_payment_table"><p>account_payment</p></a>
                     <a href="#payment_table"><p>payment</p></a>
                     <a href="#emp_position_table"><p>emp_position</p></a>
-                    <a href="#position_table_table"><p>position_table</p></a>
+                    <a href="#position_table"><p>position_table</p></a>
                     <a href="#emp_work_period_table"><p>emp_work_period</p></a>
                     <a href="#work_period_table"><p>work_period</p></a>
                 </div>
@@ -288,7 +288,7 @@
                             }
                             echo '</table><br>';
                         } 
-                        if (isset($_POST['emp_dept_edit'])) {
+                        if (isset($_POST['emp_dept_edit'])) { //if edit button is selected
                             $id_chosen = $_POST['emp_dept_edit']; 
                             $sql_get_edit = "SELECT * from emp_dept WHERE emp_id = $id_chosen";
                             $result_edit = mysqli_query($connect, $sql_get_edit);
@@ -301,7 +301,7 @@
                             </script>
                              <?php
                         }
-                        if (isset($_POST['emp_dept_apply'])){
+                        if (isset($_POST['emp_dept_apply'])){ //if submit button in modal is selected
                             $emp_id = $_POST['emp_id_edit'];
                             $new_dept_id = $_POST['dept_id_edit'];
                             $edit_emp_dept = 'UPDATE emp_dept SET
@@ -315,6 +315,12 @@
                                     <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
                                 <?php 
                             }
+                        }
+                        if (isset($_POST['emp_dept_delete'])) { // if delete button is selected
+                            $id_chosen = $_POST['emp_dept_delete']; 
+                            $sql_delete = "DELETE FROM emp_dept where emp_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            echo "<meta http-equiv='refresh' content='0'>";
                         }
 
                         $sql = "SELECT * FROM dept
@@ -382,6 +388,14 @@
                                 <?php 
                             }
                         }
+                        if (isset($_POST['dept_delete'])) { // if delete button is selected
+                            $id_chosen = $_POST['dept_delete']; 
+                            $sql_delete = "DELETE FROM dept where dept_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            $sql_delete = "DELETE FROM emp_dept WHERE dept_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            echo "<meta http-equiv='refresh' content='0'>";
+                        }
 
                         $sql = "SELECT * FROM emp_bank_account
                         ORDER BY emp_id ASC;";
@@ -415,7 +429,14 @@
                             }
                             echo "</table><br>";
                         } 
-                        
+                        if (isset($_POST['emp_bank_account_delete'])) { // if delete button is selected
+                            $id_chosen = $_POST['emp_bank_account_delete']; 
+                            $sql_delete = "DELETE FROM emp_bank_account where emp_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            echo "<meta http-equiv='refresh' content='0'>";
+                        }
+
+
                         $sql = "SELECT * FROM bank_account
                         ORDER BY account_id ASC;";                           
                         $result = mysqli_query($connect, $sql);
@@ -489,6 +510,15 @@
                                 <?php 
                             }
                         }
+                        if (isset($_POST['bank_account_delete'])) { // if delete button is selected
+                            $id_chosen = $_POST['bank_account_delete']; 
+                            $sql_delete = "DELETE FROM bank_account where account_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            $sql_delete = "DELETE FROM emp_bank_account where account_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            echo "<meta http-equiv='refresh' content='0'>";
+                        }
+
 
                         $sql = "SELECT * FROM account_payment
                         ORDER BY account_id ASC;";
@@ -521,6 +551,12 @@
                             }
                             echo "</table><br>";
                         } 
+                        if (isset($_POST['account_payment_delete'])) { // if delete button is selected
+                            $id_chosen = $_POST['account_payment_delete']; 
+                            $sql_delete = "DELETE FROM account_payment where account_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            echo "<meta http-equiv='refresh' content='0'>";
+                        }
 
                         $sql = "SELECT * FROM payment
                         ORDER BY payment_id ASC;";
@@ -555,6 +591,14 @@
                             }
                             echo "</table><br>";
                         } 
+                        if (isset($_POST['payment_delete'])) { // if delete button is selected
+                            $id_chosen = $_POST['payment_delete']; 
+                            $sql_delete = "DELETE FROM payment where payment_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            $sql_delete = "DELETE FROM account_payment where payment_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            echo "<meta http-equiv='refresh' content='0'>";
+                        }
                         
                         $sql = "SELECT * FROM emp_position
                         ORDER BY emp_id ASC;";
@@ -633,6 +677,13 @@
                                 <?php 
                             }
                         }
+                        if (isset($_POST['emp_position_delete'])) { // if delete button is selected
+                            $id_chosen = $_POST['emp_position_delete']; 
+                            $sql_delete = "DELETE FROM emp_position where emp_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            echo "<meta http-equiv='refresh' content='0'>";
+                        }
+
 
                         $sql = "SELECT * FROM position_table
                         ORDER BY position_id ASC;";
@@ -706,6 +757,12 @@
                                 <?php 
                             }
                         }
+                        if (isset($_POST['position_table_delete'])) { // if delete button is selected
+                            $id_chosen = $_POST['position_table_delete']; 
+                            $sql_delete = "DELETE FROM position_table where position_id =". $id_chosen;
+                            $result = mysqli_query($connect, $sql_delete);
+                            echo "<meta http-equiv='refresh' content='0'>";
+                        }
 
                         $sql = "SELECT * FROM emp_work_period
                         ORDER BY emp_id ASC;";
@@ -729,6 +786,7 @@
                             }
                             echo "</table><br>";
                         } 
+
 
                         $sql = "SELECT * FROM work_period
                         ORDER BY work_period_id ASC;";
