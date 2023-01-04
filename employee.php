@@ -18,7 +18,6 @@
                 background-color: #E8ECF4; 
             }
             main {
-                text-align: center; 
                 position: absolute; 
                 top: 50%; 
                 left: 50%; 
@@ -43,10 +42,19 @@
             label, input {
                 display: block;
             }
+            .button {
+                text-align: center;
+            }
+            h2 {
+                color: #2A4895;
+                text-transform: uppercase;
+                font-size: 20px;
+                font-weight: 700;
+            }
         </style>
     </head>
     <body>
-        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br><br>
+        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br><br><br>
         <h3 style="font-size: 16px; padding-left: 43px;">Employee Sign-in</h3>
 
         <main>
@@ -57,7 +65,7 @@
                 <label for='pass'><p>Password</p></label>
                 <input type="text" name="pass" placeholder="anything" size=30><br><br>
 
-                <input class="button" id="dark" type="submit" value="Submit"><br><br>
+                <input class="button" id="dark" type="submit" value="Sign in"><br><br>
             </form>
         </main>
     </body>

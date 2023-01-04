@@ -59,7 +59,8 @@ include ('dbconnect.php');
     if (isset($_POST['dept_apply'])){
         $dept_id = $_POST['dept_id_edit'];
         $new_dept_name = $_POST['dept_name_edit'];
-        $edit_dept = 'UPDATE dept SET dept_name = $new_dept_name WHERE dept_id = $dept_id';
+        $edit_dept = 'UPDATE dept SET dept_name = $new_dept_name 
+            WHERE dept_id = $dept_id';
 
         if (mysqli_query($connect, $edit_dept)) { ?>
             <script>

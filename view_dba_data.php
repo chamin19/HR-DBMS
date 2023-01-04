@@ -30,7 +30,7 @@
                 overflow-y: scroll;
                 padding: 20px;
             }
-            .title {
+            .title div {
                 display: inline-block;
             }
             .actions button {
@@ -80,6 +80,12 @@
             body {
                 overflow: hidden;
             }
+            h2 {
+                color: #2A4895;
+                text-transform: uppercase;
+                font-size: 20px;
+                font-weight: 700;
+            }
             h4 {
                 text-transform: uppercase;
                 font-weight: bold;
@@ -88,11 +94,11 @@
         </style>
     </head>
     <body>
-        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br><br>
+        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
         <div class="container header">
             <div class="row">
                 <div class="col-sm-3" style="text-align: left">  
-                    <h3 style="font-size: 16px; padding-left: 27px;">HR Coordinator View</h3>
+                    <br><br><br><h3 style="font-size: 16px; padding-left: 27px;">HR Coordinator View</h3>
                 </div>
                 <div class="col-sm-9 buttons">
                     <br>
@@ -149,11 +155,12 @@
                             $result = mysqli_query($connect, $sql);
                         ?>
                             <table class="data_table">
-                                <div class='title'>
-                                    <h4 id="emp_table">emp</h4>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
-                                    </svg>
+                                <div class="title">
+                                    <div class="name"><h4 id="emp_table">emp</h4></div>
+                                    <div style="margin-left: 830px;"><svg data-toggle="modal" data-target="#work_period_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
                                 </div>
                                 <tr><th>Emp ID</th>
                                 <th>First Name</th>
@@ -166,7 +173,7 @@
                                 <th>Province</th>
                                 <th>Postal Code</th>
                                 <th>Actions</th></tr>
-                        <?php
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["emp_id"] . "</td>";
@@ -260,21 +267,107 @@
                                     </div>
                                 </div>
                                 <?php
-                                if (isset($_POST['emp_apply'])){
-                                    echo '<script>alert("worked");</script>';
-                                    include ('view_dba_edit.php'); 
-                                }
                             } 
+                            function bulk_sql_update_query($table, $array)
+                            {
+                                /*
+                                * Example:
+                                INSERT INTO mytable (id, a, b, c)
+                                VALUES (1, 'a1', 'b1', 'c1'),
+                                (2, 'a2', 'b2', 'c2'),
+                                (3, 'a3', 'b3', 'c3'),
+                                (4, 'a4', 'b4', 'c4'),
+                                (5, 'a5', 'b5', 'c5'),
+                                (6, 'a6', 'b6', 'c6')
+                                ON DUPLICATE KEY UPDATE id=VALUES(id),
+                                a=VALUES(a),
+                                b=VALUES(b),
+                                c=VALUES(c);
+                            */
+                                $sql = "";
+
+                                $columns = array_keys($array[0]);
+                                $columns_as_string = implode(', ', $columns);
+
+                                $sql .= "
+                                INSERT INTO $table
+                                (" . $columns_as_string . ")
+                                VALUES ";
+
+                                $len = count($array);
+                                foreach ($array as $index => $values) {
+                                    $sql .= '("';
+                                    $sql .= implode('", "', $array[$index]) . "\"";
+                                    $sql .= ')';
+                                    $sql .= ($index == $len - 1) ? "" : ", \n";
+                                }
+
+                                $sql .= "\nON DUPLICATE KEY UPDATE \n";
+
+                                $len = count($columns);
+                                foreach ($columns as $index => $column) {
+
+                                    $sql .= "$column=VALUES($column)";
+                                    $sql .= ($index == $len - 1) ? "" : ", \n";
+                                }
+
+                                $sql .= ";";
+
+                                return $sql;
+                            }
+
+                            
+
+                            if (isset($_POST['emp_apply'])){
+                                $edit_emp = bulk_sql_update_query('emp', $array);
+                                $emp_id = $_POST['emp_id_edit'];
+                                $new_fn = $_POST['fn_edit'];
+                                $new_ln = $_POST['ln_edit'];
+                                $new_email = $_POST['email_edit'];
+                                $new_phone = $_POST['phone_edit'];
+                                $new_sno = $_POST['sno_edit'];
+                                $new_sname = $_POST['sname_edit'];
+                                $new_city = $_POST['city_edit'];
+                                $new_province = $_POST['province_edit'];
+                                $new_pc = $_POST['pc_edit'];
+                                $edit_emp = 'UPDATE emp SET 
+                                    emp_first_name = "$new_fn",
+                                    emp_last_name = "$new_ln",
+                                    emp_email = "$new_email",
+                                    emp_phone = "$new_phone",
+                                    emp_address_street_number = $new_sno,
+                                    emp_address_street_name = "$new_sname",
+                                    emp_address_city = "$new_city",
+                                    emp_address_province = "$new_province",
+                                    emp_address_postal_code = "$new_pc"
+                                    WHERE emp_id =' . $emp_id . '';
+                                // https://stackoverflow.com/questions/20255138/sql-update-multiple-records-in-one-query
+                                $result = mysqli_query($connect, $edit_emp);
+                                if ($result) {
+                                    echo "Record updated successfully";
+                                    // echo "<meta http-equiv='refresh' content='0'>";
+                                } else {
+                                echo "Error updating record: " . mysqli_error($connect);
+                                }
+                            }
 
                             $sql = "SELECT * FROM emp_dept
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            
-                            echo "<table class='data_table'>";
-                            echo "<h4 id='emp_dept_table'>emp_dept</h4>";
-                            echo "<tr><th>Employee ID</th>";
-                            echo "<th>Department ID</th>";
-                            echo "<th>Actions</th></tr>";
+                            ?>
+                            <table class='data_table'>
+                                <div class="title">
+                                    <div class="name"><h4 id='emp_dept_table'>emp_dept</h4></div>
+                                    <div style="margin-left: 140px;"><svg data-toggle="modal" data-target="#emp_dept_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
+                                </div>
+                                
+                                <tr><th>Employee ID</th>
+                                <th>Department ID</th>
+                                <th>Actions</th></tr>
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["emp_id"] . "</td>";
@@ -338,11 +431,20 @@
                             $sql = "SELECT * FROM dept
                             ORDER BY dept_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table class='data_table'>";
-                            echo "<h4 id='dept_table'>dept</h4>";
-                            echo "<tr><th>Department ID</th>";
-                            echo "<th>Department Name</th>";
-                            echo "<th>Actions</th></tr>";
+                            ?>
+                            
+                            <table class='data_table'>
+                                <div class="title">
+                                    <div class="name"><h4 id='dept_table'>dept</h4></div>
+                                    <div style="margin-left: 285px;"><svg data-toggle="modal" data-target="#dept_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
+                                </div>
+                                <tr><th>Department ID</th>
+                                <th>Department Name</th>
+                                <th>Actions</th></tr>
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["dept_id"] . "</td>";
@@ -405,11 +507,20 @@
                             $sql = "SELECT * FROM emp_bank_account
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table class='data_table'>";
-                            echo "<h4 id='emp_bank_account_table'>emp_bank_account</h4>";
-                            echo "<tr><th>Employee ID</th>";
-                            echo "<th>Account ID</th>";
-                            echo "<th>Actions</th></tr>";
+                            ?>
+                            <table class='data_table'>
+                                <div class="title">
+                                    <div class="name"> <h4 id='emp_bank_account_table'>emp_bank_account</h4></div>
+                                    <div><svg data-toggle="modal" data-target="#emp_bank_account_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
+                                </div>
+                                <tr><th>Employee ID</th>
+                                <th>Account ID</th>
+                                <th>Actions</th></tr>
+
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["emp_id"] . "</td>";
@@ -429,13 +540,22 @@
                             $sql = "SELECT * FROM bank_account
                             ORDER BY account_id ASC;";                           
                             $result = mysqli_query($connect, $sql);
-                            echo "<table class='data_table'>";
-                            echo "<h4 id='bank_account_table'>bank_account</h4>";
-                            echo "<tr><th>Account ID</th>";
-                            echo "<th>Transit No.</th>";
-                            echo "<th>Institution No.</th>";
-                            echo "<th>Account No.</th>";
-                            echo "<th>Actions</th></tr>";
+                            ?>
+                            <table class='data_table'>
+                                <div class="title">
+                                    <div class="name"><h4 id='bank_account_table'>bank_account</h4></div>
+                                    <div style="margin-left: 240px;"><svg data-toggle="modal" data-target="#bank_account_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
+                                </div>
+                                
+                                <tr><th>Account ID</th>
+                                <th>Transit No.</th>
+                                <th>Institution No.</th>
+                                <th>Account No.</th>
+                                <th>Actions</th></tr>
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["account_id"] . "</td>";
@@ -506,15 +626,22 @@
                             }
 
 
-
                             $sql = "SELECT * FROM account_payment
                             ORDER BY account_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table class='data_table'>";
-                            echo "<h4 id='account_payment_table'>account_payment</h4>";
-                            echo "<tr><th>Account ID</th>";
-                            echo "<th>Payment ID</th>";
-                            echo "<th>Actions</th></tr>";
+                            ?>
+                            <table class='data_table'>
+                                <div class="title">
+                                    <div class="name"><h4 id='account_payment_table'>account_payment</h4></div>
+                                    <div style="margin-left: 10px;"><svg data-toggle="modal" data-target="#account_payment_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
+                                </div>
+                                <tr><th>Account ID</th>
+                                <th>Payment ID</th>
+                                <th>Actions</th></tr>
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["account_id"] . "</td>";
@@ -534,12 +661,20 @@
                             $sql = "SELECT * FROM payment
                             ORDER BY payment_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table class='data_table'>";
-                            echo "<h4 id='payment_table'>payment</h4>";
-                            echo "<tr><th>Payment ID</th>";
-                            echo "<th>Paystub Amount</th>";
-                            echo "<th>Payment Date</th>";
-                            echo "<th>Actions</th></tr>";
+                            ?>
+                            <table class='data_table'>
+                                <div class="title">
+                                    <div class="name"><h4 id='payment_table'>payment</h4></div>
+                                    <div style="margin-left: 245px;"><svg data-toggle="modal" data-target="#payment_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
+                                </div>  
+                                <tr><th>Payment ID</th>
+                                <th>Paystub Amount</th>
+                                <th>Payment Date</th>
+                                <th>Actions</th></tr>
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["payment_id"] . "</td>";
@@ -560,13 +695,21 @@
                             $sql = "SELECT * FROM emp_position
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table class='data_table'>";
-                            echo "<h4 id='emp_position_table'>emp_position</h4>";
-                            echo "<tr><th>Employee ID</th>";
-                            echo "<th>Position ID</th>";
-                            echo "<th>Start Date</th>";
-                            echo "<th>End Date</th>";
-                            echo "<th>Actions</th></tr>";
+                            ?>
+                            <table class='data_table'>
+                                <div class="title">
+                                    <div class="name"><h4 id='emp_position_table'>emp_position</h4></div>
+                                    <div style="margin-left: 230px;"><svg data-toggle="modal" data-target="#emp_position_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
+                                </div> 
+                                <tr><th>Employee ID</th>
+                                <th>Position ID</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Actions</th></tr>
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["emp_id"] . "</td>";
@@ -644,13 +787,21 @@
                             $sql = "SELECT * FROM position_table
                             ORDER BY position_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table class='data_table'>";
-                            echo "<h4 id='position_table'>position_table</h4>";
-                            echo "<tr><th>Position ID</th>";
-                            echo "<th>Position Title</th>";
-                            echo "<th>Full/Part Time</th>";
-                            echo "<th>Permanent/Contractor</th>";
-                            echo "<th>Actions</th></tr>";
+                            ?>
+                            <table class='data_table'>
+                                <div class="title">
+                                    <div class="name"><h4 id='position_table'>position_table</h4></div>
+                                    <div style="margin-left: 360px;"><svg data-toggle="modal" data-target="#position_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
+                                </div> 
+                                <tr><th>Position ID</th>
+                                <th>Position Title</th>
+                                <th>Full/Part Time</th>
+                                <th>Permanent/Contractor</th>
+                                <th>Actions</th></tr>
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["position_id"] . "</td>";
@@ -723,10 +874,18 @@
                             $sql = "SELECT * FROM emp_work_period
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table class='data_table'>";
-                            echo "<h4 id='emp_work_period_table'>emp_work_period</h4>";
-                            echo "<tr><th>Employee ID</th>";
-                            echo "<th>Work Period ID</th></tr>";
+                            ?>
+                            <table class='data_table'>
+                                <div class="title">
+                                    <div class="name"><h4 id='emp_work_period_table'>emp_work_period</h4></div>
+                                    <div><svg data-toggle="modal" data-target="#emp_work_period_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
+                                </div> 
+                                <tr><th>Employee ID</th>
+                                <th>Work Period ID</th></tr>
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["emp_id"] . "</td>";
@@ -738,11 +897,19 @@
                             $sql = "SELECT * FROM work_period
                             ORDER BY work_period_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table class='data_table'>";
-                            echo "<h4 id='work_period_table'>work_period</h4>";
-                            echo "<tr><th>Work Period ID</th>";
-                            echo "<th>Start Time</th>";
-                            echo "<th>End Time</th></tr>";
+                            ?>
+                            <table class='data_table'>
+                                <div class="title">
+                                    <div class="name"><h4 id='work_period_table'>work_period</h4></div>
+                                    <div style="margin-left: 230px;"><svg data-toggle="modal" data-target="#work_period_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+                                    </div>
+                                </div>
+                                <tr><th>Work Period ID</th>
+                                <th>Start Time</th>
+                                <th>End Time</th></tr>
+                            <?php
                             if ($result) {
                                 while($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" . $row["work_period_id"] . "</td>";

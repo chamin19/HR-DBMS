@@ -64,6 +64,12 @@
                 padding: 5px;
 
             }
+            h2 {
+                color: #2A4895;
+                text-transform: uppercase;
+                font-size: 20px;
+                font-weight: 700;
+            }
             h4 {
                 text-transform: uppercase;
                 font-weight: bold;
@@ -82,7 +88,7 @@
         <div class="container">
             <div class="row header">
                 <div class="col-sm-3" style="text-align: left;">  
-                    <h3 style="font-size: 16px; padding-left: 27px;">HR Coordinator View</h3>
+                    <br><h3 style="font-size: 16px; padding-left: 27px;">HR Coordinator View</h3>
                 </div>
                 <div class="col-sm-9 buttons">
                     <br>
@@ -164,8 +170,16 @@
                                         } else {
                                             echo "Query could not be executed<br>" . mysqli_error($connect);
                                         }
+                                    } else if ($fstword == 'UPDATE' || $fstword == 'update'){
+                                        $query = preg_replace('/\s+/', ' ', $query);
+                                        $result = mysqli_query($connect, $query);
+                                        if ($result) {
+                                            echo "Successfully updated"; 
+                                        } else {
+                                            echo "Query could not be executed<br>" . mysqli_error($connect);
+                                        }
                                     } else {
-                                        echo "<p>&emsp;Must be a query</p>";
+                                        echo "<p>Must be a query</p>";
                                     }
                                 }
                                 ?>
@@ -177,3 +191,4 @@
         </main>
     </body>
 </html>
+<!-- UPDATE emp_dept SET dept_id = 6 WHERE emp_id = 1011;          -->

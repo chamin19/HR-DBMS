@@ -108,6 +108,12 @@
             .work_log_table table {
                 margin-left: 6px;
             }
+            h2 {
+                color: #2A4895;
+                text-transform: uppercase;
+                font-size: 20px;
+                font-weight: 700;
+            }
         </style>
     </head>
     <body>
