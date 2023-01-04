@@ -155,7 +155,8 @@
                         <table class="data_table">
                             <div class="title">
                                 <div class="name"><h4 id="emp_table">emp</h4></div>
-                                <div style="margin-left: 830px;"><svg data-toggle="modal" data-target="#work_period_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <div style="margin-left: 830px;">
+                                    <svg data-toggle="modal" data-target="#emp_modal_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
                                 </div>
@@ -257,6 +258,10 @@
                                                     <input type="text" name="pc_edit" class="form-control" value="<?php echo $row["emp_address_postal_code"]?>">
                                                 </div>
                                                 <div class="form-group mb-2">
+                                                    <label for="pc">Manager ID</label>
+                                                    <input type="text" name="manager_edit" class="form-control" value="<?php echo $row["manager_id"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
                                                     <br><input type="submit" name="emp_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
                                                 </div>
                                             </form>
@@ -277,6 +282,7 @@
                             $new_city = $_POST['city_edit'];
                             $new_province = $_POST['province_edit'];
                             $new_pc = $_POST['pc_edit'];
+                            $new_manager = $_POST['manager_edit'];
                             $edit_emp = 'UPDATE emp SET 
                                 emp_first_name = "' . $new_fn . '",
                                 emp_last_name = "' . $new_ln . '",
@@ -301,6 +307,38 @@
                             $id_chosen = $_POST['emp_delete']; 
                             $sql_delete = "DELETE FROM emp where emp_id =". $id_chosen;
                             $result = mysqli_query($connect, $sql_delete);
+                            echo "<meta http-equiv='refresh' content='0'>";
+                        }
+                        if (isset($_POST['emp_add_submit'])) {
+                            //get entries from form
+                            $fn_new = $_POST['fn_new'];
+                            $ln_new = $_POST['ln_new'];
+                            $email_new = $_POST['email_new'];
+                            $phone_new = $_POST['phone_new'];
+                            $sno_new = $_POST['sno_new'];
+                            $sname_new = $_POST['sname_new'];
+                            $city_new = $_POST['city_new'];
+                            $province_new = $_POST['province_new'];
+                            $pc_new = $_POST['pc_new'];
+                            $manager_new = $_POST['manager_new'];
+
+                            //find the next available id
+                            echo $last_id;
+                            $last_id = 'SELECT MAX(emp_id) from emp ORDER BY emp_id DESC;';
+                            $result_last_id = mysqli_query($connect,$last_id);
+                            if (!$result_last_id) {echo 'failed';}
+                            $row = mysqli_fetch_assoc($result_last_id);
+                            $new_id = $row['MAX(emp_id)'] + 1; 
+
+                            $sql_add = 'INSERT INTO emp VALUES (' . $new_id .',"' . $fn_new . '", "' . $ln_new . '", "' . $email_new . '", "' . $phone_new . '", "' . $sno_new . '", "' . $sname_new . '", "' . $city_new . '", "' . $province_new . '", "' . $pc_new . '", ' . $manager_new . ');';
+                            $result = mysqli_query($connect, $sql_add);
+                            if ($result) {
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            } else {
+                                ?>
+                                    <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
+                                <?php 
+                            }
                             echo "<meta http-equiv='refresh' content='0'>";
                         }
 
@@ -393,9 +431,25 @@
                         if (isset($_POST['emp_dept_delete'])) { // if delete button is selected
                             $id_chosen = $_POST['emp_dept_delete']; 
                             $sql_delete = "DELETE FROM emp_dept where emp_id =". $id_chosen;
-                            $result = mysqli_query($connect, $sql_delete);
+                            $result_delete = mysqli_query($connect, $sql_delete);
                             echo "<meta http-equiv='refresh' content='0'>";
                         }
+                        if (isset($_POST['emp_dept_add_submit'])) {
+                            //get entries from form
+                            $emp_id_new = $_POST['emp_id_new'];
+                            $dept_id_new = $_POST['dept_id_new'];
+
+                            $sql_add = 'INSERT INTO emp_dept VALUES (' . $emp_id_new .',' . $dept_id_new . ');';
+                            $result_add = mysqli_query($connect, $sql_add);
+                            if ($result_add) {
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            } else {
+                                ?>
+                                    <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
+                                <?php 
+                            }
+                        }
+
 
                         $sql = "SELECT * FROM dept
                         ORDER BY dept_id ASC;";
@@ -468,7 +522,6 @@
                             </div>
                             <?php
                         }
-
                         if (isset($_POST['dept_apply'])){
                             $dept_id = $_POST['dept_id_edit'];
                             $new_dept_name = $_POST['dept_name_edit'];
@@ -490,6 +543,28 @@
                             $sql_delete = "DELETE FROM emp_dept WHERE dept_id =". $id_chosen;
                             $result = mysqli_query($connect, $sql_delete);
                             echo "<meta http-equiv='refresh' content='0'>";
+                        }
+                        if (isset($_POST['dept_add_submit'])) {
+                            //get entries from form
+                            $dept_name_new = $_POST['dept_name_new'];
+
+                            //find the next available id
+                            echo $last_id;
+                            $last_id = 'SELECT MAX(dept_id) from dept ORDER BY dept_id DESC;';
+                            $result_last_id = mysqli_query($connect,$last_id);
+                            if (!$result_last_id) {echo 'failed';}
+                            $row = mysqli_fetch_assoc($result_last_id);
+                            $new_id = $row['MAX(dept_id)'] + 1; 
+
+                            $sql_add = 'INSERT INTO dept VALUES (' . $new_id .', "' . $dept_name_new . '");';
+                            $result_add = mysqli_query($connect, $sql_add);
+                            if ($result_add) {
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            } else {
+                                ?>
+                                    <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
+                                <?php 
+                            }
                         }
 
                         $sql = "SELECT * FROM emp_bank_account
@@ -530,7 +605,21 @@
                             $result = mysqli_query($connect, $sql_delete);
                             echo "<meta http-equiv='refresh' content='0'>";
                         }
+                        if (isset($_POST['emp_bank_account_submit'])) {
+                            //get entries from form
+                            $emp_id_new = $_POST['emp_id_new'];
+                            $account_id_new = $_POST['account_id_new'];
 
+                            $sql_add = 'INSERT INTO emp_bank_account VALUES (' . $emp_id_new .', "' . $account_id_new . '");';
+                            $result_add = mysqli_query($connect, $sql_add);
+                            if ($result_add) {
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            } else {
+                                ?>
+                                    <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
+                                <?php 
+                            }
+                        }
 
                         $sql = "SELECT * FROM bank_account
                         ORDER BY account_id ASC;";                           
@@ -997,6 +1086,130 @@
                         ?>
                 </div>
                 <!-- Add Modals -->
+                <div class="modal fade" id="emp_modal_add" tabindex="-1" role="dialog" aria-labelledby="emp_modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4 py-5 p-md-5">
+                                <h3 class="text-center mb-3">Add a new employee</h3>
+                                <form action="" class="signup-form" method="post">
+                                    <div class="form-group mb-2">
+                                        <label for="fn">First Name</label>
+                                        <input type="text" name="fn_new" class="form-control" >
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="ln">Last Name</label>
+                                        <input type="text" name="ln_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="email">Email</label>
+                                        <input type="text" name="email_new" class="form-control" >
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" name="phone_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="sno">Street Number</label>
+                                        <input type="text" name="sno_new" class="form-control" >
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="sname">Street Name</label>
+                                        <input type="text" name="sname_new" class="form-control" >
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="city">City</label>
+                                        <input type="text" name="city_new" class="form-control" >
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="province">Province</label>
+                                        <input type="text" name="province_new" class="form-control" >
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="pc">Postal Code</label>
+                                        <input type="text" name="pc_new" class="form-control" >
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="pc">Manager ID</label>
+                                        <input type="text" name="manager_new" class="form-control" >
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <br><input type="submit" name="emp_add_submit" value="Add employee" class="form-control btn btn-primary rounded submit px-3">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="emp_dept_add" tabindex="-1" role="dialog" aria-labelledby="emp_dept_add_modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4 py-5 p-md-5">
+                                <h3 class="text-center mb-3">Add to table emp_dept</h3>
+                                <form action="" class="signup-form" method="post">
+                                    <div class="form-group mb-2">
+                                        <label for="emp_id_new">Employee ID</label>
+                                        <input type="text" name="emp_id_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="dept_id_new">Department ID</label>
+                                        <input type="text" name="dept_id_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <br><input type="submit" name="emp_dept_add_submit" value="Add" class="form-control btn btn-primary rounded submit px-3">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="dept_add" tabindex="-1" role="dialog" aria-labelledby="dept_modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4 py-5 p-md-5">
+                                <h3 class="text-center mb-3">Make changes to department <?php echo $row["dept_id"]?></h3>
+                                <form action="" class="signup-form" method="post">
+                                    <div class="form-group mb-2">
+                                        <input type="hidden" name="dept_id_new" class="form-control" value="<?php echo $row["dept_id"]?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="fn">Department Name</label>
+                                        <input type="text" name="dept_name_new" class="form-control" value="<?php echo $row["dept_name"]?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <br><input type="submit" name="dept_add_submit" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="emp_bank_account_add" tabindex="-1" role="dialog" aria-labelledby="emp_dept_add_modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4 py-5 p-md-5">
+                                <h3 class="text-center mb-3">Add to table emp_bank_account</h3>
+                                <form action="" class="signup-form" method="post">
+                                    <div class="form-group mb-2">
+                                        <label for="emp_id_new">Employee ID</label>
+                                        <input type="text" name="emp_id_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="dept_id_new">Account ID</label>
+                                        <input type="text" name="account_id_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <br><input type="submit" name="emp_bank_account_submit" value="Add" class="form-control btn btn-primary rounded submit px-3">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>   
         </div> 
     </body>
