@@ -2,7 +2,7 @@
 <!DOCTYPE html> 
     <head>
         <meta charset="UTF-8">
-        <meta name = "description" content = "main page">
+        <meta name = "description" content = "employee page">
         <meta name = "keywords" content = "PHP">
         <meta name = "author" content = "Camillia Amin">
         <meta name = "viewport" content= "width = device-width, initial-scale = 1.0">
@@ -228,7 +228,7 @@
                                 <div class="modal-content">
                                     <div class="modal-body p-4 py-5 p-md-5">
                                         <h3 class="text-center mb-3">Edit Your Personal Information</h3>
-                                        <form action="" class="signup-form" method="post">
+                                        <form class="signup-form" method="post">
                                             <div class="form-group mb-2">
                                                 <label for="phone">Phone</label>
                                                 <input type="text" name="phone" class="form-control" value="<?php echo $phone?>">
@@ -251,14 +251,13 @@
                                             </div>
                                             <div class="form-group mb-2">
                                                 <label for="pc">Postal Code</label>
-                                                <input type="text" name="pc" class="form-control" value="<?php echo $pc ?>"">
+                                                <input type="text" name="pc" class="form-control" value="<?php echo $pc ?>">
                                             </div>
                                             <div class="form-group mb-2">
-                                                <br><button type="submit" class="form-control btn btn-primary rounded submit px-3">Submit</button>
+                                                <br><input type="submit" name="submit_changePI" class="form-control btn btn-primary rounded submit px-3">
                                             </div>
                                         </form>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -267,7 +266,7 @@
                         <div class="work_log_title">
                             <div><h4>Work Log</h4></div>
                             <div>
-                                <svg data-toggle="modal" data-target="#work_period_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <svg data-toggle="modal" data-target="#work_period_modal" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                                 <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                                 </svg>
@@ -286,11 +285,6 @@
                                 echo "<td>" . $row["end_time"] . "</td>";
                                 echo '<td><div class="actions">
                                     <form method="post">
-                                        <button type="submit" name="work_period_edit" data-toggle="modal" data-target="#work_period_modal" value="' . $row["work_period_id"] . '">
-                                            <svg style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
-                                        </button>
-
                                         <button type="submit" name="work_period_delete" value="' . $row["work_period_id"] . '">
                                             <svg style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill delete" viewBox="0 0 16 16">
                                             <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
@@ -302,86 +296,94 @@
                         }
                         ?>
                     </div>
-                    <?php
-                    if (isset($_POST['work_period_edit'])) {
-                        $id_chosen = $_POST['work_period_edit']; 
-                        $sql_get_edit = "SELECT * from work_period WHERE work_period_id = $id_chosen";
-                        $result_edit = mysqli_query($connect, $sql_get_edit);
-                        $row = mysqli_fetch_assoc($result_edit);
-                    ?>
-                    <script>
-                        $(function() {
-                            $('#work_period_modal').modal('show');
-                        });
-                    </script>
                     <div class="modal fade" id="work_period_modal" tabindex="-1" role="dialog" aria-labelledby="work_period_modalTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-body p-4 py-5 p-md-5">
-                                    <h3 class="text-center mb-3">Make changes to log <?php echo $row["work_period_id"]?></h3>
+                                    <h3 class="text-center mb-3">Add a new log</h3>
                                     <form action="" class="signup-form" method="post">
                                         <div class="form-group mb-2">
-                                            <input type="hidden" name="work_period_id_edit" class="form-control" value="<?php echo $row["work_period_id"]?>">
+                                            <input type="hidden" name="work_period_id_edit" class="form-control" value="">
                                         </div>
                                         <div class="form-group mb-2">
                                             <label for="fn">Start Time</label>
-                                            <input type="text" name="start_edit" class="form-control" value="<?php echo $row["start_time"]?>">
+                                            <input type="text" name="new_start" class="form-control" value="<?php echo date("Y-m-d")?> 09:00:00">
                                         </div>
                                         <div class="form-group mb-2">
                                             <label for="ln">End Time</label>
-                                            <input type="text" name="end_edit" class="form-control" value="<?php echo $row['end_time']?>">
+                                            <input type="text" name="new_end" class="form-control" value="<?php echo date("Y-m-d")?> 17:00:00">
                                         </div>
                                         <div class="form-group mb-2">
-                                            <br><input type="submit" name="work_period_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                            <br><input type="submit" name="work_period_add_record" value="Add" class="form-control btn btn-primary rounded submit px-3">
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                     <?php
-                        if (isset($_POST['work_period_apply'])){
-                            include ('view_employee_edit.php'); 
+                    if (isset($_POST["submit_changePI"])) { //edit personal info
+                        $new_phone = $_POST['phone'];
+                        $new_sno = $_POST['sno'];
+                        $new_sname = $_POST['sname'];
+                        $new_city = $_POST['city'];
+                        $new_province = $_POST['province'];
+                        $new_pc = $_POST['pc'];
+                        $edit_emp = 'UPDATE emp SET 
+                            emp_phone = "' . $new_phone . '",
+                            emp_address_street_number = '. $new_sno . ',
+                            emp_address_street_name = "' .$new_sname . '",
+                            emp_address_city = "' .$new_city . '",
+                            emp_address_province = "' .$new_province . '",
+                            emp_address_postal_code = "' .$new_pc . '"
+                            WHERE emp_id =' . $id . '';
+                        $result = mysqli_query($connect, $edit_emp);
+                        if ($result) {
+                            echo "<meta http-equiv='refresh' content='0'>";
+                        } else {
+                            echo 'Error updating record: ' . mysqli_error($connect);
                         }
                     }
-                    if (isset($_POST['work_period_add'])) {
+                    if (isset($_POST['work_period_delete'])) { //delete work log record
+                        $id_chosen = $_POST['work_period_delete']; 
+                        $sql_delete = "DELETE FROM work_period where work_period_id = $id_chosen";
+                        $result = mysqli_query($connect, $sql_delete);
+                        $row = mysqli_fetch_assoc($result);
+                        echo "<meta http-equiv='refresh' content='0'>";
+                    } 
+                    if (isset($_POST['work_period_add'])) { //if add button is selected
                         ?>
                         <script>
                             $(function() {
-                                $('#work_period_modal_add').modal('show');
+                                $('#work_period_modal').modal('show');
                             });
                         </script>
-                        <div class="modal fade" id="work_period_modal_add" tabindex="-1" role="dialog" aria-labelledby="work_period_modal_addTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body p-4 py-5 p-md-5">
-                                        <h3 class="text-center mb-3">Add to work log</h3>
-                                        <form action="" class="signup-form" method="post">
-                                            <input type="hidden" name="emp_id" class="form-control" value="<?php echo $id?>">
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Start Time</label>
-                                                <input type="text" name="start_add" class="form-control" value="2022-06-05 09:00:00">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="ln">End Time</label>
-                                                <input type="text" name="end_add" class="form-control" value="2022-06-05 05:00:00">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <br><input type="submit" name="work_period_add_log" value="Add" class="form-control btn btn-primary rounded submit px-3">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <?php
-                            if (isset($_POST['work_period_add_log'])){
-                                // echo '<script>alert("worked");</script>';
-                                include ('view_employee_edit.php'); 
-                            }
+                    } 
+                    if (isset($_POST['work_period_add_record'])) { //if submit button on modal is selected
+                        $new_start = $_POST['new_start'];
+                        $new_end = $_POST['new_end'];
+
+                        //find the next available work period id
+                        $last_id = 'SELECT MAX(work_period_id) from work_period ORDER BY work_period_id DESC;';
+                        $result_last_id = mysqli_query($connect,$last_id);
+                        $row = mysqli_fetch_assoc($result_last_id);
+                        $new_work_id = $row['MAX(work_period_id)'] + 1;
+                        //add to work_period table
+                        $add_work = 'INSERT INTO work_period VALUES (' . $new_work_id .',"' . $new_start . '", "' . $new_end . '");';
+                        //add to emp_work_period table
+                        $add_emp_word = 'INSERT INTO emp_work_period VALUES ( '. $id . ',' . $new_work_id . ');';
+
+                        if (mysqli_query($connect, $add_work)) { 
+                            echo "Added to work_period successfully";
+                            echo "<meta http-equiv='refresh' content='0'>";
+                        } if (mysqli_query($connect, $add_emp_word)) { 
+                            echo "Added to emp_work_period successfully";
+                        } else {
+                            echo "Error updating record: " . mysqli_error($connect);
                         }
-                    ?>
-                    
+                    }
+                    ?>                  
                 </div>          
             </div> 
         </div>
