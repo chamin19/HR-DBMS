@@ -5,93 +5,14 @@
         <meta name = "keywords" content = "PHP">
         <meta name = "author" content = "Camillia Amin">
         <meta name = "viewport" content= "width = device-width, initial-scale = 1.0">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css\index.css">
+        <link rel="stylesheet" href="css\view_dba_data.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <style>
-            input {
-                cursor: pointer;
-            }
-            .container {
-                width: 100%;
-            }
-            #table_info {
-                background-color: #f3f5f6;
-                height: 85vh;
-                padding: 20px;
-            }
-            #tables {
-                background-color: #dadfec;
-                height: 85vh;
-                overflow-y: scroll;
-                padding: 20px;
-            }
-            .title div {
-                display: inline-block;
-            }
-            .actions button {
-                display: inline;
-                text-align: center;
-                padding: 6;
-                border: none;
-                background: none;
-            }
-            .buttons form {
-                display: inline-block;
-            }
-            .edit, .delete {
-                cursor: pointer;
-            }
-            .data_table table {
-                font-family: 'Courier New', Courier, monospace;
-                border: 2px solid black;
-                font-size: 14px;
-                border-collapse: separate;
-                border-spacing: 0px;
-                background-color: white;
-            }
-            .data_table th {
-                background-color: #2A4895;
-                color: white;
-                padding: 12px;
-                text-align: left;
-                font-size: 14px;
-                padding: 2px;
-                font-weight: bold;
-            }
-            .data_table td {
-                background-color: white;
-            }
-            .data_table tr:hover {background-color: #ddd;}
-            .data_table td, th {
-                border: 1px solid #ddd;
-                padding: 5px;
-
-            }
-            .logo {
-                position: absolute;
-                left: 20px;
-                top: 20px;
-            }
-            body {
-                overflow: hidden;
-            }
-            h2 {
-                color: #2A4895;
-                text-transform: uppercase;
-                font-size: 20px;
-                font-weight: 700;
-            }
-            h4 {
-                text-transform: uppercase;
-                font-weight: bold;
-                color: #2A4895;
-            }
-        </style>
     </head>
     <body>
         <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
@@ -1147,13 +1068,7 @@
                         $result = mysqli_query($connect, $sql);
                         ?>
                         <table class='data_table'>
-                            <div class="title">
-                                <div class="name"><h4 id='emp_work_period_table'>emp_work_period</h4></div>
-                                <div><svg data-toggle="modal" data-target="#emp_work_period_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
-                                </div>
-                            </div> 
+                            <div class="name"><h4 id='emp_work_period_table'>emp_work_period</h4></div>
                             <tr><th>Employee ID</th>
                             <th>Work Period ID</th></tr>
                         <?php
@@ -1171,13 +1086,7 @@
                         $result = mysqli_query($connect, $sql);
                         ?>
                         <table class='data_table'>
-                            <div class="title">
-                                <div class="name"><h4 id='work_period_table'>work_period</h4></div>
-                                <div style="margin-left: 230px;"><svg data-toggle="modal" data-target="#work_period_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
-                                </div>
-                            </div>
+                            <h4 id='work_period_table'>work_period</h4>
                             <tr><th>Work Period ID</th>
                             <th>Start Time</th>
                             <th>End Time</th></tr>
@@ -1192,7 +1101,7 @@
                         } 
                         ?>
                 </div>
-                <!-- Add Modals -->
+                <!-- Modals for adding records -->
                 <div class="modal fade" id="emp_modal_add" tabindex="-1" role="dialog" aria-labelledby="emp_modalTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
