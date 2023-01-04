@@ -94,24 +94,24 @@
             </div>
                 <div class="row">
                     <div class="col-sm-2" id="table_info">    
-                        <h4>Tables</h4>
-                        <p>emp</p>
-                        <p>emp_dept</p>
-                        <p>dept</p>
-                        <p>emp_bank_account</p>
-                        <p>bank_account</p>
-                        <p>account_payment</p>
-                        <p>payment</p>
-                        <p>emp_position</p>
-                        <p>position_table</p>
-                        <p>emp_work_period</p>
-                        <p>work_period</p>
+                        <h4>&emsp;Tables</h4>
+                        <p>&emsp;emp</p>
+                        <p>&emsp;emp_dept</p>
+                        <p>&emsp;dept</p>
+                        <p>&emsp;emp_bank_account</p>
+                        <p>&emsp;bank_account</p>
+                        <p>&emsp;account_payment</p>
+                        <p>&emsp;payment</p>
+                        <p>&emsp;emp_position</p>
+                        <p>&emsp;position_table</p>
+                        <p>&emsp;emp_work_period</p>
+                        <p>&emsp;work_period</p>
                     </div>
                     <div class="col-md-10">
                         <div class="row">
                             <div class="col-sm-12" id="editor">
                                 <form method = "post" action="">
-                                    <textarea rows = "9" cols = "60" name = "query" id="query" spellcheck="false" autocorrect="off" autocapitalize="off"><?php 
+                                    <textarea rows = "9" cols = "100" name = "query" id="query" spellcheck="false" autocorrect="off" autocapitalize="off"><?php 
                                         if(isset($_POST['query'])) {
                                             echo htmlentities ($_POST['query']); 
                                         } else {
@@ -140,13 +140,13 @@
                                                     if (strcmp(trim($word),'FROM') == 0 || strcmp(trim($word),'from') == 0){
                                                         break;
                                                     } else {
-                                                        preg_replace('/[,|;]?/', '', $word);
+                                                        $word = preg_replace('/[,|;]?/', '', $word);
                                                         $columns[] = trim($word);
                                                     }
                                                 }  
                                                 echo "<tr>";
                                                 foreach ($columns as $col) {
-                                                    echo "<th>" . $col . "</th>";
+                                                    echo "<th style='text-transform:uppercase'>" . $col . "</th>";
                                                 }
                                                 echo "</tr>";
                                             } 
@@ -165,7 +165,7 @@
                                             echo "Query could not be executed<br>" . mysqli_error($connect);
                                         }
                                     } else {
-                                        echo "<p>Must be a query</p>";
+                                        echo "<p>&emsp;Must be a query</p>";
                                     }
                                 }
                                 ?>
