@@ -2,8 +2,9 @@
 
 ## Accessing the Application
 
-1. Visit [HR Payroll Management](https://hr-payroll-management-system.000webhostapp.com/)
-2. Select a view (either an Employee or HR Coordinator) 
+1. Visit the [HR Payroll Management System](https://hr-payroll-management-system.000webhostapp.com/)
+2. Select the HR Coordinator view to read, edit, or delete records from the database 
+3. Select the Employee view to add a work log or edit personal information
 
 ## Project Description
 This is an HR Payroll Database Management system to be used by HR staff and employees. It incorporates functions that may be utlized by a Database Administrator
