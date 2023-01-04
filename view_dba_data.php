@@ -741,9 +741,9 @@
                             $new_id = $row['MAX(account_id)'] + 1; 
 
                             //get entries from form
-                            $tran_number_edit = $_POST['tran_number_edit'];
-                            $inst_number_edit = $_POST['inst_number_edit'];
-                            $acc_number_edit = $_POST['acc_number_edit'];
+                            $tran_number_new = $_POST['tran_number_edit'];
+                            $inst_number_new = $_POST['inst_number_edit'];
+                            $acc_number_new = $_POST['acc_number_edit'];
 
                             $sql_add = 'INSERT INTO bank_account VALUES (' . $new_id .', ' . $tran_number_edit . ', ' . $inst_number_edit .  ', ' . $acc_number_edit . ');';
                             $result_add = mysqli_query($connect, $sql_add);
@@ -793,6 +793,22 @@
                             $result = mysqli_query($connect, $sql_delete);
                             echo "<meta http-equiv='refresh' content='0'>";
                         }
+                        if (isset($_POST['account_payment_submit'])) {
+                            //get entries from form
+                            $account_id_new = $_POST['account_id_new'];
+                            $tran_number_new = $_POST['tran_number_new'];
+
+                            $sql_add = 'INSERT INTO account_payment VALUES (' . $account_id_new .', "' . $tran_number_new . '");';
+                            $result_add = mysqli_query($connect, $sql_add);
+                            if ($result_add) {
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            } else {
+                                ?>
+                                    <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
+                                <?php 
+                            }
+                        }
+
 
                         $sql = "SELECT * FROM payment
                         ORDER BY payment_id ASC;";
@@ -1236,31 +1252,58 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body p-4 py-5 p-md-5">
-                                <h3 class="text-center mb-3">Make changes to account <?php echo $row["account_id"]?></h3>
+                                <h3 class="text-center mb-3">Add an account</h3>
                                 <form action="" class="signup-form" method="post">
                                     <div class="form-group mb-2">
-                                        <input type="hidden" name="account_id_edit" class="form-control" value="<?php echo $row["account_id"]?>">
+                                        <input type="hidden" name="account_id_new" class="form-control">
                                     </div>
                                     <div class="form-group mb-2">
                                         <label for="fn">Transit Number</label>
-                                        <input type="text" name="tran_number_edit" class="form-control" value="<?php echo $row["transit_number"]?>">
+                                        <input type="text" name="tran_number_new" class="form-control" >
                                     </div>
                                     <div class="form-group mb-2">
                                         <label for="fn">Institution Number</label>
-                                        <input type="text" name="inst_number_edit" class="form-control" value="<?php echo $row["institution_number"]?>">
+                                        <input type="text" name="inst_number_new" class="form-control">
                                     </div>
                                     <div class="form-group mb-2">
                                         <label for="fn">Account Number</label>
-                                        <input type="text" name="acc_number_edit" class="form-control" value="<?php echo $row["account_number"]?>">
+                                        <input type="text" name="acc_number_new" class="form-control">
                                     </div>
                                     <div class="form-group mb-2">
-                                        <br><input type="submit" name="bank_submit" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                        <br><input type="submit" name="bank_submit" value="Add" class="form-control btn btn-primary rounded submit px-3">
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="modal fade" id="account_payment_add" tabindex="-1" role="dialog" aria-labelledby="bank_account_modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4 py-5 p-md-5">
+                                <h3 class="text-center mb-3">Add to account_payment</h3>
+                                <form action="" class="signup-form" method="post">
+                                    <div class="form-group mb-2">
+                                    <label for="account_id_new">Account ID</label>
+                                        <input type="text" name="account_id_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="tran_number_new">Payment ID</label>
+                                        <input type="text" name="tran_number_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <br><input type="submit" name="account_payment_submit" value="Add" class="form-control btn btn-primary rounded submit px-3">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
             </div>   
         </div> 
     </body>
