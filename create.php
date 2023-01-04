@@ -15,8 +15,13 @@
         emp_address_city VARCHAR(100) NOT NULL, 
         emp_address_province VARCHAR(2) NOT NULL, 
         emp_address_postal_code VARCHAR(7) NOT NULL,
+        manager_id INTEGER,
         /* recursive manager to worker 1:N relationship */
-        manager_id INTEGER REFERENCES emp(emp_id)
+        CONSTRAINT fk_manager_id
+            FOREIGN KEY (manager_id)
+            REFERENCES emp(emp_id)
+            ON DELETE SET NULL
+        -- manager_id INTEGER REFERENCES emp(emp_id)
         );";
     
     $created = mysqli_query($connect, $sql);  
@@ -31,8 +36,10 @@
         emp_id INTEGER NOT NULL,
         dept_id INTEGER NOT NULL, 
         PRIMARY KEY(emp_id, dept_id),
-        FOREIGN KEY(emp_id)
-                    REFERENCES emp(emp_id)
+        CONSTRAINT fk_emp_id_ed
+            FOREIGN KEY(emp_id)
+            REFERENCES emp(emp_id)
+            ON DELETE CASCADE
         );";
 
     $created = mysqli_query($connect, $sql);  
@@ -61,8 +68,10 @@
         emp_id INTEGER NOT NULL,
         account_id INTEGER NOT NULL, 
         PRIMARY KEY(emp_id,account_id),
-        FOREIGN KEY(emp_id)
-                    REFERENCES emp(emp_id)
+        CONSTRAINT fk_emp_id_eba
+            FOREIGN KEY(emp_id)
+            REFERENCES emp(emp_id)
+            ON DELETE CASCADE
         );";
 
     $created = mysqli_query($connect, $sql);  
@@ -124,8 +133,10 @@
         position_start_date DATE NOT NULL,
         position_end_date DATE, 
         PRIMARY KEY(emp_id, position_id),
-        FOREIGN KEY(emp_id)
-                    REFERENCES emp(emp_id)
+        CONSTRAINT fk_emp_id_ep
+            FOREIGN KEY(emp_id)
+            REFERENCES emp(emp_id)
+            ON DELETE CASCADE
         );";
 
     $created = mysqli_query($connect, $sql);  
@@ -157,11 +168,13 @@
         emp_id INTEGER NOT NULL,
         work_period_id INTEGER NOT NULL,
         PRIMARY KEY(emp_id,work_period_id),
-        FOREIGN KEY(emp_id)
-                    REFERENCES emp(emp_id)
+        CONSTRAINT fk_emp_id_ewp
+            FOREIGN KEY(emp_id)
+            REFERENCES emp(emp_id)
+            ON DELETE CASCADE
         );";
 
-    $created = mysqli_query($connect, $sql);  
+    $created = mysqli_query($connect, $sql);
 
     if($created){
         echo "<br>emp_work_period table created successfully.";
