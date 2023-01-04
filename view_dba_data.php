@@ -268,58 +268,8 @@
                                 </div>
                                 <?php
                             } 
-                            function bulk_sql_update_query($table, $array)
-                            {
-                                /*
-                                * Example:
-                                INSERT INTO mytable (id, a, b, c)
-                                VALUES (1, 'a1', 'b1', 'c1'),
-                                (2, 'a2', 'b2', 'c2'),
-                                (3, 'a3', 'b3', 'c3'),
-                                (4, 'a4', 'b4', 'c4'),
-                                (5, 'a5', 'b5', 'c5'),
-                                (6, 'a6', 'b6', 'c6')
-                                ON DUPLICATE KEY UPDATE id=VALUES(id),
-                                a=VALUES(a),
-                                b=VALUES(b),
-                                c=VALUES(c);
-                            */
-                                $sql = "";
-
-                                $columns = array_keys($array[0]);
-                                $columns_as_string = implode(', ', $columns);
-
-                                $sql .= "
-                                INSERT INTO $table
-                                (" . $columns_as_string . ")
-                                VALUES ";
-
-                                $len = count($array);
-                                foreach ($array as $index => $values) {
-                                    $sql .= '("';
-                                    $sql .= implode('", "', $array[$index]) . "\"";
-                                    $sql .= ')';
-                                    $sql .= ($index == $len - 1) ? "" : ", \n";
-                                }
-
-                                $sql .= "\nON DUPLICATE KEY UPDATE \n";
-
-                                $len = count($columns);
-                                foreach ($columns as $index => $column) {
-
-                                    $sql .= "$column=VALUES($column)";
-                                    $sql .= ($index == $len - 1) ? "" : ", \n";
-                                }
-
-                                $sql .= ";";
-
-                                return $sql;
-                            }
-
-                            
 
                             if (isset($_POST['emp_apply'])){
-                                $edit_emp = bulk_sql_update_query('emp', $array);
                                 $emp_id = $_POST['emp_id_edit'];
                                 $new_fn = $_POST['fn_edit'];
                                 $new_ln = $_POST['ln_edit'];
@@ -331,23 +281,23 @@
                                 $new_province = $_POST['province_edit'];
                                 $new_pc = $_POST['pc_edit'];
                                 $edit_emp = 'UPDATE emp SET 
-                                    emp_first_name = "$new_fn",
-                                    emp_last_name = "$new_ln",
-                                    emp_email = "$new_email",
-                                    emp_phone = "$new_phone",
-                                    emp_address_street_number = $new_sno,
-                                    emp_address_street_name = "$new_sname",
-                                    emp_address_city = "$new_city",
-                                    emp_address_province = "$new_province",
-                                    emp_address_postal_code = "$new_pc"
+                                    emp_first_name = "' . $new_fn . '",
+                                    emp_last_name = "' . $new_ln . '",
+                                    emp_email = "' . $new_email  . '",
+                                    emp_phone = "' . $new_phone . '",
+                                    emp_address_street_number = '. $new_sno . ',
+                                    emp_address_street_name = "' .$new_sname . '",
+                                    emp_address_city = "' .$new_city . '",
+                                    emp_address_province = "' .$new_province . '",
+                                    emp_address_postal_code = "' .$new_pc . '"
                                     WHERE emp_id =' . $emp_id . '';
-                                // https://stackoverflow.com/questions/20255138/sql-update-multiple-records-in-one-query
                                 $result = mysqli_query($connect, $edit_emp);
                                 if ($result) {
-                                    echo "Record updated successfully";
-                                    // echo "<meta http-equiv='refresh' content='0'>";
+                                    echo "<meta http-equiv='refresh' content='0'>";
                                 } else {
-                                echo "Error updating record: " . mysqli_error($connect);
+                                    ?>
+                                        <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
+                                    <?php 
                                 }
                             }
 
