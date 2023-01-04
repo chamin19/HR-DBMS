@@ -101,7 +101,7 @@
                     <br><br><br><h3 style="font-size: 16px; padding-left: 27px;">HR Coordinator View</h3>
                 </div>
                 <div class="col-sm-9 buttons">
-                    <br>
+                    <br><br><br>
                     <form action = "" method = "post">
                         <input type = "submit" value = "Populate values" name="populate" class="button" id="light">
                         <input type = "submit" value = "Delete values" name="delete" class="button" id="light">
