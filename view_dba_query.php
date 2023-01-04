@@ -76,42 +76,39 @@
                 color: #2A4895;
             }
             .logo {
-    position: absolute;
-    left: 20px;
-    top: 20px;
-}
+                position: absolute;
+                left: 20px;
+                top: 20px;
+            }
+            .view_tables {
+                position: absolute;
+                right: 20px;
+                top: 40px;
+            }
         </style>
     </head>
     <body>
         <main>
-        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br><br>
-        <div class="container">
-            <div class="row header">
-                <div class="col-sm-3" style="text-align: left;">  
-                    <br><h3 style="font-size: 16px; padding-left: 27px;">HR Coordinator View</h3>
-                </div>
-                <div class="col-sm-9 buttons">
-                    <br>
-                    <form action = "view_dba_data.php" method = "">
-                        <input type = "submit" value = "View tables" class="button" id="light">
-                    </form>
-                    </div>
-                </div>
-            </div>
+            <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br><br>
+            <br><h3 style="font-size: 16px; padding-left: 42px;">HR Coordinator View</h3>
+            <form action = "view_dba_data.php" method = "">
+                <input type = "submit" value = "View tables" class="button view_tables" id="light">
+            </form>
+            <div class="container">
                 <div class="row">
                     <div class="col-sm-2" id="table_info">    
-                        <h4>&nbsp;&nbsp;&nbsp;Tables</h4>
-                        <p>&emsp;emp</p>
-                        <p>&emsp;emp_dept</p>
-                        <p>&emsp;dept</p>
-                        <p>&emsp;emp_bank_account</p>
-                        <p>&emsp;bank_account</p>
-                        <p>&emsp;account_payment</p>
-                        <p>&emsp;payment</p>
-                        <p>&emsp;emp_position</p>
-                        <p>&emsp;position_table</p>
-                        <p>&emsp;emp_work_period</p>
-                        <p>&emsp;work_period</p>
+                        <h4>Tables</h4>
+                        <p>emp</p>
+                        <p>emp_dept</p>
+                        <p>dept</p>
+                        <p>emp_bank_account</p>
+                        <p>bank_account</p>
+                        <p>account_payment</p>
+                        <p>payment</p>
+                        <p>emp_position</p>
+                        <p>position_table</p>
+                        <p>emp_work_period</p>
+                        <p>work_period</p>
                     </div>
                     <div class="col-md-10">
                         <div class="row">

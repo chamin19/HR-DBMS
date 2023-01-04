@@ -91,44 +91,45 @@
                 font-weight: bold;
                 color: #2A4895;
             }
+            .top_buttons {
+                position: absolute;
+                right: 20px;
+                top: 40px;
+            }
+            .top_buttons form {
+                display: inline-block;
+            }
         </style>
     </head>
     <body>
-        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
-        <div class="container header">
-            <div class="row">
-                <div class="col-sm-3" style="text-align: left">  
-                    <br><br><br><h3 style="font-size: 16px; padding-left: 27px;">HR Coordinator View</h3>
-                </div>
-                <div class="col-sm-9 buttons">
-                    <br><br><br>
-                    <form action = "" method = "post">
-                        <input type = "submit" value = "Populate values" name="populate" class="button" id="light">
-                        <input type = "submit" value = "Delete values" name="delete" class="button" id="light">
-                    </form>
-                    <form action = "view_dba_query.php" method = "">
-                        <input type = "submit" value = "Query tables" class="button" id="dark">
-                    </form>
-                    <?php
-                        include ('dbconnect.php'); 
-                        $sql = "SELECT * FROM emp;";
-                        $result = mysqli_query($connect,$sql);
-                        $numrows = mysqli_num_rows($result);
-                        if(isset($_POST['delete'])){
-                            if ($numrows > 0) { //if tables are populated
-                                include ('delete_values.php');
-                                echo "<meta http-equiv='refresh' content='0'>";
-                            }
-                        }
-                        if(isset($_POST['populate'])){
-                            if ($numrows == 0) { //if tables are empty
-                                include ('populate.php');
-                                echo "<meta http-equiv='refresh' content='0'>";
-                            }
-                        }
-                    ?>
-                </div>
-            </div>
+        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br><br>
+        <br><h3 style="font-size: 16px; padding-left: 42px;">HR Coordinator View</h3>
+        <div class="top_buttons">
+            <form action = "" method = "post">
+                <input type = "submit" value = "Populate values" name="populate" class="button" id="light">
+                <input type = "submit" value = "Delete values" name="delete" class="button" id="light">
+            </form>
+            <form action = "view_dba_query.php" method = "">
+                <input type = "submit" value = "Query tables" class="button" id="dark">
+            </form>
+            <?php
+                include ('dbconnect.php'); 
+                $sql = "SELECT * FROM emp;";
+                $result = mysqli_query($connect,$sql);
+                $numrows = mysqli_num_rows($result);
+                if(isset($_POST['delete'])){
+                    if ($numrows > 0) { //if tables are populated
+                        include ('delete_values.php');
+                        echo "<meta http-equiv='refresh' content='0'>";
+                    }
+                }
+                if(isset($_POST['populate'])){
+                    if ($numrows == 0) { //if tables are empty
+                        include ('populate.php');
+                        echo "<meta http-equiv='refresh' content='0'>";
+                    }
+                }
+            ?>
         </div>
         <div class="container">
             <div class="row header">
@@ -155,7 +156,7 @@
                         <table class="data_table">
                             <div class="title">
                                 <div class="name"><h4 id="emp_table">emp</h4></div>
-                                <div style="margin-left: 830px;">
+                                <div style="margin-left: 910px;">
                                     <svg data-toggle="modal" data-target="#emp_modal_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
@@ -171,6 +172,7 @@
                             <th>City</th>
                             <th>Province</th>
                             <th>Postal Code</th>
+                            <th>Manager ID</th>
                             <th>Actions</th></tr>
                         <?php
                         if ($result) {
@@ -185,6 +187,7 @@
                                 echo "<td>" . $row["emp_address_city"] . "</td>";
                                 echo "<td>" . $row["emp_address_province"] . "</td>";
                                 echo "<td>" . $row["emp_address_postal_code"] ."</td>";
+                                echo "<td>" . $row["manager_id"] ."</td>";
                                 echo '<td><div class="actions">
                                     <form method="post">
                                         <button type="submit" name="emp_edit" data-toggle="modal" data-target="#emp_modal" value="' . $row["emp_id"] . '">
