@@ -1018,7 +1018,7 @@
                         <table class='data_table'>
                             <div class="title">
                                 <div class="name"><h4 id='position_table'>position_table</h4></div>
-                                <div style="margin-left: 360px;"><svg data-toggle="modal" data-target="#position_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <div style="margin-left: 360px;"><svg data-toggle="modal" data-target="#position_table_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                                     <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
                                 </div>
@@ -1117,6 +1117,29 @@
                             $sql_delete = "DELETE FROM position_table where position_id =". $id_chosen;
                             $result = mysqli_query($connect, $sql_delete);
                             echo "<meta http-equiv='refresh' content='0'>";
+                        }
+                        if (isset($_POST['position_table_submit'])) {
+                            //find the next available id
+                            $last_id = 'SELECT MAX(position_id) from position_table ORDER BY position_id DESC;';
+                            $result_last_id = mysqli_query($connect,$last_id);
+                            if (!$result_last_id) {echo 'failed';}
+                            $row = mysqli_fetch_assoc($result_last_id);
+                            $new_id = $row['MAX(position_id)'] + 1; 
+
+                            //get entries from form
+                            $position_title_add = $_POST['position_title_add'];
+                            $positiontype_a_add = $_POST['positiontype_a_add'];
+                            $positiontype_b_add = $_POST['positiontype_b_add'];
+
+                            $sql_add = 'INSERT INTO position_table VALUES (' . $new_id .', "' . $position_title_add . '", "' . $positiontype_a_add . '", "' . $positiontype_b_add . '");';
+                            $result_add = mysqli_query($connect, $sql_add);
+                            if ($result_add) {
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            } else {
+                                ?>
+                                    <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
+                                <?php 
+                            }
                         }
 
                         $sql = "SELECT * FROM emp_work_period
@@ -1376,7 +1399,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body p-4 py-5 p-md-5">
-                                <h3 class="text-center mb-3">Make changes to position of employee <?php echo $row["emp_id"]?></h3>
+                                <h3 class="text-center mb-3">Add to emp_position</h3>
                                 <form action="" class="signup-form" method="post">
                                     <div class="form-group mb-2">
                                         <label for="fn">Employee ID</label>
@@ -1395,7 +1418,37 @@
                                         <input type="text" name="end_date_new" class="form-control">
                                     </div>
                                     <div class="form-group mb-2">
-                                        <br><input type="submit" name="emp_position_submit" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                        <br><input type="submit" name="emp_position_submit" value="Add" class="form-control btn btn-primary rounded submit px-3">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="position_table_add" tabindex="-1" role="dialog" aria-labelledby="position_table_modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4 py-5 p-md-5">
+                                <h3 class="text-center mb-3">Add a position</h3>
+                                <form action="" class="signup-form" method="post">
+                                    <div class="form-group mb-2">
+                                        <input type="hidden" name="position_id_add" class="form-control" value="<?php echo $row["emp_id"]?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="fn">Position Title</label>
+                                        <input type="text" name="position_title_add" class="form-control" value="<?php echo $row["position_title"]?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="fn">Full/Part Time</label>
+                                        <input type="text" name="positiontype_a_add" class="form-control" value="<?php echo $row["positiontype_a"]?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="fn">Permanent/Contractor</label>
+                                        <input type="text" name="positiontype_b_add" class="form-control" value="<?php echo $row["positiontype_b"]?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <br><input type="submit" name="position_table_submit" value="Aadd" class="form-control btn btn-primary rounded submit px-3">
                                     </div>
                                 </form>
                             </div>
