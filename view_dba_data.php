@@ -851,7 +851,30 @@
                             $result = mysqli_query($connect, $sql_delete);
                             echo "<meta http-equiv='refresh' content='0'>";
                         }
-                        
+                        if (isset($_POST['payment_submit'])) {
+                            //find the next available id
+                            $last_id = 'SELECT MAX(payment_id) from payment ORDER BY payment_id DESC;';
+                            $result_last_id = mysqli_query($connect,$last_id);
+                            if (!$result_last_id) {echo 'failed';}
+                            $row = mysqli_fetch_assoc($result_last_id);
+                            $new_id = $row['MAX(payment_id)'] + 1; 
+
+                            //get entries from form
+                            $paystub_new = $_POST['paystub_new'];
+                            $date_new = $_POST['date_new'];
+
+                            $sql_add = 'INSERT INTO payment VALUES (' . $new_id .', ' . $paystub_new . ', "' . $date_new . '");';
+                            $result_add = mysqli_query($connect, $sql_add);
+                            if ($result_add) {
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            } else {
+                                ?>
+                                    <script>alert("<?php echo 'Error updating record: ' . mysqli_error($connect)?> ")</script>
+                                <?php 
+                            }
+                        }
+
+
                         $sql = "SELECT * FROM emp_position
                         ORDER BY emp_id ASC;";
                         $result = mysqli_query($connect, $sql);
@@ -1301,9 +1324,31 @@
                     </div>
                 </div>
 
-
-
-
+                <div class="modal fade" id="payment_add" tabindex="-1" role="dialog" aria-labelledby="bank_account_modalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-4 py-5 p-md-5">
+                                <h3 class="text-center mb-3">Add a payment</h3>
+                                <form action="" class="signup-form" method="post">
+                                    <div class="form-group mb-2">
+                                        <input type="hidden" name="payment_id_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="tran_number_new">Paystub Amount</label>
+                                        <input type="text" name="paystub_new" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="tran_number_new">Payment Date</label>
+                                        <input type="text" name="date_new" class="form-control" value="<?php echo date("Y-m-d")?>">
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <br><input type="submit" name="payment_submit" value="Add" class="form-control btn btn-primary rounded submit px-3">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>   
         </div> 
     </body>
