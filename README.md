@@ -13,7 +13,7 @@ The database follows the third normal form (3NF) to ensure full functional depen
 
 
 ## Technologies Used
-MySQL, PHP, Bootstrap, HTML, CSS, JavaScript, Webhost
+MySQL, PHP, Bootstrap, HTML, CSS, JavaScript, 000webhost
 
 
 ## HR Coordinator View
@@ -25,7 +25,7 @@ The database contains records for employees with IDs 999-1011. After entering th
 
 
 ## What I Learned 
-- How to host a MySQL application online with Webhost
+- How to host a MySQL application online with 000webhost
 - How to use PHP to retrieve, edit, and delete data from a MySQL database 
 - How to normalize data to prevent data redundancy
 - How to perform data validation upon editing records
