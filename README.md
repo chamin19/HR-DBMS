@@ -3,8 +3,7 @@
 ## Accessing the Application
 
 1. Visit the [HR Payroll Management System](https://hr-payroll-management-system.000webhostapp.com/)
-2. Select the HR Coordinator view to read, edit, or delete records from the database 
-3. Select the Employee view to add a work log or edit personal information
+2. Select the HR Coordinator or Employee view
 
 ## Project Description
 This is an HR Payroll Database Management system to be used by HR staff and employees. It incorporates functions that may be utlized by a Database Administrator
@@ -19,6 +18,10 @@ MySQL, PHP, Bootstrap, HTML, CSS, JavaScript, Webhost
 The HR Coordinator is able to view all data in an organized fashion, as well as edit or delete records from selected tables:
 
 The HR Coordinator may also to input and generate results from MySQL queries.
+
+## HR Coordinator View
+The database contains records for employees with IDs 999-1011. After entering their ID, an employee may log their work hours or edit personal information.
+
 
 ## What I Learned 
 - How to host a MySQL application online with Webhost
