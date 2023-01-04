@@ -6,7 +6,7 @@
         <meta name = "keywords" content = "PHP">
         <meta name = "author" content = "Camillia Amin">
         <meta name = "viewport" content= "width = device-width, initial-scale = 1.0">
-        <!-- <link rel="stylesheet" href="style.css"> -->
+        <link rel="stylesheet" href="style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -14,18 +14,31 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <style>
-            .left {
-                color: black;
+            .container {
+                width: 100%;
+                margin: 85px 0 0 0;
+            }
+
+            .left_main h3 {
+                padding: 0px; 
+                margin: 0px;
                 font-weight: bold;
             }
-            .right {
-                color: dark grey;
-            }   
-            .emp_info {
+  
+            .left_main {
                 background-color: #2A4895;
                 color: white;
                 margin-left: 0;
-                height: 85vh;
+                padding: 30px;
+                height: 100vh;
+                overflow: hidden;
+            }
+            .right_main {
+                padding: 30px;
+                height: 100vh;
+                overflow-y: auto;
+                overflow-x: hidden;
+                background-color: #dadfec;
             }
             .data_table table {
                 font-family: 'Courier New', Courier, monospace;
@@ -61,16 +74,54 @@
                 border: none;
                 background: none;
             }
-            .right_main {
-                padding: 30px;
-                overflow-y: auto;
-                overflow-x: hidden;
+            .logo {
+                position: absolute;
+                left: 20px;
+                top: 20px;
             }
-
+            .sign_out {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+            }
+            .pi_table, .work_log_table {
+                text-align: left;
+                background-color: white;
+                border-radius: 3px;
+                margin-bottom: 30px;  
+                padding: 15px 20px 20px 20px;
+            }
+            .pi_table td {
+                padding: 7px;
+            }
+            .left {
+                color: black;
+                font-weight: bold;
+            }
+            .right {
+                color: black;
+            } 
+            .pi_title div , .work_log_title div {
+                display: inline-block;
+                margin: 7px;
+            }
+            .work_log_table table {
+                margin-left: 6px;
+            }
         </style>
     </head>
     <body>
+        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
+        <form method="post" action="https://hr-payroll-management-system.000webhostapp.com/employee.php">
+            <input class="button sign_out" id="light" type="submit" name="sign_out" value="Sign out">
+            </input>
+        </form>
+        
         <?php
+            if (!isset($_POST['sign_out'])) {
+                unset($_SESSION['id']); 
+            } 
+
             if (!isset($_POST['id'])) {
                 $id = $_SESSION['last_id'];
             } else {
@@ -120,46 +171,52 @@
             WHERE ew.emp_id = $id AND ew.work_period_id = w.work_period_id;";
             $result4 = mysqli_query($connect,$sql4);
 
+            $sql5 = "SELECT position_title, position_start_date, position_end_date 
+            FROM emp_position ep, position_table pt
+            WHERE ep.emp_id = $id AND ep.position_id = pt.position_id";
+            $result5 = mysqli_query($connect,$sql4);
+
         ?>
-        <a class="button logo" href="index.html" style="text-decoration: none;"><h2 style="color: white">HR Payroll DBMS</h2></a><br><br>
         <div class="container">
             <div class="row">
-                <div class="col-sm-3 emp_info" >
-                    <?php
-                        echo '<h3>' . $first . ' ' . $last . '</h3>';
-                        echo '<h4>' . $cur_pos . '</h4>';
-                        echo '<h4>' . $dept . '</h4>';
-                    ?>
+                <div class="col-sm-3 left_main" >
+                    <h3><?php echo $first . ' ' . $last?></h3>
+                    <h4><?php echo $cur_pos ?></h4>
+                    <h5><?php echo $dept ?></h5>
                 </div> 
                 <div class="col-sm-9 right_main" >
                     <div class="pi">
-                        <h4>Personal information</h4>
-                        <table>
-                            <tr>
-                                <td class="left">Name</td>
-                                <td class="right"><?php echo $first . ' ' . $last ?></td>
-                            </tr>
-                            <tr>
-                                <td class="left">Email</td>
-                                <td class="right"><?php echo $email ?></td>
-                            </tr>
+                        <div class="pi_table">
+                            <div class="pi_title">
+                                <div><h4>Personal information</h4></div>
+                                <div>
+                                    <svg data-toggle="modal" data-target="#changePI" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <table>
+                                <tr>
+                                    <td class="left">Name</td>
+                                    <td class="right"><?php echo $first . ' ' . $last ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">Email</td>
+                                    <td class="right"><?php echo $email ?></td>
+                                </tr>
 
-                            <tr>
-                                <td class="left">Phone</td>
-                                <td class="right"><?php echo $phone ?></td>
-                            </tr>
+                                <tr>
+                                    <td class="left">Phone</td>
+                                    <td class="right"><?php echo $phone ?></td>
+                                </tr>
 
-                            <tr>
-                                <td class="left">Work Address</td>
-                                <td class="right"><?php echo $sno . ' ' . $sname . '<br>' . $city . ', ' . $province . '<br>' . $pc ?></td>
-                            </tr>
-                        </table>
-                        <button type="button" class="btn btn-primary py-3 px-4" data-toggle="modal" data-target="#changePI">Edit
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square edit" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                            </svg>
-                        </button>
+                                <tr>
+                                    <td class="left">Work Address</td>
+                                    <td class="right"><?php echo $sno . ' ' . $sname . '<br>' . $city . ', ' . $province . '<br>' . $pc ?></td>
+                                </tr>
+                            </table>
+                        </div>
                         <div class="modal fade" id="changePI" tabindex="-1" role="dialog" aria-labelledby="changePITitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -201,16 +258,15 @@
                         </div>
                     </div>
                     <div class="work_log_table">
-                        <div><h4>Work Log</h4></div>
-                        <div>
-                            <button class="btn btn-primary py-3 px-4" data-toggle="modal" data-target="#work_period_add">Add
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                        <div class="work_log_title">
+                            <div><h4>Work Log</h4></div>
+                            <div>
+                                <svg data-toggle="modal" data-target="#work_period_add" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                                 <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                                 </svg>
-                            </button>
+                            </div>
                         </div>
-                    
                         <table class="data_table">
                             <tr><th>Work Period ID</th>
                             <th>Start Time</th>
@@ -238,36 +294,74 @@
                             }
                             echo '</table>';
                         }
-                        if (isset($_POST['work_period_edit'])) {
-                            $id_chosen = $_POST['work_period_edit']; 
-                            $sql_get_edit = "SELECT * from work_period WHERE work_period_id = $id_chosen";
-                            $result_edit = mysqli_query($connect, $sql_get_edit);
-                            $row = mysqli_fetch_assoc($result_edit);
+                        ?>
+                    </div>
+                    <?php
+                    if (isset($_POST['work_period_edit'])) {
+                        $id_chosen = $_POST['work_period_edit']; 
+                        $sql_get_edit = "SELECT * from work_period WHERE work_period_id = $id_chosen";
+                        $result_edit = mysqli_query($connect, $sql_get_edit);
+                        $row = mysqli_fetch_assoc($result_edit);
+                    ?>
+                    <script>
+                        $(function() {
+                            $('#work_period_modal').modal('show');
+                        });
+                    </script>
+                    <div class="modal fade" id="work_period_modal" tabindex="-1" role="dialog" aria-labelledby="work_period_modalTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body p-4 py-5 p-md-5">
+                                    <h3 class="text-center mb-3">Make changes to log <?php echo $row["work_period_id"]?></h3>
+                                    <form action="" class="signup-form" method="post">
+                                        <div class="form-group mb-2">
+                                            <input type="hidden" name="work_period_id_edit" class="form-control" value="<?php echo $row["work_period_id"]?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="fn">Start Time</label>
+                                            <input type="text" name="start_edit" class="form-control" value="<?php echo $row["start_time"]?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="ln">End Time</label>
+                                            <input type="text" name="end_edit" class="form-control" value="<?php echo $row['end_time']?>">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <br><input type="submit" name="work_period_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                        if (isset($_POST['work_period_apply'])){
+                            include ('view_employee_edit.php'); 
+                        }
+                    }
+                    if (isset($_POST['work_period_add'])) {
                         ?>
                         <script>
                             $(function() {
-                                $('#work_period_modal').modal('show');
+                                $('#work_period_modal_add').modal('show');
                             });
                         </script>
-                        <div class="modal fade" id="work_period_modal" tabindex="-1" role="dialog" aria-labelledby="work_period_modalTitle" aria-hidden="true">
+                        <div class="modal fade" id="work_period_modal_add" tabindex="-1" role="dialog" aria-labelledby="work_period_modal_addTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body p-4 py-5 p-md-5">
-                                        <h3 class="text-center mb-3">Make changes to log <?php echo $row["work_period_id"]?></h3>
+                                        <h3 class="text-center mb-3">Add to work log</h3>
                                         <form action="" class="signup-form" method="post">
-                                            <div class="form-group mb-2">
-                                                <input type="hidden" name="work_period_id_edit" class="form-control" value="<?php echo $row["work_period_id"]?>">
-                                            </div>
+                                            <input type="hidden" name="emp_id" class="form-control" value="<?php echo $id?>">
                                             <div class="form-group mb-2">
                                                 <label for="fn">Start Time</label>
-                                                <input type="text" name="start_edit" class="form-control" value="<?php echo $row["start_time"]?>">
+                                                <input type="text" name="start_add" class="form-control" value="2022-06-05 09:00:00">
                                             </div>
                                             <div class="form-group mb-2">
                                                 <label for="ln">End Time</label>
-                                                <input type="text" name="end_edit" class="form-control" value="<?php echo $row['end_time']?>">
+                                                <input type="text" name="end_add" class="form-control" value="2022-06-05 05:00:00">
                                             </div>
                                             <div class="form-group mb-2">
-                                                <br><input type="submit" name="work_period_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                <br><input type="submit" name="work_period_add_log" value="Add" class="form-control btn btn-primary rounded submit px-3">
                                             </div>
                                         </form>
                                     </div>
@@ -275,51 +369,15 @@
                             </div>
                         </div>
                         <?php
-                            if (isset($_POST['work_period_apply'])){
+                            if (isset($_POST['work_period_add_log'])){
                                 // echo '<script>alert("worked");</script>';
                                 include ('view_employee_edit.php'); 
                             }
                         }
-                        if (isset($_POST['work_period_add'])) {
-                            ?>
-                            <script>
-                                $(function() {
-                                    $('#work_period_modal_add').modal('show');
-                                });
-                            </script>
-                            <div class="modal fade" id="work_period_modal_add" tabindex="-1" role="dialog" aria-labelledby="work_period_modal_addTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body p-4 py-5 p-md-5">
-                                            <h3 class="text-center mb-3">Add to work log</h3>
-                                            <form action="" class="signup-form" method="post">
-                                                <input type="hidden" name="emp_id" class="form-control" value="<?php echo $id?>">
-                                                <div class="form-group mb-2">
-                                                    <label for="fn">Start Time</label>
-                                                    <input type="text" name="start_add" class="form-control" value="2022-06-05 09:00:00">
-                                                </div>
-                                                <div class="form-group mb-2">
-                                                    <label for="ln">End Time</label>
-                                                    <input type="text" name="end_add" class="form-control" value="2022-06-05 05:00:00">
-                                                </div>
-                                                <div class="form-group mb-2">
-                                                    <br><input type="submit" name="work_period_add_log" value="Add" class="form-control btn btn-primary rounded submit px-3">
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                                if (isset($_POST['work_period_add_log'])){
-                                    // echo '<script>alert("worked");</script>';
-                                    include ('view_employee_edit.php'); 
-                                }
-                            }
-                        ?>
-                    </div>
+                    ?>
+                    
                 </div>          
-            </div>
+            </div> 
         </div>
     </body>
 </html>
