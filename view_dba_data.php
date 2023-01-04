@@ -202,15 +202,68 @@
                         } 
                         if (isset($_POST['emp_edit'])) { //if edit button is selected
                             $id_chosen = $_POST['emp_edit']; 
-                            $sql_get_edit = "SELECT * from emp WHERE emp_id = $id_chosen";
+                            $sql_get_edit = "SELECT * from emp WHERE emp_id = " . $id_chosen . "";
                             $result_edit = mysqli_query($connect, $sql_get_edit);
                             $row = mysqli_fetch_assoc($result_edit);
                             ?>
-                                <script>
+                            <script>
                                 $(function() {
                                     $('#emp_modal').modal('show');
                                 });
                             </script>
+                            <div class="modal fade" id="emp_modal" tabindex="-1" role="dialog" aria-labelledby="emp_modalTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-4 py-5 p-md-5">
+                                            <h3 class="text-center mb-3">Make changes to information ID for employee <?php echo $row["emp_id"]?></h3>
+                                            <form action="" class="signup-form" method="post">
+                                                <div class="form-group mb-2">
+                                                    <input type="hidden" name="emp_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">First Name</label>
+                                                    <input type="text" name="fn_edit" class="form-control" value="<?php echo $row["emp_first_name"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="ln">Last Name</label>
+                                                    <input type="text" name="ln_edit" class="form-control" value="<?php echo $row['emp_last_name']?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="email">Email</label>
+                                                    <input type="text" name="email_edit" class="form-control" value="<?php echo $row["emp_email"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="text" name="phone_edit" class="form-control" value="<?php echo $row["emp_phone"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="sno">Street Number</label>
+                                                    <input type="text" name="sno_edit" class="form-control" value="<?php echo $row["emp_address_street_number"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="sname">Street Name</label>
+                                                    <input type="text" name="sname_edit" class="form-control" value="<?php echo $row["emp_address_street_name"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="city">City</label>
+                                                    <input type="text" name="city_edit" class="form-control" value="<?php echo $row["emp_address_city"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="province">Province</label>
+                                                    <input type="text" name="province_edit" class="form-control" value="<?php echo $row["emp_address_province"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="pc">Postal Code</label>
+                                                    <input type="text" name="pc_edit" class="form-control" value="<?php echo $row["emp_address_postal_code"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <br><input type="submit" name="emp_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <?php
                         } 
                         if (isset($_POST['emp_apply'])){ //if submit button in modal is selected
@@ -293,12 +346,33 @@
                             $sql_get_edit = "SELECT * from emp_dept WHERE emp_id = $id_chosen";
                             $result_edit = mysqli_query($connect, $sql_get_edit);
                             $row = mysqli_fetch_assoc($result_edit);
-                        ?>
-                                <script>
+                            ?>
+                            <script>
                                 $(function() {
                                     $('#emp_dept_modal').modal('show');
                                 });
                             </script>
+                            <div class="modal fade" id="emp_dept_modal" tabindex="-1" role="dialog" aria-labelledby="emp_dept_modalTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-4 py-5 p-md-5">
+                                            <h3 class="text-center mb-3">Make changes to Dept ID for employee <?php echo $row["emp_id"]?></h3>
+                                            <form action="" class="signup-form" method="post">
+                                                <div class="form-group mb-2">
+                                                    <input type="hidden" name="emp_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">Department ID</label>
+                                                    <input type="text" name="dept_id_edit" class="form-control" value="<?php echo $row["dept_id"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <br><input type="submit" name="emp_dept_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                              <?php
                         }
                         if (isset($_POST['emp_dept_apply'])){ //if submit button in modal is selected
@@ -365,12 +439,33 @@
                             $sql_get_edit = "SELECT * from dept WHERE dept_id = $id_chosen";
                             $result_edit = mysqli_query($connect, $sql_get_edit);
                             $row = mysqli_fetch_assoc($result_edit);
-                        ?>
-                                <script>
+                            ?>
+                            <script>
                                 $(function() {
                                     $('#dept_modal').modal('show');
                                 });
                             </script>
+                            <div class="modal fade" id="dept_modal" tabindex="-1" role="dialog" aria-labelledby="dept_modalTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-4 py-5 p-md-5">
+                                            <h3 class="text-center mb-3">Make changes to department <?php echo $row["dept_id"]?></h3>
+                                            <form action="" class="signup-form" method="post">
+                                                <div class="form-group mb-2">
+                                                    <input type="hidden" name="dept_id_edit" class="form-control" value="<?php echo $row["dept_id"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">Department Name</label>
+                                                    <input type="text" name="dept_name_edit" class="form-control" value="<?php echo $row["dept_name"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <br><input type="submit" name="dept_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <?php
                         }
 
@@ -483,12 +578,41 @@
                             $sql_get_edit = "SELECT * from bank_account WHERE account_id = $id_chosen";
                             $result_edit = mysqli_query($connect, $sql_get_edit);
                             $row = mysqli_fetch_assoc($result_edit);
-                        ?>
-                                <script>
+                            ?>
+                            <script>
                                 $(function() {
                                     $('#bank_account_modal').modal('show');
                                 });
                             </script>
+                            <div class="modal fade" id="bank_account_modal" tabindex="-1" role="dialog" aria-labelledby="bank_account_modalTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-4 py-5 p-md-5">
+                                            <h3 class="text-center mb-3">Make changes to account <?php echo $row["account_id"]?></h3>
+                                            <form action="" class="signup-form" method="post">
+                                                <div class="form-group mb-2">
+                                                    <input type="hidden" name="account_id_edit" class="form-control" value="<?php echo $row["account_id"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">Transit Number</label>
+                                                    <input type="text" name="tran_number_edit" class="form-control" value="<?php echo $row["transit_number"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">Institution Number</label>
+                                                    <input type="text" name="inst_number_edit" class="form-control" value="<?php echo $row["institution_number"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">Account Number</label>
+                                                    <input type="text" name="acc_number_edit" class="form-control" value="<?php echo $row["account_number"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <br><input type="submit" name="bank_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <?php
                         }
                         if (isset($_POST['bank_apply'])){
@@ -650,12 +774,41 @@
                             $sql_get_edit = "SELECT * from emp_position WHERE emp_id = $id_chosen";
                             $result_edit = mysqli_query($connect, $sql_get_edit);
                             $row = mysqli_fetch_assoc($result_edit);
-                        ?>
-                                <script>
+                            ?>
+                            <script>
                                 $(function() {
                                     $('#emp_position_modal').modal('show');
                                 });
                             </script>
+                            <div class="modal fade" id="emp_position_modal" tabindex="-1" role="dialog" aria-labelledby="emp_position_modalTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-4 py-5 p-md-5">
+                                            <h3 class="text-center mb-3">Make changes to position of employee <?php echo $row["emp_id"]?></h3>
+                                            <form action="" class="signup-form" method="post">
+                                                <div class="form-group mb-2">
+                                                    <input type="hidden" name="emp_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">Position ID</label>
+                                                    <input type="text" name="position_id_edit" class="form-control" value="<?php echo $row["position_id"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">Start Date</label>
+                                                    <input type="text" name="start_date_edit" class="form-control" value="<?php echo $row["position_start_date"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">End Date</label>
+                                                    <input type="text" name="end_date_edit" class="form-control" value="<?php echo $row["position_end_date"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <br><input type="submit" name="emp_position_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <?php
                         }
                         if (isset($_POST['emp_position_apply'])){
@@ -727,15 +880,44 @@
                         } 
                         if (isset($_POST['position_table_edit'])) {
                             $id_chosen = $_POST['position_table_edit']; 
-                            $sql_get_edit = "SELECT * from position_table WHERE emp_id = $id_chosen";
+                            $sql_get_edit = "SELECT * from position_table WHERE position_id = $id_chosen";
                             $result_edit = mysqli_query($connect, $sql_get_edit);
                             $row = mysqli_fetch_assoc($result_edit);
-                        ?>
-                                <script>
+                            ?>
+                            <script>
                                 $(function() {
                                     $('#position_table_modal').modal('show');
                                 });
                             </script>
+                            <div class="modal fade" id="position_table_modal" tabindex="-1" role="dialog" aria-labelledby="position_table_modalTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-4 py-5 p-md-5">
+                                            <h3 class="text-center mb-3">Make changes to position <?php echo $row["position_id"]?></h3>
+                                            <form action="" class="signup-form" method="post">
+                                                <div class="form-group mb-2">
+                                                    <input type="hidden" name="position_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">Position Title</label>
+                                                    <input type="text" name="position_title_edit" class="form-control" value="<?php echo $row["position_title"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">Full/Part Time</label>
+                                                    <input type="text" name="positiontype_a_edit" class="form-control" value="<?php echo $row["positiontype_a"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="fn">Permanent/Contractor</label>
+                                                    <input type="text" name="positiontype_b_edit" class="form-control" value="<?php echo $row["positiontype_b"]?>">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <br><input type="submit" name="position_table_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <?php
                         }
                         if (isset($_POST['position_table_apply'])){
@@ -812,207 +994,10 @@
                             }
                             echo "</table><br>";
                         } 
-                    ?>
-
-
-                    <!-- Edit Modals  -->
-                    <div class="all_edit_modals">
-                        <div class="modal fade" id="emp_modal" tabindex="-1" role="dialog" aria-labelledby="emp_modalTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body p-4 py-5 p-md-5">
-                                        <h3 class="text-center mb-3">Make changes to information ID for employee <?php echo $row["emp_id"]?></h3>
-                                        <form action="" class="signup-form" method="post">
-                                            <div class="form-group mb-2">
-                                                <input type="hidden" name="emp_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">First Name</label>
-                                                <input type="text" name="fn_edit" class="form-control" value="<?php echo $row["emp_first_name"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="ln">Last Name</label>
-                                                <input type="text" name="ln_edit" class="form-control" value="<?php echo $row['emp_last_name']?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="email">Email</label>
-                                                <input type="text" name="email_edit" class="form-control" value="<?php echo $row["emp_email"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="phone">Phone</label>
-                                                <input type="text" name="phone_edit" class="form-control" value="<?php echo $row["emp_phone"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="sno">Street Number</label>
-                                                <input type="text" name="sno_edit" class="form-control" value="<?php echo $row["emp_address_street_number"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="sname">Street Name</label>
-                                                <input type="text" name="sname_edit" class="form-control" value="<?php echo $row["emp_address_street_name"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="city">City</label>
-                                                <input type="text" name="city_edit" class="form-control" value="<?php echo $row["emp_address_city"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="province">Province</label>
-                                                <input type="text" name="province_edit" class="form-control" value="<?php echo $row["emp_address_province"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="pc">Postal Code</label>
-                                                <input type="text" name="pc_edit" class="form-control" value="<?php echo $row["emp_address_postal_code"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <br><input type="submit" name="emp_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="modal fade" id="emp_dept_modal" tabindex="-1" role="dialog" aria-labelledby="emp_dept_modalTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body p-4 py-5 p-md-5">
-                                        <h3 class="text-center mb-3">Make changes to Dept ID for employee <?php echo $row["emp_id"]?></h3>
-                                        <form action="" class="signup-form" method="post">
-                                            <div class="form-group mb-2">
-                                                <input type="hidden" name="emp_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Department ID</label>
-                                                <input type="text" name="dept_id_edit" class="form-control" value="<?php echo $row["dept_id"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <br><input type="submit" name="emp_dept_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="dept_modal" tabindex="-1" role="dialog" aria-labelledby="dept_modalTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body p-4 py-5 p-md-5">
-                                        <h3 class="text-center mb-3">Make changes to department <?php echo $row["dept_id"]?></h3>
-                                        <form action="" class="signup-form" method="post">
-                                            <div class="form-group mb-2">
-                                                <input type="hidden" name="dept_id_edit" class="form-control" value="<?php echo $row["dept_id"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Department Name</label>
-                                                <input type="text" name="dept_name_edit" class="form-control" value="<?php echo $row["dept_name"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <br><input type="submit" name="dept_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="bank_account_modal" tabindex="-1" role="dialog" aria-labelledby="bank_account_modalTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body p-4 py-5 p-md-5">
-                                        <h3 class="text-center mb-3">Make changes to account <?php echo $row["account_id"]?></h3>
-                                        <form action="" class="signup-form" method="post">
-                                            <div class="form-group mb-2">
-                                                <input type="hidden" name="account_id_edit" class="form-control" value="<?php echo $row["account_id"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Transit Number</label>
-                                                <input type="text" name="tran_number_edit" class="form-control" value="<?php echo $row["transit_number"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Institution Number</label>
-                                                <input type="text" name="inst_number_edit" class="form-control" value="<?php echo $row["institution_number"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Account Number</label>
-                                                <input type="text" name="acc_number_edit" class="form-control" value="<?php echo $row["account_number"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <br><input type="submit" name="bank_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="emp_position_modal" tabindex="-1" role="dialog" aria-labelledby="emp_position_modalTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body p-4 py-5 p-md-5">
-                                        <h3 class="text-center mb-3">Make changes to position of employee <?php echo $row["emp_id"]?></h3>
-                                        <form action="" class="signup-form" method="post">
-                                            <div class="form-group mb-2">
-                                                <input type="hidden" name="emp_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Position ID</label>
-                                                <input type="text" name="position_id_edit" class="form-control" value="<?php echo $row["position_id"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Start Date</label>
-                                                <input type="text" name="start_date_edit" class="form-control" value="<?php echo $row["position_start_date"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">End Date</label>
-                                                <input type="text" name="end_date_edit" class="form-control" value="<?php echo $row["position_end_date"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <br><input type="submit" name="emp_position_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="position_table_modal" tabindex="-1" role="dialog" aria-labelledby="position_table_modalTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body p-4 py-5 p-md-5">
-                                        <h3 class="text-center mb-3">Make changes to position <?php echo $row["emp_id"]?></h3>
-                                        <form action="" class="signup-form" method="post">
-                                            <div class="form-group mb-2">
-                                                <input type="hidden" name="position_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Position Title</label>
-                                                <input type="text" name="position_title_edit" class="form-control" value="<?php echo $row["position_id"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Full/Part Time</label>
-                                                <input type="text" name="positiontype_a_edit" class="form-control" value="<?php echo $row["position_start_date"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="fn">Permanent/Contractor</label>
-                                                <input type="text" name="positiontype_b_edit" class="form-control" value="<?php echo $row["position_end_date"]?>">
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <br><input type="submit" name="position_table_apply" value="Apply changes" class="form-control btn btn-primary rounded submit px-3">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Add Modals -->
-                    <div class="all_add_modals">
-
-                    </div>
+                        ?>
                 </div>
-            </div>
-        </div>
-        
+                <!-- Add Modals -->
+            </div>   
+        </div> 
     </body>
 </html>
