@@ -21,114 +21,126 @@
             }
             #table_info {
                 background-color: #f3f5f6;
-                height: 75vh;
-                padding: 10px;
-                overflow-y: scroll;
+                height: 85vh;
+                padding: 20px;
             }
             #tables {
                 background-color: #dadfec;
-                height: 75vh;
+                height: 85vh;
                 overflow-y: scroll;
-                padding: 10px;
+                padding: 20px;
             }
             .title {
                 display: inline-block;
             }
-            .actions {
-                display: inline-block;
+            .actions button {
+                display: inline;
                 text-align: center;
+                padding: 6;
+                border: none;
+                background: none;
             }
-            .actions svg {
-                margin: 4px;
+            .buttons form {
+                display: inline-block;
             }
-            table {
+            .edit, .delete {
+                cursor: pointer;
+            }
+            .data_table table {
                 font-family: 'Courier New', Courier, monospace;
                 border: 2px solid black;
                 font-size: 14px;
                 border-collapse: separate;
-                border-spacing: 3px;
+                border-spacing: 0px;
                 background-color: white;
-                margin-bottom: 20px;
             }
-            th {
-                background: #2A4895;
+            .data_table th {
+                background-color: #2A4895;
                 color: white;
+                padding: 12px;
+                text-align: left;
                 font-size: 14px;
-                text-transform: uppercase;
+                padding: 2px;
+                font-weight: bold;
             }
-            tr{
-                background: white;
+            .data_table td {
+                background-color: white;
+            }
+            .data_table tr:hover {background-color: #ddd;}
+            .data_table td, th {
+                border: 1px solid #ddd;
+                padding: 5px;
+
+            }
+            .logo {
+                position: absolute;
+                left: 20px;
+                top: 20px;
+            }
+            body {
+                overflow: hidden;
             }
             h4 {
                 text-transform: uppercase;
                 font-weight: bold;
                 color: #2A4895;
             }
-            .buttons form {
-                display: inline-block;
-            }
-            .edit {
-                cursor: pointer;
-            }
-            .delete {
-                cursor: pointer;
-            }
         </style>
     </head>
-
     <body>
-        <header>
-            <div class="logo">
-                <a class="button" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
+        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br><br>
+        <div class="container header">
+            <div class="row">
+                <div class="col-sm-3" style="text-align: left">  
+                    <h3 style="font-size: 16px; padding-left: 27px;">HR Coordinator View</h3>
+                </div>
+                <div class="col-sm-9 buttons">
+                    <br>
+                    <form action = "" method = "post">
+                        <input type = "submit" value = "Populate values" name="populate" class="button" id="light">
+                        <input type = "submit" value = "Delete values" name="delete" class="button" id="light">
+                    </form>
+                    <form action = "view_dba_query.php" method = "">
+                        <input type = "submit" value = "Query tables" class="button" id="dark">
+                    </form>
+                    
+                    <?php
+                        include ('dbconnect.php'); 
+                        $sql = "SELECT * FROM emp;";
+                        $result = mysqli_query($connect,$sql);
+                        $numrows = mysqli_num_rows($result);
+                        if(isset($_POST['delete'])){
+                            if ($numrows > 0) { //if tables are populated
+                                include ('delete_values.php');
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            }
+                        }
+                        if(isset($_POST['populate'])){
+                            if ($numrows == 0) { //if tables are empty
+                                include ('populate.php');
+                                echo "<meta http-equiv='refresh' content='0'>";
+                            }
+                        }
+                    ?>
+                </div>
             </div>
-            <div class="profile">
-                <h3>HR Coordinator</h3>
-            </div>
-        </header>
+        </div>
         <main>
-            <br>
-            <div class="buttons">
-                <form action = "" method = "post">
-                    <input type = "submit" value = "Populate values" name="populate" class="button" id="light">
-                <!-- </form> -->
-                <!-- <form action = "" method = "post"> -->
-                    <input type = "submit" value = "Delete values" name="delete" class="button" id="light">
-                </form>
-                <form action = "view_dba_query.php" method = "">
-                    <input type = "submit" value = "Query tables" class="button" id="dark">
-                </form>
-                
-                <?php
-                    include ('dbconnect.php'); 
-                    $sql = "SELECT * FROM emp;";
-                    $result = mysqli_query($connect,$sql);
-                    $numrows = mysqli_num_rows($result);
-                    if(isset($_POST['delete'])){
-                        if ($numrows > 0) { //if tables are populated
-                            include ('delete_values.php');
-                            echo "<meta http-equiv='refresh' content='0'>";
-                        }
-                    }
-                    if(isset($_POST['populate'])){
-                        if ($numrows == 0) { //if tables are empty
-                            include ('populate.php');
-                            echo "<meta http-equiv='refresh' content='0'>";
-                        }
-                    }
-                ?>
-            </div>
             <div class="container">
-                <div class="row">
+                <div class="row header">
                     <div class="col-sm-2" id="table_info">    
                         <h4>Tables</h4>
-                        <?php
-                            $sql = "SHOW TABLES;";
-                            $result1 = mysqli_query($connect,$sql);
-                            while($row = mysqli_fetch_array($result1)) {
-                                echo '<h5>' . $row[0] . "</h5>";
-                            }
-
-                        ?>
+                        <a href="#emp_table"><p>emp</p></a>
+                        <a href="#emp_dept_table"><p>emp_dept</p></a>
+                        <a href="#dept_table"><p>dept</p></a>
+                        <a href="#emp_bank_account_table"><p>emp_bank_account</p></a>
+                        <a href="#bank_account_table"><p>bank_account</p></a>
+                        <a href="#account_payment_table"><p>account_payment</p></a>
+                        <a href="#payment_table"><p>payment</p></a>
+                        <a href="#emp_position_table"><p>emp_position</p></a>
+                        <a href="#position_table_table"><p>position_table</p></a>
+                        <a href="#emp_work_period_table"><p>emp_work_period</p></a>
+                        <a href="#work_period_table"><p>work_period</p></a>
                     </div>
                     <div class="col-sm-10" id="tables">
                         <?php
@@ -136,9 +148,9 @@
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
                         ?>
-                            <table>
+                            <table class="data_table">
                                 <div class='title'>
-                                    <h4>emp</h4>
+                                    <h4 id="emp_table">emp</h4>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
                                         <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
                                     </svg>
@@ -181,7 +193,7 @@
                                         <form>
                                         </div></td></tr>';
                                 }
-                                echo '</table>';
+                                echo '</table><br>';
                             } 
                             if (isset($_POST['emp_edit'])) {
                                 $id_chosen = $_POST['emp_edit']; 
@@ -258,8 +270,8 @@
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
                             
-                            echo "<table>";
-                            echo "<h4>emp_dept</h4>";
+                            echo "<table class='data_table'>";
+                            echo "<h4 id='emp_dept_table'>emp_dept</h4>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Department ID</th>";
                             echo "<th>Actions</th></tr>";
@@ -281,7 +293,7 @@
                                         <form>
                                         </div></td></tr>';
                                 }
-                                echo '</table>';
+                                echo '</table><br>';
                             } 
                             if (isset($_POST['emp_dept_edit'])) {
                                 $id_chosen = $_POST['emp_dept_edit']; 
@@ -326,8 +338,8 @@
                             $sql = "SELECT * FROM dept
                             ORDER BY dept_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table>";
-                            echo "<h4>dept</h4>";
+                            echo "<table class='data_table'>";
+                            echo "<h4 id='dept_table'>dept</h4>";
                             echo "<tr><th>Department ID</th>";
                             echo "<th>Department Name</th>";
                             echo "<th>Actions</th></tr>";
@@ -349,7 +361,7 @@
                                         <form>
                                         </div></td></tr>';
                                 }
-                                echo '</table>';
+                                echo '</table><br>';
                             } 
                             if (isset($_POST['dept_edit'])) {
                                 $id_chosen = $_POST['dept_edit']; 
@@ -393,8 +405,8 @@
                             $sql = "SELECT * FROM emp_bank_account
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table>";
-                            echo "<h4>emp_bank_account</h4>";
+                            echo "<table class='data_table'>";
+                            echo "<h4 id='emp_bank_account_table'>emp_bank_account</h4>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Account ID</th>";
                             echo "<th>Actions</th></tr>";
@@ -411,14 +423,14 @@
                                         <form>
                                         </div></td></tr>';
                                 }
-                                echo "</table>";
+                                echo "</table><br>";
                             } 
                             
                             $sql = "SELECT * FROM bank_account
                             ORDER BY account_id ASC;";                           
                             $result = mysqli_query($connect, $sql);
-                            echo "<table>";
-                            echo "<h4>bank_account</h4>";
+                            echo "<table class='data_table'>";
+                            echo "<h4 id='bank_account_table'>bank_account</h4>";
                             echo "<tr><th>Account ID</th>";
                             echo "<th>Transit No.</th>";
                             echo "<th>Institution No.</th>";
@@ -444,7 +456,7 @@
                                     <form>
                                     </div></td></tr>';
                                 }
-                                echo "</table>";
+                                echo "</table><br>";
                             } 
                             if (isset($_POST['bank_account_edit'])) {
                                 $id_chosen = $_POST['bank_account_edit']; 
@@ -498,8 +510,8 @@
                             $sql = "SELECT * FROM account_payment
                             ORDER BY account_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table>";
-                            echo "<h4>account_payment</h4>";
+                            echo "<table class='data_table'>";
+                            echo "<h4 id='account_payment_table'>account_payment</h4>";
                             echo "<tr><th>Account ID</th>";
                             echo "<th>Payment ID</th>";
                             echo "<th>Actions</th></tr>";
@@ -516,14 +528,14 @@
                                     <form>
                                     </div></td></tr>';
                                 }
-                                echo "</table>";
+                                echo "</table><br>";
                             } 
 
                             $sql = "SELECT * FROM payment
                             ORDER BY payment_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table>";
-                            echo "<h4>payment</h4>";
+                            echo "<table class='data_table'>";
+                            echo "<h4 id='payment_table'>payment</h4>";
                             echo "<tr><th>Payment ID</th>";
                             echo "<th>Paystub Amount</th>";
                             echo "<th>Payment Date</th>";
@@ -542,14 +554,14 @@
                                     <form>
                                     </div></td></tr>';
                                 }
-                                echo "</table>";
+                                echo "</table><br>";
                             } 
                             
                             $sql = "SELECT * FROM emp_position
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table>";
-                            echo "<h4>emp_position</h4>";
+                            echo "<table class='data_table'>";
+                            echo "<h4 id='emp_position_table'>emp_position</h4>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Position ID</th>";
                             echo "<th>Start Date</th>";
@@ -580,7 +592,7 @@
                                     <form>
                                     </div></td></tr>';
                                 }
-                                echo "</table>";
+                                echo "</table><br>";
                             } 
                             if (isset($_POST['emp_position_edit'])) {
                                 $id_chosen = $_POST['emp_position_edit']; 
@@ -632,8 +644,8 @@
                             $sql = "SELECT * FROM position_table
                             ORDER BY position_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table>";
-                            echo "<h4>position_table</h4>";
+                            echo "<table class='data_table'>";
+                            echo "<h4 id='position_table'>position_table</h4>";
                             echo "<tr><th>Position ID</th>";
                             echo "<th>Position Title</th>";
                             echo "<th>Full/Part Time</th>";
@@ -659,7 +671,7 @@
                                     <form>
                                     </div></td></tr>';
                                 }
-                                echo "</table>";
+                                echo "</table><br>";
                             } 
                             if (isset($_POST['position_table_edit'])) {
                                 $id_chosen = $_POST['position_table_edit']; 
@@ -711,8 +723,8 @@
                             $sql = "SELECT * FROM emp_work_period
                             ORDER BY emp_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table>";
-                            echo "<h4>emp_work_period</h4>";
+                            echo "<table class='data_table'>";
+                            echo "<h4 id='emp_work_period_table'>emp_work_period</h4>";
                             echo "<tr><th>Employee ID</th>";
                             echo "<th>Work Period ID</th></tr>";
                             if ($result) {
@@ -720,14 +732,14 @@
                                     echo "<tr><td>" . $row["emp_id"] . "</td>";
                                     echo "<td>" . $row["work_period_id"] . "</td>";
                                 }
-                                echo "</table>";
+                                echo "</table><br>";
                             } 
 
                             $sql = "SELECT * FROM work_period
                             ORDER BY work_period_id ASC;";
                             $result = mysqli_query($connect, $sql);
-                            echo "<table>";
-                            echo "<h4>work_period</h4>";
+                            echo "<table class='data_table'>";
+                            echo "<h4 id='work_period_table'>work_period</h4>";
                             echo "<tr><th>Work Period ID</th>";
                             echo "<th>Start Time</th>";
                             echo "<th>End Time</th></tr>";
@@ -737,7 +749,7 @@
                                     echo "<td>" . $row["start_time"] . "</td>";
                                     echo "<td>" . $row["end_time"] . "</td>";
                                 }
-                                echo "</table>";
+                                echo "</table><br>";
                             } 
                         ?>
                     </div>

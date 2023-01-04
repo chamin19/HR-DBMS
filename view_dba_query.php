@@ -14,26 +14,18 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <style>
+            body {
+                overflow-x: hidden;
+            }
             input {
                 cursor: pointer;
             }
             .container {
                 width: 100%;
             }
-            #output {
-                background-color: #f3f5f6;
-                padding: 10px;
-            }
-            /* form {
-                width: 100%;
-                padding: 0px;
-                margin: 0px;
-            } */
             textarea {
                 background-color: #2A4895;
                 color: white;
-                width: 100%;
-                height: 100%;
                 font-family: 'Courier New', Courier, monospace;
                 font-size: 14px;
             }
@@ -43,47 +35,77 @@
             }
             #table_info {
                 background-color: #f3f5f6;
-                padding: 10px;
-                overflow-y: scroll;
+                height: 85vh;
+                padding: 20px;
             }
             table {
                 font-family: 'Courier New', Courier, monospace;
                 border: 2px solid black;
                 font-size: 14px;
                 border-collapse: separate;
-                border-spacing: 3px;
+                border-spacing: 0px;
                 background-color: white;
             }
             th {
-                background: #2A4895;
+                background-color: #2A4895;
                 color: white;
+                padding: 12px;
+                text-align: left;
                 font-size: 14px;
-                text-transform: uppercase;
+                padding: 2px;
+                font-weight: bold;
             }
-            tr{
-                background: white;
+            td {
+                background-color: white;
+            }
+            tr:hover {background-color: #ddd;}
+            td, th {
+                border: 1px solid #ddd;
+                padding: 5px;
+
+            }
+            h4 {
+                text-transform: uppercase;
+                font-weight: bold;
+                color: #2A4895;
+            }
+            .logo {
+                position: absolute;
+                left: 20px;
+                top: 20px;
             }
         </style>
     </head>
     <body>
-        <header>
-            <div class="logo">
-                <a class="button" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
-            </div>
-            <div class="profile">
-                <h4>HR Coordinator</h4>
-            </div>
-        </header>
         <main>
-            <div class="buttons">
-                <form action = "view_dba_data.php" method = "">
-                    <input type = "submit" value = "View tables" class="button" id="light">
-                </form>
+        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br><br>
+        <div class="container">
+            <div class="row header">
+                <div class="col-sm-3" style="text-align: left;">  
+                    <h3 style="font-size: 16px; padding-left: 27px;">HR Coordinator View</h3>
+                </div>
+                <div class="col-sm-9 buttons">
+                    <br>
+                    <form action = "view_dba_data.php" method = "">
+                        <input type = "submit" value = "View tables" class="button" id="light">
+                    </form>
+                    </div>
+                </div>
             </div>
-            <div class="container">
                 <div class="row">
-                    <div class="col-md-2" id="table_info">
-                        info
+                    <div class="col-sm-2" id="table_info">    
+                        <h4>Tables</h4>
+                        <p>emp</p>
+                        <p>emp_dept</p>
+                        <p>dept</p>
+                        <p>emp_bank_account</p>
+                        <p>bank_account</p>
+                        <p>account_payment</p>
+                        <p>payment</p>
+                        <p>emp_position</p>
+                        <p>position_table</p>
+                        <p>emp_work_period</p>
+                        <p>work_period</p>
                     </div>
                     <div class="col-md-10">
                         <div class="row">
@@ -153,3 +175,5 @@
                 </div>
             </div>
         </main>
+    </body>
+</html>

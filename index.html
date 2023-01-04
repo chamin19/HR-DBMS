@@ -11,27 +11,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     </head>
     <body>
-        <header>
-            <div class="logo">
-                <a id="logo" class="button" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
-            </div>
-        </header>
+        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br> 
         <main>
             <h4>Select a profile:</h4><br><br>
             <a class="button" id="light" href="view_dba_data.php">HR Coordinator</a><br><br><br>
             <a class="button" id="light" href="employee.php">Employee</a><br><br><br>
-            <form action = "create.php" method = "post">
-                <input type = "submit" value = "Create Tables" class="button" id="dark">
-            </form>
-            <form action = "delete_values.php" method = "post">
-                <input type = "submit" value = "Delete Values" class="button" id="dark">
-            </form>
-            <form action = "drop_tables.php" method = "post">
-                <input type = "submit" value = "Drop Tables" class="button" id="dark">
-            </form>
-            <form action = "populate.php" method = "post">
-                <input type = "submit" value = "Populate Tables" class="button" id="dark">
-            </form>
             <style>
                 main {
                     text-align: center; 
@@ -42,6 +26,11 @@
                 }
                 input {
                     cursor: pointer;
+                }
+                .logo {
+                position: absolute;
+                left: 20px;
+                top: 20px;
                 }
             </style>
         </main>
