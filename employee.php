@@ -13,23 +13,51 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+            body {
+                background-color: #E8ECF4; 
+            }
+            main {
+                text-align: center; 
+                position: absolute; 
+                top: 50%; 
+                left: 50%; 
+                transform: translateX(-50%) translateY(-50%);
+            }
+            .logo {
+                position: absolute;
+                left: 20px;
+                top: 20px;
+            }
+            form {
+                padding: 30px ;
+                background-color: white;
+                border-radius: 3px;
+                font-size: 16px;
+            }
+            p {
+                font-weight: bold;
+                text-align: left;
+                padding: 2px;
+            }
+            label, input {
+                display: block;
+            }
+        </style>
     </head>
     <body>
-        <header>
-            <div class="logo">
-                <a class="button" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a>
-            </div>
-            <div class="profile">
-                <h4>Employee Sign-in</h4>
-                <br>
-            </div>
-        </header>
+        <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br><br>
+        <h3 style="font-size: 16px; padding-left: 43px;">Employee Sign-in</h3>
+
         <main>
-            <br><br>
             <form action="view_employee.php" method="post">
-                Employee ID: <input type="text" name="id" value="999"><br><br>
-                Password: <input type="text" name="pass" value="pay_me"><br><br>
-                <input type="submit" value="Submit"><br><br>
+                <label for="id"><p>Employee ID</p></label>
+                <input type="text" name="id" placeholder="value between 1000 and 1011" size=30><br><br>
+
+                <label for='pass'><p>Password</p></label>
+                <input type="text" name="pass" placeholder="anything" size=30><br><br>
+
+                <input class="button" id="dark" type="submit" value="Submit"><br><br>
             </form>
         </main>
     </body>
