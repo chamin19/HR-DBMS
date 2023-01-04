@@ -6,81 +6,13 @@
         <meta name = "keywords" content = "PHP">
         <meta name = "author" content = "Camillia Amin">
         <meta name = "viewport" content= "width = device-width, initial-scale = 1.0">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css\index.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <style>
-            body {
-                overflow-x: hidden;
-            }
-            input {
-                cursor: pointer;
-            }
-            .container {
-                width: 100%;
-            }
-            textarea {
-                background-color: #2A4895;
-                color: white;
-                font-family: 'Courier New', Courier, monospace;
-                font-size: 14px;
-            }
-            #editor {
-                height: 230px;
-                width: 100%;
-            }
-            #table_info {
-                background-color: #f3f5f6;
-                height: 85vh;
-                padding: 20px;
-            }
-            table {
-                font-family: 'Courier New', Courier, monospace;
-                border: 2px solid black;
-                font-size: 14px;
-                border-collapse: separate;
-                border-spacing: 0px;
-                background-color: white;
-            }
-            th {
-                background-color: #2A4895;
-                color: white;
-                padding: 12px;
-                text-align: left;
-                font-size: 14px;
-                padding: 2px;
-                font-weight: bold;
-            }
-            td {
-                background-color: white;
-            }
-            tr:hover {background-color: #ddd;}
-            td, th {
-                border: 1px solid #ddd;
-                padding: 5px;
-
-            }
-            h2 {
-                color: #2A4895;
-                text-transform: uppercase;
-                font-size: 20px;
-                font-weight: 700;
-            }
-            h4 {
-                text-transform: uppercase;
-                font-weight: bold;
-                color: #2A4895;
-            }
-            .logo {
-                position: absolute;
-                left: 20px;
-                top: 20px;
-            }
-        </style>
     </head>
     <body>
         <main>
