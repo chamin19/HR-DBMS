@@ -11,15 +11,16 @@ or HR Coordinator to manage employee-related information, as well as employees t
 
 The database follows the third normal form (3NF) to ensure full functional dependency as well as prevent partial and transitive dependencies, for ease of data retrievel. 
 
+
 ## Technologies Used
 MySQL, PHP, Bootstrap, HTML, CSS, JavaScript, Webhost
 
-## HR Coordinator View
-The HR Coordinator is able to view all data in an organized fashion, as well as edit or delete records from selected tables:
-
-The HR Coordinator may also to input and generate results from MySQL queries.
 
 ## HR Coordinator View
+The HR Coordinator is able to view all data in an organized fashion, as well as edit or delete records from selected tables. They may also to input and generate results from MySQL queries.
+
+
+## Employee View
 The database contains records for employees with IDs 999-1011. After entering their ID, an employee may log their work hours or edit personal information.
 
 
