@@ -38,6 +38,9 @@
                 height: 85vh;
                 padding: 20px;
             }
+            #output {
+                margin-top: 20px;
+            }
             table {
                 font-family: 'Courier New', Courier, monospace;
                 border: 2px solid black;
@@ -85,6 +88,13 @@
                 right: 20px;
                 top: 40px;
             }
+            .dashboard {
+                height: 230px;
+                width: 100%;
+            }
+            li a {
+                display: block;
+            }
         </style>
     </head>
     <body>
@@ -110,21 +120,20 @@
                         <p>emp_work_period</p>
                         <p>work_period</p>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                         <div class="row">
                             <div class="col-sm-12" id="editor">
                                 <form method = "post" action="">
+                                    <bold>Select query from the menu to the right or enter your own.</bold>
                                     <textarea rows = "9" cols = "100" name = "query" id="query" spellcheck="false" autocorrect="off" autocapitalize="off"><?php 
                                         if(isset($_POST['query'])) {
-                                            echo htmlentities ($_POST['query']); 
-                                        } else {
-                                            echo "SELECT dept_id, COUNT(*) \r\nFROM emp_position, emp_dept, position_table \r\nWHERE emp_position.emp_id = emp_dept.emp_id \r\nAND position_table.position_id = emp_position.position_id \r\nAND position_table.position_title != 'Intern' \r\nGROUP BY dept_id;";
-                                        }
+                                            echo htmlentities ($_POST['query']);
+                                        } 
                                         ?>
                                     </textarea><br>
-                                    <input type="submit" name="submit_query" value="Run query">
+                                    <input type="submit" name="submit_query" value="Run query"><br><br>
                                 </form>
-                            </div> 
+                            </div>
                             <div class="col-sm-12" id="output">
                                 <?php
                                 if(isset($_POST['submit_query'])) {
@@ -183,9 +192,30 @@
                             </div>  
                        </div>
                     </div>
+                    <?php
+                        $q1 = "SELECT dept_id, COUNT(*) \r\nFROM emp_position, emp_dept, position_table \r\nWHERE emp_position.emp_id = emp_dept.emp_id \r\nAND position_table.position_id = emp_position.position_id \r\nAND position_table.position_title != 'Intern' \r\nGROUP BY dept_id";
+
+                        $q2 = "SELECT emp.emp_id, emp_first_name, emp_last_name, pay_stub_amount \r\nFROM emp, emp_bank_account, account_payment, payment \r\nWHERE emp.emp_id = emp_bank_account.emp_id and \r\nemp_bank_account.account_id = account_payment.account_id and \r\naccount_payment.payment_id = payment.payment_id and \r\npayment.pay_stub_amount > 3000";
+                        
+                        $q3 = "SELECT emp.emp_id, emp_first_name, emp_last_name \r\nFROM emp, emp_dept, dept \r\nWHERE emp.emp_id = emp_dept.emp_id \r\nAND emp_dept.dept_id = dept.dept_id \r\nAND dept_name = 'Data and Analytics' \r\nORDER BY emp_last_name DESC";
+
+                        $q5 = "SELECT AVG(payment.pay_stub_amount), STDDEV(payment.pay_stub_amount) FROM payment, emp_position;  ";
+                    ?>
+                    <div class="col-sm-2" id="table_info">
+                        <button id="query1" name="query1" type="button" onclick="changeTextarea('query1')" value="<?php echo $q1 ?>" >Number of non-intern staff in each department</button><br><br>
+                        <button id="query2" name="query2" type="button" onclick="changeTextarea('query2')" value="<?php echo $q2 ?>" >Employees with a paystub amount greater than $3000</button><br><br>
+                        <button id="query3" name="query3" type="button" onclick="changeTextarea('query3')" value="<?php echo $q3 ?>" >Employees in the Data and Analytics Department</button><br><br>
+                        <button id="query5" name="query5" type="button" onclick="changeTextarea('query5')" value="<?php echo $q5 ?>" >Average and standard deviation of paystub amounts</button><br><br>
+                        
+                        <script>
+                            function changeTextarea(inputId) {
+                                var text = document.getElementById(inputId).value;
+                                document.getElementById("query").value = text;
+                            }
+                        </script>
+                    </div>
                 </div>
             </div>
         </main>
     </body>
 </html>
-<!-- UPDATE emp_dept SET dept_id = 6 WHERE emp_id = 1011;          -->

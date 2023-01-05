@@ -110,7 +110,7 @@
                 <input type = "submit" value = "Delete values" name="delete" class="button" id="light">
             </form>
             <form action = "view_dba_query.php" method = "">
-                <input type = "submit" value = "Query tables" class="button" id="dark">
+                <input type = "submit" value = "Analytics" class="button" id="dark">
             </form>
             <?php
                 include ('dbconnect.php'); 
