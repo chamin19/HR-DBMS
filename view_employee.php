@@ -349,15 +349,7 @@
                         $result = mysqli_query($connect, $sql_delete);
                         echo "<meta http-equiv='refresh' content='0'>";
                     } 
-                    // if (isset($_POST['work_period_add'])) { //if add button is selected
-                    //     ?>
-                    //     <script>
-                    //         $(function() {
-                    //             $('#work_period_modal').modal('show');
-                    //         });
-                    //     </script>
-                    //     <?php
-                    // } 
+
                     if (isset($_POST['work_period_add_record'])) { //if submit button on modal is selected
                         $new_start = $_POST['new_start'];
                         $new_end = $_POST['new_end'];

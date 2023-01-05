@@ -219,7 +219,7 @@
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body p-4 py-5 p-md-5">
-                                            <h3 class="text-center mb-3">Make changes to information ID for employee <?php echo $row["emp_id"]?></h3>
+                                            <h3 class="text-center mb-3">Make changes to employee <?php echo $row["emp_id"]?></h3>
                                             <form action="" class="signup-form" method="post">
                                                 <div class="form-group mb-2">
                                                     <input type="hidden" name="emp_id_edit" class="form-control" value="<?php echo $row["emp_id"]?>">
