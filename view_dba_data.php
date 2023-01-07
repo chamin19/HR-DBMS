@@ -105,10 +105,6 @@
         <a class="button logo" href="index.html" style="text-decoration: none;"><h2>HR Payroll DBMS</h2></a><br><br>
         <br><h3 style="font-size: 16px; padding-left: 42px;">HR Coordinator View</h3>
         <div class="top_buttons">
-            <form action = "" method = "post">
-                <input type = "submit" value = "Populate values" name="populate" class="button" id="light">
-                <input type = "submit" value = "Delete values" name="delete" class="button" id="light">
-            </form>
             <form action = "view_dba_query.php" method = "">
                 <input type = "submit" value = "Analytics" class="button" id="dark">
             </form>
