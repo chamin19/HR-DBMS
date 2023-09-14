@@ -1,4 +1,4 @@
-# Payroll-DBMS
+# HR Payroll Database Management System
 
 ## Accessing the Application
 
